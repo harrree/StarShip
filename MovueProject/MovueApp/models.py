@@ -16,7 +16,7 @@ class TableGenre(models.Model):
 class MovieGenre(models.Model):  
     id=models.AutoField(primary_key=True)
     movieid=models.ForeignKey(TableMovie,on_delete=models.CASCADE)
-    genreid=models.ForeignKey(TableGenre,on_delete=models.CASCADE)
+    genreid=models.ForeignKey(TableGenre,on_delete=models.CASCADE) 
 
 class Review(models.Model):
     reviewid=models.AutoField(primary_key=True)
