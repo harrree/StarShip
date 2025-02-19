@@ -13,7 +13,7 @@ class TableGenre(models.Model):
     genreid=models.AutoField(primary_key=True)
     name=models.CharField(max_length=200)
 
-class MovieGenre(models.Model):
+class MovieGenre(models.Model):  
     id=models.AutoField(primary_key=True)
     movieid=models.ForeignKey(TableMovie,on_delete=models.CASCADE)
     genreid=models.ForeignKey(TableGenre,on_delete=models.CASCADE)
