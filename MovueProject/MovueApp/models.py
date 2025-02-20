@@ -2,41 +2,55 @@ from django.db import models
 from django.contrib.auth.models import User 
 # Create your models here.
 
-
+#Model for Movie table
 class Movie(models.Model):
-    movieid=models.AutoField(primary_key=True)
-    title=models.CharField(max_length=200)
-    description=models.TextField(max_length=500)
-    releasedate=models.DateField()
+    movieid = models.AutoField(primary_key=True) #Auto incrementing primary key for Movie table
+    title=models.CharField(max_length=200) #Title of the movie
+    description=models.TextField(max_length=500) #Description of the movie
+    #=models.ImageField(upload_to='posters/', null=True, blank=True) #Poster of the movie
+    releasedate=models.DateField() #Release date of the movie
 
+#Model for Genre table
 class Genre(models.Model):
-    genreid=models.AutoField(primary_key=True)
-    name=models.CharField(max_length=200)
+    genreid=models.AutoField(primary_key=True) #Auto incrementing primary key for Genre table
+    name=models.CharField(max_length=200, unique=True) #Unique name of the genre
+    movies=models.ManyToManyField(Movie,through='MovieGenre') #Many to many relationship with Movie table through MovieGenre table
 
+# MovieGenre join table to establish Many-to-Many relationship between Genre and Movie
 class MovieGenre(models.Model):  
     id=models.AutoField(primary_key=True)
-    movieid=models.ForeignKey(Movie,on_delete=models.CASCADE)
-    genreid=models.ForeignKey(Genre,on_delete=models.CASCADE) 
+    genreid=models.ForeignKey(Genre,on_delete=models.CASCADE) #Foreign key to Genre table
+    movieid=models.ForeignKey(Movie,on_delete=models.CASCADE) #Foreign key to Movie table 
 
-class Review(models.Model):
-    reviewid=models.AutoField(primary_key=True)
-    movieid=models.ForeignKey(Movie,on_delete=models.CASCADE)
-    genreid=models.ForeignKey(Genre,on_delete=models.CASCADE)    
-    reviewtext=models.TextField(max_length=500) 
-    timestamp=models.DateTimeField()
-    ratingscore=models.PositiveSmallIntegerField()
+#Model for ReviewRating table
+class ReviewRating(models.Model):
+    reviewid=models.AutoField(primary_key=True) #Auto incrementing primary key for ReviewRating table
+    userid = models.ForeignKey(User, on_delete=models.CASCADE) #Foreign key to User table
+    movieid = models.ForeignKey(Movie, on_delete=models.CASCADE) #Foreign key to Movie table
+    rating = models.PositiveSmallIntegerField() #Rating of the movie
+    review = models.TextField(max_length=500) #Review of the movie
+    timestamp = models.DateTimeField() #Timestamp of the review
 
+#Reaction model to store user reactions to reviews
 class Reaction(models.Model):
-    reactionid=models.AutoField(primary_key=True)
-    userid=models.ForeignKey(User,on_delete=models.CASCADE)
-    reviewid=models.ForeignKey(Review,on_delete=models.CASCADE)
-    reactiontype=models.TextField()
+    reactionid=models.AutoField(primary_key=True) #Auto incrementing primary key for Reaction table
+    userid=models.ForeignKey(User,on_delete=models.CASCADE) #Foreign key to User table
+    reviewid=models.ForeignKey(ReviewRating,on_delete=models.CASCADE) #Foreign key to ReviewRating table
+    reactiontype=models.CharField(max_length=10, choices=[
+        ('like', 'Like'),
+        ('love', 'Love'),
+        ('funny', 'Funny'),
+        ('sad', 'Sad')
+    ]) #Type of reaction
+    timestamp=models.DateTimeField() #Timestamp of the reaction
 
-class Watchtable(models.Model):
-    watchid=models.AutoField(primary_key=True)
-    userid=models.ForeignKey(User,on_delete=models.CASCADE)  
-    movieid=models.ForeignKey(Movie,on_delete=models.CASCADE)  
-    addeddate=models.DateTimeField()
+#Model for Watchlist table
+# class Watchtlist(models.Model):
+#     watchlistid=models.AutoField(primary_key=True) #Auto incrementing primary key for Watchlist table
+#     userid=models.ForeignKey(User,on_delete=models.CASCADE) #Foreign key to User table
+#     movieid=models.ForeignKey(Movie,on_delete=models.CASCADE) #Foreign key to Movie table
+#     added_date=models.DateTimeField() #Timestamp of the movie added to watchlist
+
 
     
     
