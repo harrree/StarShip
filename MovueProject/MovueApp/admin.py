@@ -1,6 +1,5 @@
 from django.contrib import admin # type: ignore
-from .models import Movie, Genre, MovieGenre, ReviewRating, Reaction
-#from .models import Watchlist
+from .models import Movie, Genre, MovieGenre, ReviewRating, Reaction, Watchlist
 
 # Register your models here.
 
@@ -9,4 +8,4 @@ admin.site.register(Genre)
 admin.site.register(MovieGenre)
 admin.site.register(ReviewRating)
 admin.site.register(Reaction)
-#admin.site.register(Watchlist)
+admin.site.register(Watchlist)

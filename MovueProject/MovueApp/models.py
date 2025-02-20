@@ -45,11 +45,11 @@ class Reaction(models.Model):
     timestamp=models.DateTimeField() #Timestamp of the reaction
 
 #Model for Watchlist table
-# class Watchtlist(models.Model):
-#     watchlistid=models.AutoField(primary_key=True) #Auto incrementing primary key for Watchlist table
-#     userid=models.ForeignKey(User,on_delete=models.CASCADE) #Foreign key to User table
-#     movieid=models.ForeignKey(Movie,on_delete=models.CASCADE) #Foreign key to Movie table
-#     added_date=models.DateTimeField() #Timestamp of the movie added to watchlist
+class Watchlist(models.Model):
+    watchlistid=models.AutoField(primary_key=True) #Auto incrementing primary key for Watchlist table
+    userid=models.ForeignKey(User,on_delete=models.CASCADE) #Foreign key to User table
+    movieid=models.ForeignKey(Movie,on_delete=models.CASCADE) #Foreign key to Movie table
+    added_date=models.DateTimeField() #Timestamp of the movie added to watchlist
 
 
     
