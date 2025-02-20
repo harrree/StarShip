@@ -17,16 +17,16 @@ class Movie(models.Model):
 class Genre(models.Model):
     genreid=models.AutoField(primary_key=True) #Auto incrementing primary key for Genre table
     name=models.CharField(max_length=200, unique=True) #Unique name of the genre
-    movies=models.ManyToManyField(Movie,through='MovieGenre') #Many to many relationship with Movie table through MovieGenre table
+    #movies=models.ManyToManyField(Movie, related_name="movies") #Many to many relationship with Movie table through MovieGenre table
 
     def __str__(self):
         return self.name
 
-# MovieGenre join table to establish Many-to-Many relationship between Genre and Movie
-class MovieGenre(models.Model):  
-    id=models.AutoField(primary_key=True)
-    genreid=models.ForeignKey(Genre,on_delete=models.CASCADE) #Foreign key to Genre table
-    movieid=models.ForeignKey(Movie,on_delete=models.CASCADE) #Foreign key to Movie table 
+# # MovieGenre join table to establish Many-to-Many relationship between Genre and Movie
+# class MovieGenre(models.Model):  
+#     id=models.AutoField(primary_key=True)
+#     genreid=models.ForeignKey(Genre,on_delete=models.CASCADE) #Foreign key to Genre table
+#     movieid=models.ForeignKey(Movie,on_delete=models.CASCADE) #Foreign key to Movie table 
 
 
 #Model for ReviewRating table
