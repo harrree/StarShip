@@ -1,7 +1,13 @@
-{%for mov in key %}
-<h4>title:{{mov.title}}</h4>
- <h4>description:{{mov.description}}</h4>
-  <h4>release date:{{mov.releasedate}}</h4>
+
+
+<h4>title:{{movies.title}}</h4>
+ <h4>description:{{movies.description}}</h4>
+  <h4>release date:{{movies.releasedate}}</h4>
+   <h4>genre:</h4>
+  {%for moviegenre in movie_genres%}
+  <li> {{moviegenre.name}}</li>
+  {% empty %} 
+  <li>No genres available.</li>
 {%endfor%}
 
 
