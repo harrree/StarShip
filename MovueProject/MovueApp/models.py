@@ -3,24 +3,37 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 #Model for Movie table
-class Movie(models.Model):
-    movieid = models.AutoField(primary_key=True) #Auto incrementing primary key for Movie table
-    title=models.CharField(max_length=200) #Title of the movie
-    description=models.TextField(max_length=500) #Description of the movie
-    #=models.ImageField(upload_to='posters/', null=True, blank=True) #Poster of the movie
-    releasedate=models.DateField() #Release date of the movie
+# class Movie(models.Model):
+#     movieid = models.AutoField(primary_key=True) #Auto incrementing primary key for Movie table
+#     title=models.CharField(max_length=200) #Title of the movie
+#     description=models.TextField(max_length=500) #Description of the movie
+#     #=models.ImageField(upload_to='posters/', null=True, blank=True) #Poster of the movie
+#     genre=models.ManyToManyField(Genre, related_name="genres") #Many to many relationship with Movie table through MovieGenre table
+#     releasedate=models.DateField() #Release date of the movie
 
-    def __str__(self):
-        return self.title
+#     def __str__(self):
+#         return self.title
 
 #Model for Genre table
 class Genre(models.Model):
     genreid=models.AutoField(primary_key=True) #Auto incrementing primary key for Genre table
     name=models.CharField(max_length=200, unique=True) #Unique name of the genre
-    movies=models.ManyToManyField(Movie, related_name="movies") #Many to many relationship with Movie table through MovieGenre table
+    
 
     def __str__(self):
         return self.name
+
+# #Model for Movie table
+class Movie(models.Model):
+    movieid = models.AutoField(primary_key=True) #Auto incrementing primary key for Movie table
+    title=models.CharField(max_length=200) #Title of the movie
+    description=models.TextField(max_length=500) #Description of the movie
+    #=models.ImageField(upload_to='posters/', null=True, blank=True) #Poster of the movie
+    genre=models.ManyToManyField(Genre, related_name="genres") #Many to many relationship with Movie table through MovieGenre table
+    releasedate=models.DateField() #Release date of the movie
+
+    def __str__(self):
+        return self.title
 
 # # MovieGenre join table to establish Many-to-Many relationship between Genre and Movie
 # class MovieGenre(models.Model):  
