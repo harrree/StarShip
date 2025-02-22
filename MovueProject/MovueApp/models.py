@@ -28,7 +28,7 @@ class Movie(models.Model):
     movieid = models.AutoField(primary_key=True) #Auto incrementing primary key for Movie table
     title=models.CharField(max_length=200) #Title of the movie
     description=models.TextField(max_length=500) #Description of the movie
-    #=models.ImageField(upload_to='posters/', null=True, blank=True) #Poster of the movie
+    poster=models.ImageField(upload_to='posters/', null=True, blank=True) #Poster of the movie
     genre=models.ManyToManyField(Genre, related_name="genres") #Many to many relationship with Movie table through MovieGenre table
     releasedate=models.DateField() #Release date of the movie
 
