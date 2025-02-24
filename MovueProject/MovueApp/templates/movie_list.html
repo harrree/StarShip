@@ -3,6 +3,7 @@
 <h4>title:{{movies.title}}</h4>
  <h4>description:{{movies.description}}</h4>
   <h4>release date:{{movies.releasedate}}</h4>
+ 
    <h4>genre:</h4>
   {%for moviegenre in movie_genres%}
   <li> {{moviegenre.name}}</li>
@@ -10,4 +11,5 @@
   <li>No genres available.</li>
 {%endfor%}
 
-
+ <a href="{% url 'rev' movies.movieid %}">review</a>
+{{movies.movieid}}
