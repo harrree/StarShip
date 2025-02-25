@@ -49,10 +49,10 @@ class ReviewRating(models.Model):
     movieid = models.ForeignKey(Movie, on_delete=models.CASCADE) #Foreign key to Movie table
     rating = models.PositiveSmallIntegerField() #Rating of the movie
     review = models.TextField(max_length=500) #Review of the movie
-    timestamp = models.DateTimeField(auto_now_add=True) #Timestamp of the review
+    timestamp = models.DateTimeField(auto_now=True) #Timestamp of the review
 
     def __str__(self):
-        return f"{self.userid.username - self.movieid.title}({self.rating}/10)"
+        return f"{self.userid.username} - {self.movieid.title}({self.rating}/10)"
 
 #Reaction model to store user reactions to reviews
 class Reaction(models.Model):
