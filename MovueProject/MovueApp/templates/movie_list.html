@@ -11,5 +11,9 @@
   <li>No genres available.</li>
 {%endfor%}
 
- <a href="{% url 'rev' movies.movieid %}">review</a>
-{{movies.movieid}}
+ {%for review in reviews %}
+<li> {{review.review}}</li>
+ {% empty %} 
+  <li>No  available.</li>
+{%endfor%}
+ 
