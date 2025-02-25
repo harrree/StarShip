@@ -28,7 +28,7 @@ class Movie(models.Model):
     movieid = models.AutoField(primary_key=True) #Auto incrementing primary key for Movie table
     title=models.CharField(max_length=200) #Title of the movie
     description=models.TextField(max_length=500) #Description of the movie
-    #=models.ImageField(upload_to='posters/', null=True, blank=True) #Poster of the movie
+    poster=models.ImageField(upload_to='poster/', null=True, blank=True) #Poster of the movie
     genre=models.ManyToManyField(Genre, related_name="genres") #Many to many relationship with Movie table through MovieGenre table
     releasedate=models.DateField() #Release date of the movie
 
@@ -65,7 +65,7 @@ class Reaction(models.Model):
         ('funny', 'Funny'),
         ('sad', 'Sad')
     ]) #Type of reaction
-    timestamp=models.DateTimeField() #Timestamp of the reaction
+    timestamp=models.DateTimeField(auto_now_add=True) #Timestamp of the reaction
 
     def __str__(self):
         return f"{self.userid.username} reacted {self.reactiontype} on {self.reviewid}"
@@ -75,7 +75,7 @@ class Watchlist(models.Model):
     watchlistid=models.AutoField(primary_key=True) #Auto incrementing primary key for Watchlist table
     userid=models.ForeignKey(User,on_delete=models.CASCADE) #Foreign key to User table
     movieid=models.ForeignKey(Movie,on_delete=models.CASCADE) #Foreign key to Movie table
-    added_date=models.DateTimeField() #Timestamp of the movie added to watchlist
+    added_date=models.DateTimeField(auto_now_add=True) #Timestamp of the movie added to watchlist
 
     def __str__(self):
         return f"{self.userid.username} added {self.movieid.title} to Watchlist"
