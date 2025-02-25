@@ -3,12 +3,11 @@ from .models import Movie
 
 
 # Create your views here.
-def movie_list(request):
+def movie_list(request): #
     move=Movie.objects.all()
    
     context={"list":move}
-    return render(request,"index.html",context)
-
+    return render(request,"index.html",context) #
 
 def information(request,id):
     
