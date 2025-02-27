@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 #function created for movie list
+@login_required(login_url="/login.html")
 def movie_list(request):
     move=Movie.objects.all()
     
@@ -16,6 +17,7 @@ def movie_list(request):
     return render(request,"index.html",context)
  
 #function for getting information about specific movie
+
 def information(request,id):
   
     movies=Movie.objects.get(movieid=id)
@@ -35,7 +37,10 @@ def information(request,id):
        
     return render(request,'movie_list.html',context)
 
-    
+
+
+def register(request):
+    return render(request,'register.html')
 
 #fuction created for user authentication
 

@@ -7,9 +7,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.movie_list,name='movie_list'),
     path('mov/<int:id>/information/', views.information, name="information"),
-    path('log/', views.userlogin, name="userlogin")
-    
+    path('login/', views.userlogin, name="userlogin"),
+    path('register/', views.register, name="register"),
 ]
-
-# if settings.DEBUG:
-#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+if settings.DEBUG:
+   urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
