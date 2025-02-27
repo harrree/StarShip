@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
-from .models import Movie,ReviewRating,User
+from .models import Movie,ReviewRating
 from django.http import HttpResponse
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -34,7 +37,23 @@ def information(request,id):
 
     
 
-#fuction created for review
+#fuction created for user authentication
+
+def userlogin(request):
+    err=None
+    if request.method=='POST':
+        username=request.POST['username']
+        password=request.POST['password']
+        user=authenticate(username=username,password=password)
+        if user:
+            login(request,user)
+            return redirect('movie_list')
+        else:
+            err="invalid credentials"
+            print(err)
+    return render(request,"login.html")        
+
+
 
     
         
