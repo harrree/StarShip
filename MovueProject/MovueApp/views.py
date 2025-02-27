@@ -1,14 +1,14 @@
 from django.shortcuts import render,redirect
 from .models import Movie,ReviewRating
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 
 # Create your views here.
 #function created for movie list
-@login_required(login_url="/login.html")
+
 def movie_list(request):
     move=Movie.objects.all()
     
@@ -17,7 +17,7 @@ def movie_list(request):
     return render(request,"index.html",context)
  
 #function for getting information about specific movie
-
+@login_required(login_url="userlogin")
 def information(request,id):
   
     movies=Movie.objects.get(movieid=id)
@@ -39,8 +39,7 @@ def information(request,id):
 
 
 
-def register(request):
-    return render(request,'register.html')
+
 
 #fuction created for user authentication
 
@@ -56,7 +55,14 @@ def userlogin(request):
         else:
             err="invalid credentials"
             print(err)
-    return render(request,"login.html")        
+    return render(request,"login.html")  
+
+def userlogout(request):
+    logout(request)
+    return redirect('userlogin')
+
+def register(request):
+    return redirect('register.html')      
 
 
 

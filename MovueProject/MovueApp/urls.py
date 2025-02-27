@@ -9,6 +9,7 @@ urlpatterns = [
     path('mov/<int:id>/information/', views.information, name="information"),
     path('login/', views.userlogin, name="userlogin"),
     path('register/', views.register, name="register"),
+    path('logout/', views.userlogout, name="userlogout"),
 ]
 if settings.DEBUG:
    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
