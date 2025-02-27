@@ -19,6 +19,7 @@ def information(request,id):
     print(movies)
     genre=movies.genre.all()
     review=ReviewRating.objects.filter(movieid=id).values()
+    print(review)
     user=User.objects.get(id=1)
     if request.method=='POST':
     
