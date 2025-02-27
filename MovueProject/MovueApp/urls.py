@@ -5,9 +5,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.movie_list,name='movie_list'),
+    path('gtyy', views.movie_list,name='movie_list'),
     path('mov/<int:id>/information/', views.information, name="information"),
-    
+    path('login/', views.login, name="login"),
+    path('register/', views.register, name="register"),
 ]
 
 # if settings.DEBUG:

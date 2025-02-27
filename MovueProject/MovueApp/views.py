@@ -32,7 +32,11 @@ def information(request,id):
        
     return render(request,'movie_list.html',context)
 
-    
+def login(request):
+    return render(request,'login.html')
+
+def register(request):
+    return render(request,'register.html')
 
 #fuction created for review
 
