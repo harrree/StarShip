@@ -1,5 +1,7 @@
+/* Import Google Font - Poppins */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
+/* Reset default browser styles and apply global styles */
 * {
     margin: 0;
     padding: 0;
@@ -7,9 +9,10 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* Set the full-page background and text color */
 body {
-    background-color: #2b2222;
-    color: white;
+    background-color: #1e3a3a; /* Dark teal background */
+    color: white; /* White text for readability */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,37 +20,39 @@ body {
     height: 100vh;
 }
 
-/* Header */
+/* ===== HEADER STYLING ===== */
 header {
-    background: #8b4c4c;
-    color: white;
+    background: #008080; /* Teal background */
+    color: white; /* White text */
     padding: 15px 20px;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: fixed;
+    position: fixed; /* Sticks to the top */
     top: 0;
     left: 0;
     z-index: 1000;
 }
 
-/* Logo */
+/* Logo styling */
 header h1 {
     font-size: 24px;
 }
 
-/* Navigation Bar */
+/* ===== NAVIGATION MENU ===== */
 nav ul {
     list-style: none;
     display: flex;
     gap: 20px;
 }
 
+/* Style for each navigation item */
 nav ul li {
     display: inline;
 }
 
+/* Links inside navigation */
 nav ul li a {
     color: white;
     text-decoration: none;
@@ -57,13 +62,14 @@ nav ul li a {
     border-radius: 5px;
 }
 
+/* Navigation hover and active state */
 nav ul li a:hover,
 nav ul li a.active {
     background: white;
-    color: #8b4c4c;
+    color: #008080; /* Teal text on hover */
 }
 
-/* Page Container */
+/* ===== MAIN CONTENT CONTAINER ===== */
 .container {
     display: flex;
     align-items: center;
@@ -73,35 +79,36 @@ nav ul li a.active {
     padding-top: 80px; /* Prevents overlap with fixed header */
 }
 
-/* Form Card */
+/* ===== FORM CARD STYLING ===== */
 .card {
-    background: rgb(244, 194, 194);
+    background: #4f9f9f; /* Light teal background */
     padding: 25px;
     border-radius: 12px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
     text-align: center;
     width: 350px;
     max-width: 90%;
 }
 
+/* Form title inside the card */
 .card h2 {
     margin-bottom: 15px;
 }
 
-/* Input Fields */
+/* ===== INPUT FIELD STYLING ===== */
 input {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #ccc;
+    border: 1px solid #ccc; /* Light grey border */
     border-radius: 5px;
 }
 
-/* Buttons */
+/* ===== BUTTON STYLING ===== */
 button {
     width: 100%;
     padding: 10px;
-    background: #8b4c4c;
+    background: #008080; /* Teal button */
     color: white;
     border: none;
     cursor: pointer;
@@ -110,27 +117,31 @@ button {
     transition: 0.3s;
 }
 
+/* Button hover effect */
 button:hover {
-    background: #a85d5d;
+    background: #006666; /* Darker teal */
 }
 
-/* Links */
+/* ===== LINK STYLING ===== */
 p {
     margin-top: 10px;
 }
 
+/* Styled links */
 p a {
-    color: #8b4c4c;
+    color: #005757; /* Dark teal */
     text-decoration: none;
     font-weight: bold;
 }
 
+/* Link hover effect */
 p a:hover {
     text-decoration: underline;
 }
 
-/* Responsive Design */
+/* ===== RESPONSIVE DESIGN (For Small Screens) ===== */
 @media screen and (max-width: 600px) {
+    /* Make header items stack vertically */
     header {
         flex-direction: column;
         align-items: center;
@@ -138,12 +149,14 @@ p a:hover {
         padding: 15px;
     }
 
+    /* Stack nav items vertically */
     nav ul {
         flex-direction: column;
         gap: 10px;
         padding-top: 10px;
     }
 
+    /* Make form card fit smaller screens */
     .card {
         width: 90%;
     }
