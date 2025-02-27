@@ -34,6 +34,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
+MovueProject/media
 env/
 build/
 develop-eggs/
