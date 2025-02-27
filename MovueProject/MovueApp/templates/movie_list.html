@@ -14,10 +14,10 @@
 {%endfor%}
 
  {%for review in reviews %}
-<li> review:{{review.review}}
-  rating:{{review.rating}}
-  {{review.userid_id}}
-</li>
+<li> review:{{review.review}}</li>
+ <li> rating:{{review.rating}}
+  {{review.userid_id}}</li>
+
  {% empty %} 
   <li>No  available.</li>
 {%endfor%}
