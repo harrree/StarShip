@@ -14,12 +14,20 @@ def movie_list(request):
  
 #function for getting information about specific movie
 def information(request,id):
-    user=User.objects.get(id=id)
+  
     movies=Movie.objects.get(movieid=id)
-    genre=movies. genre.all()
+    print(movies)
+    genre=movies.genre.all()
     review=ReviewRating.objects.filter(movieid=id).values()
-    print(user)
-    context={"movies": movies,"movie_genres":  genre,"reviews": review,"user": user }
+    user=User.objects.get(id=1)
+    if request.method=='POST':
+    
+        rating=request.POST['rating']
+        review=request.POST['review']
+        moviereview=ReviewRating(userid=user,movieid=movies,rating=rating,review=review)
+        moviereview.save()
+    
+    context={"movies": movies,"movie_genres":  genre,"reviews": review }
        
     return render(request,'movie_list.html',context)
 
@@ -27,4 +35,12 @@ def information(request,id):
 
 #fuction created for review
 
+    
+        
 
+
+
+
+             
+    
+   

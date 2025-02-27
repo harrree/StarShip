@@ -1,7 +1,8 @@
 
 
 <h4>title:{{movies.title}}</h4>
-<img src="{{movies.poster.url}}" >
+{{movies.poster.url}}
+<img src="{{ movies.poster.url }}" height="50%" width="45%">
  <h4>description:{{movies.description}}</h4>
   <h4>release date:{{movies.releasedate}}</h4>
  
@@ -13,10 +14,20 @@
 {%endfor%}
 
  {%for review in reviews %}
-<li> {{review.review}}</li>
+<li> review:{{review.review}}
+  rating:{{review.rating}}
+</li>
  {% empty %} 
   <li>No  available.</li>
 {%endfor%}
+
+<form action="" method="post">
+  {% csrf_token %}
+
+<input type="number" name="rating"><br>
+<textarea name="review" id=""></textarea><br>
+<button type="submit" name="submit">add</button>
+</form>
 
  
 
