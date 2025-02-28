@@ -23,7 +23,8 @@
     <div class="container">
         <div class="card">
             <h2>Register</h2>
-            <form onsubmit="event.preventDefault(); registerUser();">
+            <form onsubmit="event.preventDefault(); registerUser();" method="post">
+                 {% csrf_token %}
                 <input type="text" id="first_name" placeholder="First name" required>
                 <input type="text" id="last_name" placeholder="Last name" required>
                 <input type="text" id="username" placeholder="Username" required>

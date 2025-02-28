@@ -38,9 +38,6 @@ def information(request,id):
     return render(request,'movie_list.html',context)
 
 
-
-
-
 #fuction created for user authentication
 
 def userlogin(request):
@@ -55,14 +52,21 @@ def userlogin(request):
         else:
             err="invalid credentials"
             print(err)
-    return render(request,"login.html")  
+    return render(request,"login.html") 
+
+ #fuction created for user logout
 
 def userlogout(request):
     logout(request)
     return redirect('userlogin')
 
+#fuction created for user registeration
+
 def register(request):
-    return redirect('register.html')      
+    
+
+
+    return render(request,'register.html')      
 
 
 
