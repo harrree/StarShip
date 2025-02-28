@@ -1,3 +1,4 @@
+<a href="{% url 'userlogin'%}">Login</a> 
 {%for mov in list%}
 <h4>title:{{mov.title}}</h4>
 <a href="{% url 'information' mov.movieid %}">view</a>
