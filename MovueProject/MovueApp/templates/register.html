@@ -23,12 +23,14 @@
     <div class="container">
         <div class="card">
             <h2>Register</h2>
-            <form onsubmit="event.preventDefault(); registerUser();">
-                <input type="text" id="first_name" placeholder="First name" required>
-                <input type="text" id="last_name" placeholder="Last name" required>
-                <input type="text" id="username" placeholder="Username" required>
-                <input type="email" id="email" placeholder="Email" required>
-                <input type="password" id="password" placeholder="Password" required>
+            <form action="" method="post">
+                 {% csrf_token %}
+                <input type="text" id="first_name" name="first_name" placeholder="First name" required>
+                <input type="text" id="last_name" name="last_name" placeholder="Last name" required>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="password" id="password"  name="password" placeholder="Password" required>
+                <input type="password" id="cpassword"  name="cpassword" placeholder=" Confirm Password" required>
                 <button type="submit">Register</button>
             </form>
             <p>Already have an account? <a href="{% url 'userlogin'%}">Login</a></p>
