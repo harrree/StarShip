@@ -63,9 +63,25 @@ def userlogout(request):
 #fuction created for user registeration
 
 def register(request):
-    
+    if request.method=='POST':
+        firstname=request.POST.get('first_name')
+        lastname=request.POST.get('last_name')
+        username=request.POST.get('username')
+        email=request.POST.get('email')
+        password=request.POST.get('password')
+        cpassword=request.POST.get('cpassword')
 
+        if password==cpassword:
+            if User.objects.filter(username=username).exists():
+                print("username exist")
+            else: 
+                user=User.objects.create_user(username=username,email=email,password=password,first_name=firstname,last_name=lastname)
+                user.save()
+                return redirect('userlogin')
 
+        
+        
+            
     return render(request,'register.html')      
 
 
