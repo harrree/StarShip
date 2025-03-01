@@ -1,7 +1,17 @@
-
-
-<h4>title:{{movies.title}}</h4>
-{{movies.poster.url}}
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{% static 'css/details.css' %}">
+    <script defer src="{% static 'js/header.js' %}"></script>
+</head>
+<body>
+  {% include 'header.html' %}
+  
+  <h4>title:{{movies.title}}</h4>
 <img src="{{ movies.poster.url }}" height="50%" width="45%">
  <h4>description:{{movies.description}}</h4>
   <h4>release date:{{movies.releasedate}}</h4>
@@ -35,7 +45,10 @@
 <button type="submit" name="submit">add</button>
 </form>
 {% endif%}
-<a href="{% url 'userlogout' %}">logout</a>
+<a href="{% url 'userlogout' %}">logout</a>  
+</body>
+</html>
+
  
 
 
