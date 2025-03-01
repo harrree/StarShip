@@ -1,54 +1,70 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="{% static 'css/details.css' %}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ movies.title }} - Movie Details</title>
+    <link rel="stylesheet" href="{% static 'css/details.css' %}">
     <script defer src="{% static 'js/header.js' %}"></script>
+    <script defer src="{% static 'js/rating.js' %}"></script>
 </head>
 <body>
-  {% include 'header.html' %}
-  
-  <h4>title:{{movies.title}}</h4>
-<img src="{{ movies.poster.url }}" height="50%" width="45%">
- <h4>description:{{movies.description}}</h4>
-  <h4>release date:{{movies.releasedate}}</h4>
- 
-   <h4>genre:</h4>
-  {%for moviegenre in movie_genres%}
-  <li> {{moviegenre.name}}</li>
-  {% empty %} 
-  <li>No genres available.</li>
-{%endfor%}
+    {% include 'header.html' %}
 
- {%for review in reviews %}
-<li> review:{{review.review}}</li>
- <li> rating:{{review.rating}}
-  {{review.userid_id}}</li>
+    <div class="container">
+        <h2>{{ movies.title }}</h2>
+        <img src="{{ movies.poster.url }}" alt="{{ movies.title }} Poster">
+        <p><strong>Description:</strong> {{ movies.description }}</p>
+        <p><strong>Release Date:</strong> {{ movies.releasedate }}</p>
 
- {% empty %} 
-  <li>No  available.</li>
-{%endfor%}
+        <div class="genre-section">
+            <h4>Genres:</h4>
+            <ul>
+                {% for moviegenre in movie_genres %}
+                    <li>{{ moviegenre.name }}</li>
+                {% empty %}
+                    <li>No genres available.</li>
+                {% endfor %}
+            </ul>
+        </div>
 
-{% if use%}
-<h4>already reviewd</h4>
+        <div class="rating-section">
+            <h4>Average Rating:</h4>
+            <p id="avg-rating">{{ movies.average_rating }} ★</p>
 
-{% else%}
+            {% if use %}
+                <h4>You've already reviewed this movie.</h4>
+            {% else %}
+                <h4>Rate this movie:</h4>
+                <div id="star-rating">
+                    {% for i in "543210"|make_list %}
+                        <span class="star half" data-value="{{ forloop.counter0 }}.5"></span>
+                        <span class="star full" data-value="{{ forloop.counter0}}1.0"></span>
+                    {% endfor %}
+                </div>
+                <input type="hidden" id="selected-rating" value="0">
 
-<form action="" method="post">
-  {% csrf_token %}
+                <form id="review-form">
+                    {% csrf_token %}
+                    <textarea name="review" id="review-text" placeholder="Write your review..."></textarea>
+                    <button type="submit">Submit Review</button>
+                </form>
+            {% endif %}
+        </div>
 
-<input type="number" name="rating"><br>
-<textarea name="review" id=""></textarea><br>
-<button type="submit" name="submit">add</button>
-</form>
-{% endif%}
-<a href="{% url 'userlogout' %}">logout</a>  
+        <div class="reviews-section">
+            <h4>Reviews:</h4>
+            <ul>
+                {% for review in reviews %}
+                    <li><strong>{{ review.userid_id }}</strong>: ⭐ {{ review.rating }} - {{ review.review }}</li>
+                {% empty %}
+                    <li>No reviews yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <a href="{% url 'userlogout' %}" class="logout-btn">Logout</a>
+    </div>
 </body>
 </html>
-
- 
-
-
