@@ -1,24 +1,16 @@
-{%load static%}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MOVUE</title>
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <script defer src="script.js"></script>
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    <script defer src="{% static 'js/header.js' %}"></script>
 </head>
+
 <body>
-    <header>
-        <h1>MOVUE</h1>
-        <nav>
-            <a href="home.html">Home</a>
-            <a href="login.html" id="login-link">Login</a>
-            <a href="register.html" id="register-link">Register</a>
-            <a href="about.html">About Us</a>
-            <a href="#" id="logout-link" style="display: none;" onclick="logout()">Logout</a>
-        </nav>
-    </header>
+    {% include 'header.html' %}
 
     <!-- Movie List Container -->
     <div id="movie-list" class="movies-container"></div>
@@ -29,26 +21,13 @@
     </div>
 
     <section class="movies">
-        
-{%for mov in list%}
-        <div class="movie-card" data-id="1" onclick="openMoviePopup(1)">
-            <img src="{{ mov.poster.url }}" alt="" height="50%" width="50%">
-            <h2>{{mov.title}}</h2>
+        {% for mov in list %}
+        <div class="movie-card" data-id="{{ mov.movieid }}" onclick="openMoviePopup('{{ mov.movieid }}')">
+            <img src="{{ mov.poster.url }}" alt="{{ mov.title }} Poster" height="50%" width="50%">
+            <h2>{{ mov.title }}</h2>
             <a href="{% url 'information' mov.movieid %}">View</a>
-
-            
         </div>
-        </div>
-        
-{%endfor%}
+        {% endfor %}
     </section>
 </body>
 </html>
-
-
-
-
-
-
-
-

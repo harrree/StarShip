@@ -11,7 +11,7 @@
 
 /* Set the full-page background and text color */
 body {
-    background-color: #1e3a3a; /* Dark teal background */
+    background-color: #1e1e1e; /* Dark grey background */
     color: white; /* White text for readability */
     display: flex;
     flex-direction: column;
@@ -22,7 +22,7 @@ body {
 
 /* ===== HEADER STYLING ===== */
 header {
-    background: #008080; /* Teal background */
+    background: #444; /* Dark grey background */
     color: white; /* White text */
     padding: 15px 20px;
     width: 100%;
@@ -66,7 +66,7 @@ nav ul li a {
 nav ul li a:hover,
 nav ul li a.active {
     background: white;
-    color: #008080; /* Teal text on hover */
+    color: #444; /* Dark grey text on hover */
 }
 
 /* ===== MAIN CONTENT CONTAINER ===== */
@@ -81,7 +81,7 @@ nav ul li a.active {
 
 /* ===== FORM CARD STYLING ===== */
 .card {
-    background: #4f9f9f; /* Light teal background */
+    background: #555; /* Medium grey background */
     padding: 25px;
     border-radius: 12px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
@@ -108,7 +108,7 @@ input {
 button {
     width: 100%;
     padding: 10px;
-    background: #008080; /* Teal button */
+    background: #666; /* Dark grey button */
     color: white;
     border: none;
     cursor: pointer;
@@ -119,7 +119,7 @@ button {
 
 /* Button hover effect */
 button:hover {
-    background: #006666; /* Darker teal */
+    background: #777; /* Lighter grey */
 }
 
 /* ===== LINK STYLING ===== */
@@ -129,7 +129,7 @@ p {
 
 /* Styled links */
 p a {
-    color: #005757; /* Dark teal */
+    color: #888; /* Medium grey */
     text-decoration: none;
     font-weight: bold;
 }

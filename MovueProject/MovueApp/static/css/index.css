@@ -1,16 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 /* General Styles */
 body {
     font-family: Poppins, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #2b2222;
-    color: white;
+    background-color: #1e1e1e !important; /* Force dark background */
+    color: #ddd;
 }
 
 /* Header Styling */
 header {
-    background: linear-gradient(to right, #8b4c4c, #5c2c2c);
+    background: linear-gradient(to right, #444, #222);
     text-align: center;
     padding: 20px;
     font-size: 24px;
@@ -22,7 +23,7 @@ nav {
 }
 
 nav a {
-    color: white;
+    color: #ddd;
     margin: 0 15px;
     text-decoration: none;
     font-weight: 500;
@@ -30,7 +31,7 @@ nav a {
 }
 
 nav a:hover {
-    color: #f4c2c2;
+    color: #bbb;
 }
 
 /* Search Bar */
@@ -43,15 +44,17 @@ nav a:hover {
 .search-container input {
     width: 470px;
     padding: 10px;
-    border: 2px solid #f4c2c2;
+    border: 2px solid #666;
     border-radius: 20px;
     outline: none;
     font-size: 16px;
+    background: #333;
+    color: #ddd;
 }
 
 .search-container button {
     padding: 10px 15px;
-    background: #8b4c4c;
+    background: #555;
     color: white;
     border: none;
     cursor: pointer;
@@ -61,7 +64,7 @@ nav a:hover {
 }
 
 .search-container button:hover {
-    background: #5c2c2c;
+    background: #333;
 }
 
 /* Movie Cards */
@@ -80,7 +83,7 @@ nav a:hover {
 }
 
 .movie-card {
-    background: linear-gradient(145deg, #f4c2c2, #e3a8a8);
+    background: linear-gradient(145deg, #555, #333);
     padding: 15px;
     margin: 15px;
     border-radius: 10px;
@@ -92,21 +95,21 @@ nav a:hover {
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Ensures consistent height */
-    height: 380px; /* Set a fixed height */
+    justify-content: space-between;
+    height: 380px;
 }
 
 .movie-card img {
     width: 100%;
-    height: 250px; /* Consistent height */
-    object-fit: cover; /* Ensures the image fits well */
+    height: 250px;
+    object-fit: cover;
     border-radius: 10px;
     transition: transform 0.3s ease;
 }
 
 .movie-card h2 {
-    margin-top: 10px; /* Adjust this value to control the spacing */
-    margin-bottom: 50px; /* Adjust this value to control the spacing */
+    margin-top: 10px;
+    margin-bottom: 50px;
 }
 
 .movie-card:hover {
@@ -117,15 +120,12 @@ nav a:hover {
     transform: scale(1.07);
 }
 
-.rate-btn:hover {
-    background: #5c2c2c;
-} */
-
 .comment {
-    background: #f4f4f4;
+    background: #444;
     padding: 10px;
     margin-bottom: 10px;
     border-radius: 5px;
+    color: #ddd;
 }
 
 /* Responsive Design */
@@ -137,10 +137,6 @@ nav a:hover {
     .movie-card {
         width: 90%;
     }
-    
-    /* .popup {
-        width: 90%;
-    } */
 }
 
 @media screen and (max-width: 480px) {

@@ -5,17 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - MOVUE</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-   
+    <link rel="stylesheet" href="{% static 'css/loginregister.css' %}">
 </head>
 <body>
     <header>
         <h1>MOVUE</h1>
         <nav>
             <ul>
-                <li><a href="home.html">Home</a></li>
-                <li><a href="register.html">Register</a></li>
-                <li><a href="login.html" class="active">Login</a></li>
+                <li><a href="{% url 'movie_list' %}">Home</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+                <li><a href="{% url 'userlogin' %}" class="active">Login</a></li>
             </ul>
         </nav>
     </header>
@@ -23,12 +22,12 @@
     <div class="container">
         <div class="card">
             <h2>Login</h2>
-            <form action="" method="post">
+            <form action="{% url 'userlogin' %}" method="post">
                 {% csrf_token %}
-            <input type="text" id="email" name="username" placeholder="username">
-            <input type="password" id="password" name="password" placeholder="Enter your password">
-            <button onclick="login()">Login</button>
-            <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+                <input type="text" id="username" name="username" placeholder="Username" required>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <button type="submit">Login</button>
+                <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
             </form> 
         </div>
     </div>
