@@ -22,6 +22,11 @@
   <li>No  available.</li>
 {%endfor%}
 
+{% if use%}
+<h4>already reviewd</h4>
+
+{% else%}
+
 <form action="" method="post">
   {% csrf_token %}
 
@@ -29,7 +34,7 @@
 <textarea name="review" id=""></textarea><br>
 <button type="submit" name="submit">add</button>
 </form>
-
+{% endif%}
 <a href="{% url 'userlogout' %}">logout</a>
  
 

@@ -45,7 +45,7 @@ def information(request,id):
     print(movies)
     genre=movies.genre.all()
     review=ReviewRating.objects.filter(movieid=id).values()
-    print(review)
+    #print(review)
     #user=User.objects.get(id=2)
     #print(user)
     if request.method=='POST':
@@ -54,8 +54,10 @@ def information(request,id):
          review=request.POST['review']
          moviereview=ReviewRating(userid=use,movieid=movies,rating=rating,review=review)
          moviereview.save()
+    userid=ReviewRating.objects.filter(userid=use,movieid=id).values()
+    print(userid)     
     
-    context={"movies": movies,"movie_genres":  genre,"reviews": review }
+    context={"movies": movies,"movie_genres":  genre,"reviews": review,"use":userid }
        
     return render(request,'movie_list.html',context)
 
