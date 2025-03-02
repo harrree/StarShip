@@ -12,59 +12,65 @@
 <body>
     {% include 'header.html' %}
 
-    <div class="container">
-        <h2>{{ movies.title }}</h2>
-        <img src="{{ movies.poster.url }}" alt="{{ movies.title }} Poster">
-        <p><strong>Description:</strong> {{ movies.description }}</p>
-        <p><strong>Release Date:</strong> {{ movies.releasedate }}</p>
-
-        <div class="genre-section">
-            <h4>Genres:</h4>
-            <ul>
-                {% for moviegenre in movie_genres %}
-                    <li>{{ moviegenre.name }}</li>
-                {% empty %}
-                    <li>No genres available.</li>
-                {% endfor %}
-            </ul>
-        </div>
-
-        <div class="rating-section">
-            <h4>Average Rating:</h4>
-            <p id="avg-rating">{{ movies.average_rating }} ★</p>
-
-            {% if use %}
-                <h4>You've already reviewed this movie.</h4>
-            {% else %}
-                <h4>Rate this movie:</h4>
-                <div id="star-rating">
-                    {% for i in "543210"|make_list %}
-                        <span class="star half" data-value="{{ forloop.counter0 }}.5"></span>
-                        <span class="star full" data-value="{{ forloop.counter0}}1.0"></span>
-                    {% endfor %}
+    <div class="movie-container">
+        <!-- Movie Poster and Details -->
+        <div class="movie-details">
+            <img src="{{ movies.poster.url }}" alt="{{ movies.title }} Poster" class="movie-poster">
+            <div class="details">
+                <h2>{{ movies.title }}</h2>
+                <p><strong>Description:</strong> {{ movies.description }}</p>
+                <p><strong>Release Date:</strong> {{ movies.releasedate }}</p>
+                <div class="genres">
+                    <h4>Genres:</h4>
+                    <ul>
+                        {% for moviegenre in movie_genres %}
+                            <li>{{ moviegenre.name }}</li>
+                        {% empty %}
+                            <li>No genres available.</li>
+                        {% endfor %}
+                    </ul>
                 </div>
-                <input type="hidden" id="selected-rating" value="0">
-
-                <form id="review-form">
-                    {% csrf_token %}
-                    <textarea name="review" id="review-text" placeholder="Write your review..."></textarea>
-                    <button type="submit">Submit Review</button>
-                </form>
-            {% endif %}
+                <h4>Average Rating: <span id="avg-rating">{{ movies.average_rating|default:"0" }}</span> ★</h4>
+            </div>
         </div>
 
-        <div class="reviews-section">
-            <h4>Reviews:</h4>
-            <ul>
+        <!-- Reviews and Rating Section -->
+        <div class="review-container">
+            <h3>Reviews</h3>
+            <ul class="reviews-list">
                 {% for review in reviews %}
-                    <li><strong>{{ review.userid_id }}</strong>: ⭐ {{ review.rating }} - {{ review.review }}</li>
+                    <li>
+                        <strong>{{ review.userid_id }}</strong>: 
+                        <span class="user-rating">⭐ {{ review.rating }}</span> 
+                        - {{ review.review }}
+                    </li>
                 {% empty %}
                     <li>No reviews yet.</li>
                 {% endfor %}
             </ul>
-        </div>
 
-        <a href="{% url 'userlogout' %}" class="logout-btn">Logout</a>
+            {% if not use %}
+                <div class="rating-form">
+                    <h4>Rate this Movie:</h4>
+                    <div id="star-rating">
+    {% for i in "012345" %}
+        <span class="star" data-value="{{ forloop.counter0 }}.5">&#9733;</span>
+        <span class="star" data-value="{{ forloop.counter0|add:"1" }}">&#9733;</span>
+    {% endfor %}
+</div>
+
+                    </div>
+                    <input type="hidden" id="selected-rating" value="0">
+                    <form id="review-form">
+                        {% csrf_token %}
+                        <textarea name="review" id="review-text" placeholder="Write your review..."></textarea>
+                        <button type="submit">Submit Review</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
     </div>
+
+    <a href="{% url 'userlogout' %}" class="logout-btn">Logout</a>
 </body>
 </html>

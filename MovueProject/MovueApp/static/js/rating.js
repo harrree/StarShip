@@ -12,15 +12,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         star.addEventListener("click", function () {
             ratingInput.value = this.dataset.value;
+            highlightStars(this.dataset.value);
         });
     });
 
     function highlightStars(value) {
         stars.forEach(star => {
             if (parseFloat(star.dataset.value) <= parseFloat(value)) {
-                star.classList.add("full");
+                star.classList.add("selected");
             } else {
-                star.classList.remove("full");
+                star.classList.remove("selected");
             }
         });
     }
