@@ -62,9 +62,7 @@ def information(request,id):
     return render(request,'movie_list.html',context)
 
 
-
-
- #fuction created for user logout
+#fuction created for user logout
 
 def userlogout(request):
     logout(request)
