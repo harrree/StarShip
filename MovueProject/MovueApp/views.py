@@ -59,8 +59,8 @@ def information(request,id):
     userid=ReviewRating.objects.filter(userid=use,movieid=id).values()
     print(userid)
     avg=ReviewRating.objects.filter(movieid=id).aggregate(Avg("rating"))['rating__avg']     
-    
-    context={"movies": movies,"movie_genres":  genre,"reviews": review,"use":userid,"average":avg }
+    avgr=round(avg,1)
+    context={"movies": movies,"movie_genres":  genre,"reviews": review,"use":userid,"average":avgr }
        
     return render(request,'movie_list.html',context)
 
