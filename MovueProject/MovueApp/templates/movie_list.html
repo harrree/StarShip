@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/details.css' %}">
     <script defer src="{% static 'js/header.js' %}"></script>
     <script defer src="{% static 'js/rating.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
     {% include 'header.html' %}
@@ -53,16 +54,20 @@
                 <div class="rating-form">
                     <h4>Rate this Movie:</h4>
                     <div id="star-rating">
-    {% for i in "012345" %}
-        <span class="star" data-value="{{ forloop.counter0 }}.5">&#9733;</span>
-        <span class="star" data-value="{{ forloop.counter0|add:"1" }}">&#9733;</span>
-    {% endfor %}
+    
 </div>
 
                     </div>
-                    <input type="hidden" id="selected-rating" value="0">
-                    <form id="review-form">
+                    
+                    <form action="" method="post">
                         {% csrf_token %}
+                        <div class="rate">
+                        <input type="radio" id="rating5" value="5" name="rating"><label for="rating5" title="5"></label>
+                        <input type="radio" id="rating4" value="4" name="rating"><label for="rating4" title="4"></label>
+                        <input type="radio" id="rating3" value="3" name="rating"><label for="rating3" title="3"></label>
+                        <input type="radio" id="rating2" value="2" name="rating"><label for="rating2" title="2"></label>
+                        <input type="radio" id="rating1" value="1" name="rating"><label for="rating1" title="1"></label>
+                        </div>
                         <textarea name="review" id="review-text" placeholder="Write your review..."></textarea>
                         <button type="submit">Submit Review</button>
                     </form>
