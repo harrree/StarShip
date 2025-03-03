@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.db.models import Avg
 
 
 # Create your views here.
@@ -45,6 +46,7 @@ def information(request,id):
     print(movies)
     genre=movies.genre.all()
     review=ReviewRating.objects.filter(movieid=id).values()
+    
     #print(review)
     #user=User.objects.get(id=2)
     #print(user)
@@ -55,9 +57,10 @@ def information(request,id):
          moviereview=ReviewRating(userid=use,movieid=movies,rating=rating,review=review)
          moviereview.save()
     userid=ReviewRating.objects.filter(userid=use,movieid=id).values()
-    print(userid)     
+    print(userid)
+    avg=ReviewRating.objects.filter(movieid=id).aggregate(Avg("rating"))['rating__avg']     
     
-    context={"movies": movies,"movie_genres":  genre,"reviews": review,"use":userid }
+    context={"movies": movies,"movie_genres":  genre,"reviews": review,"use":userid,"average":avg }
        
     return render(request,'movie_list.html',context)
 
