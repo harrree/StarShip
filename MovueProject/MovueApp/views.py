@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import Movie,ReviewRating
+from .models import Movie,ReviewRating,Watchlist
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
@@ -68,11 +68,11 @@ def movie_list(request):
 
 def information(request, id):
     use = request.user  # Get the currently logged-in user
-    print(use)
+    #print(use)
 
     # Get the movie or return a 404 if not found
     movies = get_object_or_404(Movie, movieid=id)
-    print(movies)
+    #print(movies)
 
     # Get all genres associated with the movie
     genre = movies.genre.all()
@@ -90,7 +90,7 @@ def information(request, id):
 
     # Get user's review for the movie
     userid = ReviewRating.objects.filter(userid=use, movieid=id).values()
-    print(userid)
+    #print(userid)
 
     # Calculate the average rating
     avg = ReviewRating.objects.filter(movieid=id).aggregate(Avg("rating"))['rating__avg']
@@ -138,6 +138,26 @@ def register(request):
     return render(request,'register.html')             
                 
                 
+#function created for adding movie into wishlist
+
+def watchlist(request):
+    user=request.user
+    useid=User.objects.get(username=user)
+    print(useid)
+   
+    if request.method=='POST':
+        movid=request.POST['movieid']
+        mov=Movie.objects.get(movieid=movid)
+        watch=Watchlist(userid=useid,movieid=mov)
+        watch.save()
+        return redirect('movie_list')
+    
+         
+    return render(request,'userprofile.html')     
+
+ #function for search
+
+#def search(request):
 
           
 

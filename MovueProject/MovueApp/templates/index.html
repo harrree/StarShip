@@ -56,8 +56,11 @@
     
     <!-- Search Bar -->
     <div class="search-container text-center mt-4">
-        <input type="text" id="searchInput" class="form-control w-50 d-inline" placeholder="Search for a movie..." onkeyup="searchMovies()">
+        <form action="" method="post">
+             {% csrf_token %}
+        <input type="text" id="searchInput" class="form-control w-50 d-inline" placeholder="Search for a movie..." onkeyup="searchMovies()" name="search">
         <button class="btn btn-primary" onclick="searchMovies()">Search</button>
+        </form>
     </div>
     
     <!-- Movie Slider with 5 cards per row -->

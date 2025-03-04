@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.movie_list,name='movie_list'),
     path('mov/<int:id>/information/', views.information, name="information"),
+    path('watchlist/', views.watchlist, name="watchlist"),
     path('login/', views.userlogin, name="userlogin"),
     path('register/', views.register, name="register"),
     path('logout/', views.userlogout, name="userlogout"),

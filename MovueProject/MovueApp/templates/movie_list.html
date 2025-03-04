@@ -47,8 +47,14 @@
 
                 <!-- Average Rating -->
                 <h4 class="mt-3">Average Rating: 
-                    <span id="avg-rating" class="text-warning">{{ average|default:"0" }}</span> ★
+                    <span id="avg-rating" class="text-warning">{{ average|default:"0" }}</span> ★ 
                 </h4>
+                
+                <form action="{% url 'watchlist'%}" method="post">
+                      {% csrf_token %}
+                    <input type="hidden" value="{{movies.movieid}}" name="movieid">
+                    <button type="submit">Add to wishlist</button>
+                </form>
             </div>
         </div>
 
