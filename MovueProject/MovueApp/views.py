@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import get_object_or_404, render,redirect
 from .models import Movie,ReviewRating
 from django.http import JsonResponse
 from django.contrib.auth import authenticate, login,logout
@@ -37,32 +37,77 @@ def movie_list(request):
  
 #function for getting information about specific movie
 @login_required(login_url="userlogin")
-def information(request,id):
-    #uid= request.session.get('userid')
-    use=request.user
-    print(use)
+# def information(request,id):
+#     #uid= request.session.get('userid')
+#     use=request.user
+#     print(use)
   
-    movies=Movie.objects.get(movieid=id)
-    print(movies)
-    genre=movies.genre.all()
-    review=ReviewRating.objects.filter(movieid=id).values()
+#     movies=Movie.objects.get(movieid=id)
+#     print(movies)
+#     genre=movies.genre.all()
+#     review=ReviewRating.objects.filter(movieid=id).values()
     
-    #print(review)
-    #user=User.objects.get(id=2)
-    #print(user)
-    if request.method=='POST':
+#     #print(review)
+#     #user=User.objects.get(id=2)
+#     #print(user)
+#     if request.method=='POST':
     
-         rating=request.POST['rating']
-         review=request.POST['review']
-         moviereview=ReviewRating(userid=use,movieid=movies,rating=rating,review=review)
-         moviereview.save()
-    userid=ReviewRating.objects.filter(userid=use,movieid=id).values()
-    print(userid)
-    avg=ReviewRating.objects.filter(movieid=id).aggregate(Avg("rating"))['rating__avg']     
-    avgr=round(avg,1)
-    context={"movies": movies,"movie_genres":  genre,"reviews": review,"use":userid,"average":avgr }
+#          rating=request.POST['rating']
+#          review=request.POST['review']
+#          moviereview=ReviewRating(userid=use,movieid=movies,rating=rating,review=review)
+#          moviereview.save()
+#     userid=ReviewRating.objects.filter(userid=use,movieid=id).values()
+#     print(userid)
+#     avg=ReviewRating.objects.filter(movieid=id).aggregate(Avg("rating"))['rating__avg']     
+#     avgr=round(avg,1)
+#     context={"movies": movies,"movie_genres":  genre,"reviews": review,"use":userid,"average":avgr }
        
-    return render(request,'movie_list.html',context)
+#     return render(request,'movie_list.html',context)
+
+
+
+def information(request, id):
+    use = request.user  # Get the currently logged-in user
+    print(use)
+
+    # Get the movie or return a 404 if not found
+    movies = get_object_or_404(Movie, movieid=id)
+    print(movies)
+
+    # Get all genres associated with the movie
+    genre = movies.genre.all()
+
+    # Get all reviews for the movie
+    review = ReviewRating.objects.filter(movieid=id).values()
+
+    if request.method == 'POST':
+        rating = request.POST.get('rating')  # Use .get() to prevent KeyError
+        review_text = request.POST.get('review')
+
+        if rating and review_text:  # Ensure both rating and review are provided
+            moviereview = ReviewRating(userid=use, movieid=movies, rating=rating, review=review_text)
+            moviereview.save()
+
+    # Get user's review for the movie
+    userid = ReviewRating.objects.filter(userid=use, movieid=id).values()
+    print(userid)
+
+    # Calculate the average rating
+    avg = ReviewRating.objects.filter(movieid=id).aggregate(Avg("rating"))['rating__avg']
+
+    # Handle the case where no ratings exist
+    avgr = round(avg, 1) if avg is not None else 0
+
+    context = {
+        "movies": movies,
+        "movie_genres": genre,
+        "reviews": review,
+        "use": userid,
+        "average": avgr
+    }
+
+    return render(request, 'movie_list.html', context)
+
 
 
 #fuction created for user logout

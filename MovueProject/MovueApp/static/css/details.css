@@ -1,47 +1,74 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* General Styles */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212 !important; /* Dark background */
+    color: #ddd;
     margin: 0;
-    padding: 20px;
+    padding: 0;
 }
 
-/* Main Movie Container */
+/* Movie Container */
 .movie-container {
     max-width: 900px;
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     margin: auto;
-    display: flex;
-    flex-direction: column;
+    padding: 20px;
+    background: #1e1e1e;
+    border-radius: 10px;
+    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
 }
 
-/* Movie Poster and Details */
-.movie-details {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
+/* Movie Poster */
 .movie-poster {
-    width: 40%;
-    border-radius: 8px;
+    width: 100%;
+    max-width: 300px;
+    height: 450px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
 }
 
-.details {
-    flex: 1;
+.movie-poster:hover {
+    transform: scale(1.05);
 }
 
-h2, h3, h4 {
-    color: #333;
+/* Movie Details */
+.details h2 {
+    color: #fff;
+    font-weight: 600;
 }
 
-/* Reviews and Rating Section */
+.details p {
+    font-size: 16px;
+    color: #aaa;
+}
+
+.genres h4 {
+    margin-bottom: 5px;
+}
+
+.genres ul {
+    list-style: none;
+    padding: 0;
+}
+
+.genres li {
+    display: inline-block;
+    background: #444;
+    color: #ddd;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin: 2px;
+    font-size: 14px;
+}
+
+/* Reviews Section */
 .review-container {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 2px solid #ddd;
+    margin-top: 30px;
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
 }
 
 .reviews-list {
@@ -50,102 +77,108 @@ h2, h3, h4 {
 }
 
 .reviews-list li {
-    background: #f9f9f9;
+    background: #333;
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+    border-left: 4px solid #555;
+}
+
+.reviews-list li strong {
+    color: #fff;
 }
 
 /* Star Rating */
-#star-rating {
+.rate {
     display: flex;
-    gap: 5px;
+    flex-direction: row-reverse;
+    justify-content: center;
+}
+
+.rate input {
+    display: none;
+}
+
+.rate label {
     cursor: pointer;
-    margin-bottom: 10px;
+    font-size: 28px;
+    color: #888;
+    transition: color 0.3s ease-in-out;
 }
 
-.star {
-    font-size: 25px;
-    color: gray;
-    transition: color 0.3s;
+.rate input:checked ~ label {
+    color: #ffcc00;
 }
 
-.star:hover,
-.star.selected {
-    color: gold;
+.rate label:hover,
+.rate label:hover ~ label {
+    color: #ffcc00;
 }
 
 /* Review Form */
 .rating-form {
-    margin-top: 20px;
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
 }
 
-textarea {
+.rating-form textarea {
     width: 100%;
-    height: 80px;
     padding: 10px;
+    background: #333;
+    border: 1px solid #555;
+    color: #ddd;
     border-radius: 5px;
+    outline: none;
+    resize: none;
 }
 
-button {
-    background: #28a745;
-    color: white;
+.rating-form button {
+    display: block;
+    width: 100%;
     padding: 10px;
-    border: none;
-    cursor: pointer;
     margin-top: 10px;
+    border: none;
+    background: #555;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
     border-radius: 5px;
+    transition: background 0.3s;
 }
 
-button:hover {
-    background: #218838;
+.rating-form button:hover {
+    background: #777;
 }
 
 /* Logout Button */
 .logout-btn {
-    display: block;
-    text-align: center;
-    margin: 20px auto;
-    padding: 10px 15px;
-    background: red;
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background: #cc0000;
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    transition: background 0.3s;
 }
 
 .logout-btn:hover {
-    background: darkred;
-}
-.rate > input{
-    display: none;
-
+    background: #ff4444;
 }
 
-.rate{
-    display: inline-block;
-    border:0;
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .movie-container {
+        padding: 15px;
+    }
 
-}
+    .movie-poster {
+        max-width: 100%;
+    }
 
-.rate > label{
-    float:right;
-}
-
-.rate > label:before{
-    display:inline-block;
-    font-size: 1.1rem;
-    font-family: FontAwesome;
-    content: "\f005";
-    margin: 0;
-    padding: 0.3rem .2rem;
-    cursor: pointer;
-}
-
-input:checked ~ label,label:hover ~ label{
-    color:#ffb503;
-
-}
-
-input:checked + label:hover,input:checked~label:hover,input:checked ~ label:hover ~label,label:hover ~ input:checked~label{
-    color: #cc9000;
+    .rating-form textarea {
+        font-size: 14px;
+    }
 }

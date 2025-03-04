@@ -5,77 +5,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ movies.title }} - Movie Details</title>
+
+    <!-- Bootstrap & Custom Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{% static 'css/details.css' %}">
+
+    <!-- Scripts -->
     <script defer src="{% static 'js/header.js' %}"></script>
     <script defer src="{% static 'js/rating.js' %}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </head>
-<body>
+<body class="bg-dark text-light">
+
+    <!-- Header -->
     {% include 'header.html' %}
 
-    <div class="movie-container">
-        <!-- Movie Poster and Details -->
-        <div class="movie-details">
-            <img src="{{ movies.poster.url }}" alt="{{ movies.title }} Poster" class="movie-poster">
-            <div class="details">
-                <h2>{{ movies.title }}</h2>
-                <p><strong>Description:</strong> {{ movies.description }}</p>
-                <p><strong>Release Date:</strong> {{ movies.releasedate }}</p>
-                <div class="genres">
-                    <h4>Genres:</h4>
-                    <ul>
-                        {% for moviegenre in movie_genres %}
-                            <li>{{ moviegenre.name }}</li>
-                        {% empty %}
-                            <li>No genres available.</li>
-                        {% endfor %}
-                    </ul>
+    <div class="container mt-5">
+        <!-- Movie Section -->
+        <div class="row">
+            <!-- Movie Poster -->
+            <div class="col-lg-4 col-md-6 text-center">
+                <img src="{{ movies.poster.url }}" alt="{{ movies.title }} Poster" class="img-fluid rounded shadow-lg">
+            </div>
+
+            <!-- Movie Details -->
+            <div class="col-lg-8 col-md-6">
+                <h2 class="fw-bold text-uppercase">{{ movies.title }}</h2>
+                <p class="text-muted"><strong>Release Date:</strong> {{ movies.releasedate }}</p>
+                <p>{{ movies.description }}</p>
+                
+                <!-- Genres -->
+                <div class="mb-3">
+                    <h5>Genres:</h5>
+                    {% for moviegenre in movie_genres %}
+                        <span class="badge bg-secondary me-1">{{ moviegenre.name }}</span>
+                    {% empty %}
+                        <span class="text-muted">No genres available.</span>
+                    {% endfor %}
                 </div>
-                <h4>Average Rating: <span id="avg-rating">{{average|default:"0" }}</span> ★</h4>
+
+                <!-- Average Rating -->
+                <h4 class="mt-3">Average Rating: 
+                    <span id="avg-rating" class="text-warning">{{ average|default:"0" }}</span> ★
+                </h4>
             </div>
         </div>
 
-        <!-- Reviews and Rating Section -->
-        <div class="review-container">
-            <h3>Reviews</h3>
-            <ul class="reviews-list">
+        <!-- Reviews Section -->
+        <div class="mt-5">
+            <h3 class="border-bottom pb-2">User Reviews</h3>
+            <ul class="list-group">
                 {% for review in reviews %}
-                    <li>
-                        <strong>{{ review.userid_id }}</strong>: 
-                        <span class="user-rating">⭐ {{ review.rating }}</span> 
-                        - {{ review.review }}
+                    <li class="list-group-item bg-dark text-light border-secondary">
+                        <strong>{{ review.userid_id }}</strong> 
+                        <span class="text-warning">⭐ {{ review.rating }}</span>
+                        <p class="mt-1">{{ review.review }}</p>
                     </li>
                 {% empty %}
-                    <li>No reviews yet.</li>
+                    <li class="list-group-item bg-dark text-light border-secondary">No reviews yet.</li>
                 {% endfor %}
             </ul>
+        </div>
 
-            {% if not use %}
-                <div class="rating-form">
-                    <h4>Rate this Movie:</h4>
-                    <div id="star-rating">
-    
-</div>
-
-                    </div>
+        <!-- Review Form -->
+        {% if not use %}
+            <div class="mt-4">
+                <h4 class="border-bottom pb-2">Rate this Movie</h4>
+                <form action="" method="post">
+                    {% csrf_token %}
                     
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        <div class="rate">
-                        <input type="radio" id="rating5" value="5" name="rating"><label for="rating5" title="5"></label>
-                        <input type="radio" id="rating4" value="4" name="rating"><label for="rating4" title="4"></label>
-                        <input type="radio" id="rating3" value="3" name="rating"><label for="rating3" title="3"></label>
-                        <input type="radio" id="rating2" value="2" name="rating"><label for="rating2" title="2"></label>
-                        <input type="radio" id="rating1" value="1" name="rating"><label for="rating1" title="1"></label>
+                    <!-- Star Rating -->
+                    <div class="rating d-flex align-items-center">
+                        <div class="rate me-3">
+                            <input type="radio" id="rating5" value="5" name="rating"><label for="rating5" title="5"></label>
+                            <input type="radio" id="rating4" value="4" name="rating"><label for="rating4" title="4"></label>
+                            <input type="radio" id="rating3" value="3" name="rating"><label for="rating3" title="3"></label>
+                            <input type="radio" id="rating2" value="2" name="rating"><label for="rating2" title="2"></label>
+                            <input type="radio" id="rating1" value="1" name="rating"><label for="rating1" title="1"></label>
                         </div>
-                        <textarea name="review" id="review-text" placeholder="Write your review..."></textarea>
-                        <button type="submit">Submit Review</button>
-                    </form>
-                </div>
-            {% endif %}
+                    </div>
+
+                    <!-- Review Input -->
+                    <textarea name="review" id="review-text" class="form-control bg-dark text-light mt-2" placeholder="Write your review..."></textarea>
+                    <button type="submit" class="btn btn-outline-light mt-3">Submit Review</button>
+                </form>
+            </div>
+        {% endif %}
+
+        <!-- Logout Button -->
+        <div class="text-center mt-4">
+            <a href="{% url 'userlogout' %}" class="btn btn-outline-danger">Logout</a>
         </div>
     </div>
 
-    <a href="{% url 'userlogout' %}" class="logout-btn">Logout</a>
 </body>
 </html>
