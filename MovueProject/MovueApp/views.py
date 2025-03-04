@@ -153,7 +153,7 @@ def watchlist(request):
         return redirect('movie_list')
     
          
-    return render(request,'userprofile.html')     
+    return render(request,'profile.html')     
 
  #function for search
 
