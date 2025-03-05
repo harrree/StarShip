@@ -1,0 +1,6 @@
+{% for result in results %}
+<h5>{{result.movieid}}
+{{result.title}}
+<a href="{% url 'information' result.movieid%}">go</a>
+</h5><br>
+{% endfor %}

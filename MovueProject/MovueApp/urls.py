@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.movie_list,name='movie_list'),
+    path('search/', views.search,name='search'),
     path('mov/<int:id>/information/', views.information, name="information"),
     path('watchlist/', views.watchlist, name="watchlist"),
     path('login/', views.userlogin, name="userlogin"),
@@ -14,3 +15,4 @@ urlpatterns = [
 ]
 if settings.DEBUG:
    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+   

@@ -56,10 +56,10 @@
     
     <!-- Search Bar -->
     <div class="search-container text-center mt-4">
-        <form action="" method="post">
+        <form action="{% url 'search' %}" method="post">
              {% csrf_token %}
-        <input type="text" id="searchInput" class="form-control w-50 d-inline" placeholder="Search for a movie..." onkeyup="searchMovies()" name="search">
-        <button class="btn btn-primary" onclick="searchMovies()">Search</button>
+        <input type="text" id="searchInput" class="form-control w-50 d-inline" placeholder="Search for a movie..."  name="search">
+        <button class="btn btn-primary" type="submit">Search</button>
         </form>
     </div>
     

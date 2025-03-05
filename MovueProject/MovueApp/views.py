@@ -155,9 +155,20 @@ def watchlist(request):
          
     return render(request,'profile.html')     
 
- #function for search
+#function for search
 
-#def search(request):
+def search(request):
+    if request.method=='POST':
+        search=request.POST['search']
+        result=Movie.objects.filter(title__istartswith=search).values()
+        if result:
+            
+            return render(request,'search_results.html',{'results':result})
+        else:
+            return redirect('movie_list')    
+        
+
+       
 
           
 
