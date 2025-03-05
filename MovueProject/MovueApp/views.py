@@ -150,7 +150,7 @@ def watchlist(request):
         mov=Movie.objects.get(movieid=movid)
         watch=Watchlist(userid=useid,movieid=mov)
         watch.save()
-        return redirect('movie_list')
+        return redirect('profile')
     
          
     return render(request,'profile.html')     
@@ -164,14 +164,39 @@ def search(request):
         if result:
             
             return render(request,'search_results.html',{'results':result})
-        else:
-            return redirect('movie_list')    
-        
 
-       
+
+        else:
+            return redirect('movie_list')
+    if not result:
+        error="please enter a valid name"
+        return redirect('movie_list',error)      
 
           
+#function for user profile
 
+def profile(request):
+    usr=request.user
+    prof=User.objects.filter(username=usr).values()
+    
+    context={'usrpro':prof}
+    return render(request,'profile.html',context)
+
+
+#function for  viewing watchlist
+
+def vwatchlist(request):
+    usr=request.user
+    usid=User.objects.get(username=usr)
+    uid=usid.id
+    watch=Watchlist.objects.filter(userid_id=uid).values()
+    movie_ids = []
+    for w in watch:
+        movie_ids.append(w['movieid_id']) 
+    lis=Movie.objects.filter(movieid__in=movie_ids).values()
+    print(lis)
+    context={'movie':lis}
+    return render(request,'profile.html',context)
 
 
     
