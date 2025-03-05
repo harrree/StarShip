@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile Card</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <script defer src="{% static 'js/profile.js' %}"></script>
+    <!--Google Fonts and Icons-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"/>
+  </head>
+  <body>
+    <div class="center">
+      <div class="profile-card">
+        <div class="image">
+          <img id="profile-pic" src="{% static 'images/vel.png' %}" alt="Profile Image" />
+        </div>
+        <input type="file" id="file-input" accept="image/*" style="display: none;">
+        <button id="change-profile">Edit Profile</button>
+        <div class="details">
+          <div class="title">VEL</div>
+          <div class="subtitle">Web Developer</div>
+        </div>
+        <div class="buttons">
+          <button id="reviewed-movies">Reviewed Movies</button>
+          <button id="watchlist">Watchlist</button>
+        </div>        
+      </div>
+    </div>
+  </body>
+</html>
