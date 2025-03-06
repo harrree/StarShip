@@ -59,7 +59,7 @@
               <!-- User Review  -->
 
               <div>
-                <form action="{% url 'edit' %}" method="post">
+                <form action="{% url 'edit' userev.reviewid %}" method="post">
                     {% csrf_token %}
                 {% if userev %}
                 <input type="text" value="{{userev.review}} " name="nrev">

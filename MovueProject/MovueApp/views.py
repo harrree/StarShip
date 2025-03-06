@@ -179,18 +179,19 @@ def vwatchlist(request):
 
 #function for editing the review
 
-def edit(request):
-    #newrev=ReviewRating.objects.get(reviewid=id)
-    #try:    
-        #if request.method=='POST':
-           # nrev=request.POST.get('nrev')
-           # nrate=request.POST.get('nrate')
-           #newrev.rating=nrate
-            ##newrev.review=nrev
-            #newrev.save()
-    return redirect('movie_list')
-    #except Exception as e:
-        #print(e)    
+def edit(request,id):
+    newrev=ReviewRating.objects.get(reviewid=id)
+    mid=newrev.movieid_id
+    if request.method=='POST':
+            nrev=request.POST.get('nrev')
+            nrate=request.POST.get('nrate')
+            newrev.rating=nrate
+            newrev.review=nrev
+            newrev.save()
+    return redirect('information',id=mid)
+    
+
+#function for editing the review
 
 
  
