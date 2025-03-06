@@ -56,7 +56,25 @@
                     <button type="submit">Add to wishlist</button>
                 </form>
             </div>
+              <!-- User Review  -->
+
+              <div>
+                <form action="{% url 'edit' %}" method="post">
+                    {% csrf_token %}
+                {% if userev %}
+                <input type="text" value="{{userev.review}} " name="nrev">
+                
+                <input type="number" value="{{userev.rating}}" name="nrate">
+                <button type="submit" name="edit">Edit</button>
+             
+                
+            {% else %}
+             <p>No review found for this user.</p>
+             {% endif %}
+             </form>
+            </div>
         </div>
+       
 
         <!-- Reviews Section -->
         <div class="mt-5">

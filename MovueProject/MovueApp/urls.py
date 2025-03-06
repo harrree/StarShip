@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.movie_list,name='movie_list'),
     path('search/', views.search,name='search'),
     path('mov/<int:id>/information/', views.information, name="information"),
+    path('mov/edit/', views.edit, name="edit"),
     path('watchlist/', views.watchlist, name="watchlist"),
     path('profile/', views.profile, name="profile"),
     path('vwatchlist/', views.vwatchlist, name="vwatchlist"),

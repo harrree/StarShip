@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404, render,redirect
 from .models import Movie,ReviewRating,Watchlist
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -37,35 +37,6 @@ def movie_list(request):
  
 #function for getting information about specific movie
 @login_required(login_url="userlogin")
-# def information(request,id):
-#     #uid= request.session.get('userid')
-#     use=request.user
-#     print(use)
-  
-#     movies=Movie.objects.get(movieid=id)
-#     print(movies)
-#     genre=movies.genre.all()
-#     review=ReviewRating.objects.filter(movieid=id).values()
-    
-#     #print(review)
-#     #user=User.objects.get(id=2)
-#     #print(user)
-#     if request.method=='POST':
-    
-#          rating=request.POST['rating']
-#          review=request.POST['review']
-#          moviereview=ReviewRating(userid=use,movieid=movies,rating=rating,review=review)
-#          moviereview.save()
-#     userid=ReviewRating.objects.filter(userid=use,movieid=id).values()
-#     print(userid)
-#     avg=ReviewRating.objects.filter(movieid=id).aggregate(Avg("rating"))['rating__avg']     
-#     avgr=round(avg,1)
-#     context={"movies": movies,"movie_genres":  genre,"reviews": review,"use":userid,"average":avgr }
-       
-#     return render(request,'movie_list.html',context)
-
-
-
 def information(request, id):
     use = request.user  # Get the currently logged-in user
     #print(use)
@@ -78,7 +49,14 @@ def information(request, id):
     genre = movies.genre.all()
 
     # Get all reviews for the movie
-    review = ReviewRating.objects.filter(movieid=id).values()
+    
+    review = ReviewRating.objects.exclude(userid_id=use).filter(movieid_id=id).values()
+    if use:
+        try:
+            onereview=ReviewRating.objects.get(userid_id=use,movieid_id=id)
+        except ReviewRating.DoesNotExist:
+            review=ReviewRating.objects.filter(movieid_id=id).values() 
+            onereview=None           
 
     if request.method == 'POST':
         rating = request.POST.get('rating')  # Use .get() to prevent KeyError
@@ -103,7 +81,8 @@ def information(request, id):
         "movie_genres": genre,
         "reviews": review,
         "use": userid,
-        "average": avgr
+        "average": avgr,
+        "userev":onereview
     }
 
     return render(request, 'movie_list.html', context)
@@ -198,7 +177,23 @@ def vwatchlist(request):
     context={'movie':lis}
     return render(request,'profile.html',context)
 
+#function for editing the review
 
+def edit(request):
+    #newrev=ReviewRating.objects.get(reviewid=id)
+    #try:    
+        #if request.method=='POST':
+           # nrev=request.POST.get('nrev')
+           # nrate=request.POST.get('nrate')
+           #newrev.rating=nrate
+            ##newrev.review=nrev
+            #newrev.save()
+    return redirect('movie_list')
+    #except Exception as e:
+        #print(e)    
+
+
+ 
     
         
 
