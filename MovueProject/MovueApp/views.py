@@ -52,7 +52,11 @@ def information(request, id):
 
     # Get all reviews for the movie
     
-    review = ReviewRating.objects.exclude(userid_id=use).filter(movieid_id=id).values()
+    review = ReviewRating.objects.exclude(userid_id=use).filter(movieid_id=id).select_related('userid')
+    
+    
+    
+   
     if use:
         try:
             onereview=ReviewRating.objects.get(userid_id=use,movieid_id=id)
@@ -84,7 +88,8 @@ def information(request, id):
         "reviews": review,
         "use": userid,
         "average": avgr,
-        "userev":onereview
+        "userev":onereview,
+       
     }
 
     return render(request, 'movie_list.html', context)

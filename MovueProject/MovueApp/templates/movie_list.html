@@ -58,7 +58,8 @@
             </div>
               <!-- User Review  -->
 
-              <div>
+              <div id="">
+               
                 <form action="{% url 'edit' userev.reviewid %}" method="post">
                     {% csrf_token %}
                 {% if userev %}
@@ -82,13 +83,17 @@
             <h3 class="border-bottom pb-2">User Reviews</h3>
             <ul class="list-group">
                 {% for review in reviews %}
+                
                     <li class="list-group-item bg-dark text-light border-secondary">
-                        <strong>{{ review.userid_id }}</strong> 
+                       
+                        <p>{{ review.userid.username }}</p>  
                         <span class="text-warning">⭐ {{ review.rating }}</span>
                         <p class="mt-1">{{ review.review }}</p>
+                       
                     </li>
-                {% empty %}
+                 {% empty %}
                     <li class="list-group-item bg-dark text-light border-secondary">No reviews yet.</li>
+                
                 {% endfor %}
             </ul>
         </div>
@@ -97,7 +102,7 @@
         {% if not use %}
             <div class="mt-4">
                 <h4 class="border-bottom pb-2">Rate this Movie</h4>
-                <form action="" method="post">
+                <form action="" method="post" id="review_form">
                     {% csrf_token %}
                     
                     <!-- Star Rating -->
@@ -123,6 +128,30 @@
             <a href="{% url 'userlogout' %}" class="btn btn-outline-danger">Logout</a>
         </div>
     </div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+   
+    // $(document).ready(function(){
+    //     $('#review_form').submit(function(event){
+    //         event.preventDefault();
+              
+    //         $.ajax({
+    //             url:'review',
+    //             type:'POST',
+    //             data:$('#review_form').serialize(),
+    //             datatype:'json',
+    //             success:function(response){
+    //                 $('#user_review').append('<div>'+ response.review + response.rating + '</div>');
 
+    //             }
+
+
+    //         });
+
+    //     })
+    // })
+
+
+</script>
 </body>
 </html>
