@@ -194,7 +194,15 @@ def edit(request,id):
     return redirect('information',id=mid)
     
 
-#function for editing the review
+#function for deleting  the review
+
+def dele(request,id):
+    
+    movid=ReviewRating.objects.get(reviewid=id)
+    ids= movid.movieid_id
+    review=ReviewRating.objects.get(reviewid=id)
+    review.delete()
+    return redirect('information',id=ids)
 
 
  

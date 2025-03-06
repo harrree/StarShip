@@ -9,6 +9,7 @@ urlpatterns = [
     path('search/', views.search,name='search'),
     path('mov/<int:id>/information/', views.information, name="information"),
     re_path(r'^mov/(?P<id>\d*)?/edit/$', views.edit, name="edit"),
+    re_path(r'^mov/(?P<id>\d*)?/dele/$', views.dele, name="dele"),
     path('watchlist/', views.watchlist, name="watchlist"),
     path('profile/', views.profile, name="profile"),
     path('vwatchlist/', views.vwatchlist, name="vwatchlist"),
