@@ -51,7 +51,7 @@
     <section class="movies-section">
         <h2>📈 Most Popular Movies</h2>
         <div class="popular-movies" id="popular-movies">
-            {% for movie in popular_movies %}
+            {% for movie in list %}
                 <div class="movie-card">
                     <img src="{{ movie.poster.url }}" alt="{{ movie.title }} Poster">
                     <h5 class="movie-title">{{ movie.title }}</h5>
@@ -59,9 +59,20 @@
             {% endfor %}
         </div>
         <div class="pagination">
-            <button onclick="changePage(-1)">&#10094; Prev</button>
-            <span id="page-number">1</span>
-            <button onclick="changePage(1)">Next &#10095;</button>
+            {% if list.has_previous %}
+            <a href="?page=1" class="pagination-button">&#10094; First</a>
+        <a href="?page={{ list.previous_page_number }}" class="pagination-button">Prev</a>
+    {% else %}
+        <span class="pagination-button disabled">&#10094; First</span>
+        <span class="pagination-button disabled">Prev</span>
+    {% endif %}
+    <span class="current">
+            Page {{ list.number }} of {{ page_obj.paginator.num_pages }}.
+        </span>
+        {% if list.has_next %}
+            <a href="?page={{ list.next_page_number }}">next</a>
+            <a href="?page={{ list.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
         </div>
     </section>
 </body>
