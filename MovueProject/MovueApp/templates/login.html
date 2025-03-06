@@ -10,13 +10,15 @@
 <body>
     {% include 'header.html' %}  <!-- Include Header -->
 
-    <!-- Background Image -->
-    <div class="background-overlay"></div>
+    <div class="logo-container">
+        <img src="{% static 'images/logo1.svg' %}" alt="MOVUE Logo">
 
-    <!-- Logo (placed above the quote) -->
-   <img src="{% static 'images/logo.png' %}" alt="MOVUE Logo" class="logo">
-
+    </div>
+   
     <div class="container">
+        <!-- Logo -->
+        <!-- <img src="{% static 'images/logo1.svg' %}" alt="MOVUE Logo" class="logo"> -->
+
         <!-- Cinema Quote -->
         <div class="quote">
             <p>"Cinema is the most beautiful fraud in the world." - Jean-Luc Godard</p>

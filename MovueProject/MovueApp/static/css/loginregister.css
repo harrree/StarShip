@@ -6,19 +6,20 @@ body, html {
     color: white;
     text-align: center;
     overflow-x: hidden;
-    background: black; /* Fallback */
+    background: #121212; /* Dark background */
 }
 
-/* Background Image with Blur */
-.background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: url('{% static "images/cinema-bg.jpg" %}') no-repeat center center/cover;
-    filter: blur(8px) brightness(25%);
-    z-index: -1;
+/* Logo Container */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5%;
+}
+
+.logo-container img {
+    width: auto; /* Adjust logo size */
+    margin: 0%;
 }
 
 /* Login Container */
@@ -27,39 +28,34 @@ body, html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-}
-
-/* Logo */
-.logo {
-    width: 180px;  /* Medium-large size */
-    margin-bottom: 10px;
+    padding: auto;
 }
 
 /* Quote Styling */
 .quote {
-    font-size: 1rem;  /* Reduced size */
+    font-size: 0.9rem;  
     font-style: italic;
     opacity: 0.7;
     max-width: 500px;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 /* Login Card */
 .card {
-    background: rgba(24, 24, 24, 0.85);
-    padding: 25px;
+    background: rgba(24, 24, 24, 0.9);
+    padding: 20px;
+    padding-right: 50px;
     border-radius: 10px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
     text-align: center;
-    width: 300px; /* Smaller size */
-    backdrop-filter: blur(8px);
+    width: 280px;
+    align-content: center;
 }
 
 /* Card Heading */
 .card h2 {
-    font-size: 22px;
+    font-size: 20px;
     margin-bottom: 15px;
     color: #00b894;
 }
@@ -67,7 +63,7 @@ body, html {
 /* Input Fields */
 .card input {
     width: 100%;
-    padding: 10px;
+    padding: 15px;
     margin: 8px 0;
     border: none;
     border-radius: 6px;
@@ -75,7 +71,6 @@ body, html {
     color: white;
     font-size: 14px;
     outline: none;
-    transition: 0.3s;
 }
 
 .card input::placeholder {
@@ -88,7 +83,7 @@ body, html {
 
 /* Login Button */
 .card button {
-    width: 100%;
+    width: 111%;
     padding: 10px;
     background: #00b894;
     border: none;
@@ -96,7 +91,6 @@ body, html {
     color: white;
     font-size: 15px;
     cursor: pointer;
-    transition: 0.3s;
 }
 
 .card button:hover {
@@ -113,7 +107,6 @@ body, html {
 .card p a {
     color: #00b894;
     text-decoration: none;
-    transition: 0.3s;
 }
 
 .card p a:hover {
@@ -125,7 +118,7 @@ body, html {
     .card {
         width: 90%;
     }
-    .logo {
-        width: 140px; /* Adjust for smaller screens */
+    .logo-container img {
+        width: 140px;
     }
 }
