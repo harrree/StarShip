@@ -31,10 +31,8 @@ def userlogin(request):
 
 def movie_list(request):
     move=Movie.objects.all()
-    pages=Paginator(move, 5)
-    pageno=request.GET.get('page')
-    page_obj=pages.get_page(pageno)
-    context={"list":page_obj}
+   
+    context={"list":move}
     return render(request,"index.html",context)
    
     

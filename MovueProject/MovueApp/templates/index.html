@@ -42,37 +42,27 @@
                     </div>
                 {% endfor %}
             </div>
-            <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-            <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
+            <button class="carousel-btn prev" >&#10094;</button>
+            <button class="carousel-btn next" >&#10095;</button>
         </div>
     </section>
 
     <!-- Top Popular Movies (Pagination) -->
     <section class="movies-section">
         <h2>📈 Most Popular Movies</h2>
-        <div class="popular-movies" id="popular-movies">
-            {% for movie in list %}
-                <div class="movie-card">
-                    <img src="{{ movie.poster.url }}" alt="{{ movie.title }} Poster">
-                    <h5 class="movie-title">{{ movie.title }}</h5>
-                </div>
-            {% endfor %}
-        </div>
-        <div class="pagination">
-            {% if list.has_previous %}
-            <a href="?page=1" class="pagination-button">&#10094; First</a>
-        <a href="?page={{ list.previous_page_number }}" class="pagination-button">Prev</a>
-    {% else %}
-        <span class="pagination-button disabled">&#10094; First</span>
-        <span class="pagination-button disabled">Prev</span>
-    {% endif %}
-    <span class="current">
-            Page {{ list.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
-        {% if list.has_next %}
-            <a href="?page={{ list.next_page_number }}">next</a>
-            <a href="?page={{ list.paginator.num_pages }}">last &raquo;</a>
-        {% endif %}
+        <div class="carousel-container">
+            <div class="carousel">
+                {% for movie in list %}
+                    <div class="carousel-item" data-id="{{ movie.movieid }}" onclick="window.location.href='{% url 'information' movie.movieid %}'">
+                        <img src="{{ movie.poster.url }}" alt="{{ movie.title }} Poster">
+                        <div class="overlay">
+                            <h5 class="movie-title">{{ movie.title }}</h5>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-btn prev" >&#10094;</button>
+            <button class="carousel-btn next" >&#10095;</button>
         </div>
     </section>
 </body>
