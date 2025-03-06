@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Avg
+from django.core.paginator import Paginator
 
 
 # Create your views here.
@@ -30,7 +31,10 @@ def userlogin(request):
 
 def movie_list(request):
     move=Movie.objects.all()
-    context={"list":move}
+    pages=Paginator(move, 5)
+    pageno=request.GET.get('page')
+    page_obj=pages.get_page(pageno)
+    context={"list":page_obj}
     return render(request,"index.html",context)
    
     
