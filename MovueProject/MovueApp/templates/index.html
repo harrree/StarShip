@@ -33,7 +33,7 @@
         <h2>🔥 Top Rated Movies</h2>
         <div class="carousel-container">
             <div class="carousel">
-                {% for movie in top_rated %}
+                {% for movie in list %}
                     <div class="carousel-item" data-id="{{ movie.movieid }}" onclick="window.location.href='{% url 'information' movie.movieid %}'">
                         <img src="{{ movie.poster.url }}" alt="{{ movie.title }} Poster">
                         <div class="overlay">

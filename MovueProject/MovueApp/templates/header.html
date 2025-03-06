@@ -51,8 +51,11 @@
             </div>
 
             <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search movies...">
-                <button id="search-btn">🔍</button>
+                <form action="{%  url 'search' %}" method="post">
+                    {% csrf_token %}
+                <input type="text"  name="search" placeholder="Search movies...">
+                <button id="search-btn" name="searchbtn" type="submit">🔍</button>
+                </form>
             </div>
 
             <div class="nav-links">

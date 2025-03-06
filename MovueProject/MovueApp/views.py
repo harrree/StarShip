@@ -138,8 +138,9 @@ def watchlist(request):
 
 def search(request):
     if request.method=='POST':
-        search=request.POST['search']
+        search=request.POST.get('search')
         result=Movie.objects.filter(title__istartswith=search).values()
+        print(result)
         if result:
             
             return render(request,'search_results.html',{'results':result})
