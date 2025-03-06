@@ -31,10 +31,8 @@ def userlogin(request):
 
 def movie_list(request):
     move=Movie.objects.all()
-    pages=Paginator(move, 5)
-    pageno=request.GET.get('page')
-    page_obj=pages.get_page(pageno)
-    context={"list":page_obj}
+   
+    context={"list":move}
     return render(request,"index.html",context)
    
     
@@ -196,7 +194,15 @@ def edit(request,id):
     return redirect('information',id=mid)
     
 
-#function for editing the review
+#function for deleting  the review
+
+def dele(request,id):
+    
+    movid=ReviewRating.objects.get(reviewid=id)
+    ids= movid.movieid_id
+    review=ReviewRating.objects.get(reviewid=id)
+    review.delete()
+    return redirect('information',id=ids)
 
 
  
