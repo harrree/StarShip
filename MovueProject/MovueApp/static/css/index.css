@@ -6,11 +6,10 @@ body, html {
     color: white;
     text-align: center;
     overflow-x: hidden;
-    background: transparent; /* Ensures no white edges */
+    background: transparent;
 }
 
 /* Background Video */
-
 .background-video {
     position: fixed;
     top: 0;
@@ -20,14 +19,13 @@ body, html {
     object-fit: cover;
     filter: blur(8px) brightness(30%);
     z-index: -1;
-    background-color: black; /* Ensures edges remain black */
+    background-color: black;
 }
 
-
-/* Welcome Message */
+/* Welcome Section */
 .welcome-container {
     position: relative;
-    margin-top: 150px;
+    /* margin-top: 150px; */
     text-align: center;
 }
 
@@ -52,6 +50,23 @@ body, html {
     font-size: 1.3rem;
     font-style: italic;
     opacity: 0.9;
+}
+
+/* Join Us Button */
+.join-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    background: #00b894;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.join-btn:hover {
+    background: #55efc4;
 }
 
 /* Movies Section */
@@ -140,47 +155,4 @@ body, html {
 
 .next {
     right: 10px;
-}
-
-/* Popular Movies Grid */
-.popular-movies {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 15px;
-    justify-content: center;
-    padding: 10px;
-}
-
-.movie-card {
-    background: #181818;
-    padding: 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.movie-card:hover {
-    transform: scale(1.05);
-}
-
-.movie-card img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-/* Pagination */
-.pagination {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 15px;
-}
-
-.pagination button {
-    background: #00b894;
-    color: white;
-    border: none;
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
 }

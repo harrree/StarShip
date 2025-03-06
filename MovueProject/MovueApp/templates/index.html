@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <script defer src="{% static 'js/index.js' %}"></script>
 </head>
+
 <body>
     <video autoplay loop muted class="background-video">
         <source src="{% static 'videos/indexbackground.mp4' %}" type="video/mp4">
@@ -15,17 +16,24 @@
     </video>
 
     {% include 'header.html' %}
+    
 
-    <!-- Welcome Message -->
+    <!-- Welcome Section -->
     <div class="welcome-container">
-        <h1>Welcome,  
-            <a href="{% url 'profile' %}" class="username">
-                {{ user.username }}
-            </a>
-        </h1>
-        <p class="welcome-text">
-            "Cinema is a mirror that allows us to see ourselves, explore stories, and dive into worlds beyond our imagination."
-        </p>
+        {% if user.is_authenticated %}
+            <h1>Welcome,  
+                <a href="{% url 'profile' %}" class="username">
+                    {{ user.username }}
+                </a>
+            </h1>
+            <p class="welcome-text">
+                "Cinema is a mirror that allows us to see ourselves, explore stories, and dive into worlds beyond our imagination."
+            </p>
+        {% else %}
+            <h1>Join MOVUE Today!</h1>
+            <p class="welcome-text">Discover and review your favorite movies with the community.</p>
+            <a href="{% url 'register' %}" class="join-btn">Join Us</a>
+        {% endif %}
     </div>
 
     <!-- Top Rated Movies (Carousel) -->
@@ -42,12 +50,12 @@
                     </div>
                 {% endfor %}
             </div>
-            <button class="carousel-btn prev" >&#10094;</button>
-            <button class="carousel-btn next" >&#10095;</button>
+            <button class="carousel-btn prev">&#10094;</button>
+            <button class="carousel-btn next">&#10095;</button>
         </div>
     </section>
 
-    <!-- Top Popular Movies (Pagination) -->
+    <!-- Most Popular Movies (Now a Carousel) -->
     <section class="movies-section">
         <h2>📈 Most Popular Movies</h2>
         <div class="carousel-container">
@@ -61,9 +69,10 @@
                     </div>
                 {% endfor %}
             </div>
-            <button class="carousel-btn prev" >&#10094;</button>
-            <button class="carousel-btn next" >&#10095;</button>
+            <button class="carousel-btn prev">&#10094;</button>
+            <button class="carousel-btn next">&#10095;</button>
         </div>
     </section>
+    
 </body>
 </html>
