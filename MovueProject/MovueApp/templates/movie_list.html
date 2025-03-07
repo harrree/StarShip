@@ -136,9 +136,9 @@
              event.preventDefault();
               
          $.ajax({
-                 url:'{% url "edit" userev.movieid_id %}',
+                 url:'{% url "edit" userev.reviewid %}',
                  type:'POST',
-                 data:$('#review_form').serialize(),
+                 data:$('#submit_form').serialize(),
                   headers: {
             'X-CSRFToken': '{{ csrf_token }}' 
         },

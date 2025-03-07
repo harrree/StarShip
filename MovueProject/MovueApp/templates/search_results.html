@@ -26,11 +26,11 @@
     <!-- Container for Search Results -->
     <div class="container">
         <div class="row">
-            {% for movie in movies %}
+            {% for movie in results %}
             <div class="col-md-3 col-sm-6">
                 <div class="movie-card">
-                    <a href="{% url 'movie_details' movie.id %}">
-                        <img src="{{ movie.poster_url }}" alt="{{ movie.title }}" class="img-fluid poster">
+                    <a href="{% url 'information' movie.movieid  %}">
+                        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}" class="img-fluid poster">
                         <div class="overlay">
                             <h5>{{ movie.title }}</h5>
                         </div>
