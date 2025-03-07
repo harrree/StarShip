@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.models import Avg
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 
 # Create your views here.
@@ -22,10 +23,11 @@ def userlogin(request):
         #request.session['userid']=id       
         if user:
             login(request,user)
+            
             return redirect('movie_list')
         else:
-            err="invalid credentials"
-            print(err)
+           messages.error(request,"invalid credentials")
+            
     return render(request,"login.html") 
 #function created for movie list
 
@@ -146,16 +148,19 @@ def watchlist(request):
 #function for search
 
 def search(request):
+    results=None
     if request.method=='POST':
         search=request.POST.get('search')
-        results=Movie.objects.filter(title__istartswith=search)
-        if results:
-            return render(request,'search_results.html',{'results':results})
-        else:
-            return redirect('movie_list')
+        if search:
+            results=Movie.objects.filter(title__istartswith=search)
+            if results:
+                return render(request,'search_results.html',{'results':results})
+            else:
+                
+                return redirect('movie_list')
     if not results:
-        error="please enter a valid name"
-        return redirect('movie_list',error)      
+        messages.error(request,"please enter a valid name")
+        return redirect('movie_list')      
 
           
 #function for user profile
