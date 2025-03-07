@@ -196,7 +196,8 @@ def edit(request,id):
             newrev.rating=nrate
             newrev.review=nrev
             newrev.save()
-    return redirect('information',id=mid)
+            response={'review':nrev,'rating':nrate}
+    return JsonResponse(response)
     
 
 #function for deleting  the review

@@ -9,16 +9,21 @@
     
 </head>
 <body>
-    <header>
-        <h1>MOVUE</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'movie_list' %}">Home</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-                <li><a href="{% url 'userlogin' %}" class="active">Login</a></li>
-            </ul>
-        </nav>
-    </header>
+    {% include 'header.html' %}
+
+    <div class="logo-container">
+        <img src="{% static 'images/logo1.svg' %}" alt="MOVUE Logo">
+
+    </div>
+   
+    <div class="container">
+        <!-- Logo -->
+        <!-- <img src="{% static 'images/logo1.svg' %}" alt="MOVUE Logo" class="logo"> -->
+
+        <!-- Cinema Quote -->
+        <div class="quote">
+            <p>"Cinema is the most beautiful fraud in the world." - Jean-Luc Godard</p>
+        </div>
 
     <div class="container">
         <div class="card">

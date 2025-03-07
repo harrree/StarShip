@@ -58,9 +58,9 @@
             </div>
               <!-- User Review  -->
 
-              <div id="">
+              <div id="user_review">
                
-                <form action="{% url 'edit' userev.reviewid %}" method="post">
+                <form action="{% url 'edit' userev.reviewid %}" method="post" id="submit_form">
                     {% csrf_token %}
                 {% if userev %}
                 <input type="text" value="{{userev.review}} " name="nrev">
@@ -131,25 +131,28 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script>
    
-    // $(document).ready(function(){
-    //     $('#review_form').submit(function(event){
-    //         event.preventDefault();
+     $(document).ready(function(){
+         $('#submit_form').submit(function(event){
+             event.preventDefault();
               
-    //         $.ajax({
-    //             url:'review',
-    //             type:'POST',
-    //             data:$('#review_form').serialize(),
-    //             datatype:'json',
-    //             success:function(response){
-    //                 $('#user_review').append('<div>'+ response.review + response.rating + '</div>');
+         $.ajax({
+                 url:'{% url "edit" userev.movieid_id %}',
+                 type:'POST',
+                 data:$('#review_form').serialize(),
+                  headers: {
+            'X-CSRFToken': '{{ csrf_token }}' 
+        },
+                 datatype:'json',
+                 success:function(response){
+                     $('#user_review').append('<div> <input'+ response.review + response.rating + '></div>');
 
-    //             }
+                 }
 
 
-    //         });
+             });
 
-    //     })
-    // })
+        })
+     })
 
 
 </script>

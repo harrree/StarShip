@@ -4,6 +4,7 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* Navbar Styling */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -13,13 +14,13 @@ body {
     color: white;
 }
 
-.logo a {
-    color: #00b894;
-    text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: bold;
+/* Logo Styling */
+.logo img {
+    height: 40px;
+    vertical-align: middle;
 }
 
+/* Search Bar */
 .search-bar {
     display: flex;
     align-items: center;
@@ -41,6 +42,7 @@ body {
     border-radius: 5px;
 }
 
+/* Navigation Links */
 .nav-links {
     display: flex;
     align-items: center;
@@ -63,6 +65,7 @@ body {
 .profile-dropdown {
     position: relative;
     display: inline-block;
+    margin-left: 30px;
 }
 
 .profile-btn {
@@ -72,8 +75,15 @@ body {
     cursor: pointer;
     font-size: 1rem;
     padding: 10px;
+    transition: background 0.3s;
 }
 
+.profile-btn:hover {
+    background: #00b894;
+    border-radius: 5px;
+}
+
+/* Hide dropdown initially */
 .dropdown-content {
     display: none;
     position: absolute;
@@ -81,6 +91,12 @@ body {
     min-width: 150px;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
     border-radius: 5px;
+    right: 0;
+}
+
+/* Show dropdown when 'show' class is added */
+.dropdown-content.show {
+    display: block;
 }
 
 .dropdown-content a {
@@ -93,8 +109,4 @@ body {
 
 .dropdown-content a:hover {
     background: #00b894;
-}
-
-.profile-dropdown:hover .dropdown-content {
-    display: block;
 }

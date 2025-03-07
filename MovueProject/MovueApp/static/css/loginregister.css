@@ -1,163 +1,124 @@
-/* Import Google Font - Poppins */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
-/* Reset default browser styles and apply global styles */
-* {
+/* General Styles */
+body, html {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-}
-
-/* Set the full-page background and text color */
-body {
-    background-color: #1e1e1e; /* Dark grey background */
-    color: white; /* White text for readability */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-
-/* ===== HEADER STYLING ===== */
-header {
-    background: #444; /* Dark grey background */
-    color: white; /* White text */
-    padding: 15px 20px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed; /* Sticks to the top */
-    top: 0;
-    left: 0;
-    z-index: 1000;
-}
-
-/* Logo styling */
-header h1 {
-    font-size: 24px;
-}
-
-/* ===== NAVIGATION MENU ===== */
-nav ul {
-    list-style: none;
-    display: flex;
-    gap: 20px;
-}
-
-/* Style for each navigation item */
-nav ul li {
-    display: inline;
-}
-
-/* Links inside navigation */
-nav ul li a {
     color: white;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 8px 15px;
-    transition: 0.3s;
-    border-radius: 5px;
+    text-align: center;
+    overflow-x: hidden;
+    background: #121212; /* Dark background */
 }
 
-/* Navigation hover and active state */
-nav ul li a:hover,
-nav ul li a.active {
-    background: white;
-    color: #444; /* Dark grey text on hover */
+/* Logo Container */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5%;
 }
 
-/* ===== MAIN CONTENT CONTAINER ===== */
+.logo-container img {
+    width: auto; /* Adjust logo size */
+    margin: 0%;
+}
+
+/* Login Container */
 .container {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    width: 100%;
-    height: 100%;
-    padding-top: 80px; /* Prevents overlap with fixed header */
+    align-items: center;
+    padding: auto;
 }
 
-/* ===== FORM CARD STYLING ===== */
-.card {
-    background: #555; /* Medium grey background */
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); /* Soft shadow */
+/* Quote Styling */
+.quote {
+    font-size: 0.9rem;  
+    font-style: italic;
+    opacity: 0.7;
+    max-width: 500px;
     text-align: center;
-    width: 350px;
-    max-width: 90%;
-}
-
-/* Form title inside the card */
-.card h2 {
     margin-bottom: 15px;
 }
 
-/* ===== INPUT FIELD STYLING ===== */
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc; /* Light grey border */
-    border-radius: 5px;
+/* Login Card */
+.card {
+    background: rgba(24, 24, 24, 0.9);
+    padding: 20px;
+    padding-right: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 280px;
+    align-content: center;
 }
 
-/* ===== BUTTON STYLING ===== */
-button {
+/* Card Heading */
+.card h2 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #00b894;
+}
+
+/* Input Fields */
+.card input {
     width: 100%;
-    padding: 10px;
-    background: #666; /* Dark grey button */
-    color: white;
+    padding: 15px;
+    margin: 8px 0;
     border: none;
+    border-radius: 6px;
+    background: #222;
+    color: white;
+    font-size: 14px;
+    outline: none;
+}
+
+.card input::placeholder {
+    color: #aaa;
+}
+
+.card input:focus {
+    background: #333;
+}
+
+/* Login Button */
+.card button {
+    width: 111%;
+    padding: 10px;
+    background: #00b894;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 15px;
     cursor: pointer;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: 0.3s;
 }
 
-/* Button hover effect */
-button:hover {
-    background: #777; /* Lighter grey */
+.card button:hover {
+    background: #55efc4;
 }
 
-/* ===== LINK STYLING ===== */
-p {
+/* Register Link */
+.card p {
     margin-top: 10px;
+    font-size: 13px;
+    color: #ddd;
 }
 
-/* Styled links */
-p a {
-    color: #888; /* Medium grey */
+.card p a {
+    color: #00b894;
     text-decoration: none;
-    font-weight: bold;
 }
 
-/* Link hover effect */
-p a:hover {
-    text-decoration: underline;
+.card p a:hover {
+    color: #55efc4;
 }
 
-/* ===== RESPONSIVE DESIGN (For Small Screens) ===== */
-@media screen and (max-width: 600px) {
-    /* Make header items stack vertically */
-    header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        padding: 15px;
-    }
-
-    /* Stack nav items vertically */
-    nav ul {
-        flex-direction: column;
-        gap: 10px;
-        padding-top: 10px;
-    }
-
-    /* Make form card fit smaller screens */
+/* Responsive Design */
+@media (max-width: 400px) {
     .card {
         width: 90%;
+    }
+    .logo-container img {
+        width: 140px;
     }
 }

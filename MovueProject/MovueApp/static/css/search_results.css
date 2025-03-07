@@ -1,0 +1,90 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Background Video */
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    filter: blur(8px) brightness(30%);
+    z-index: -1;
+    background-color: black;
+}
+
+/* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background: rgba(0, 0, 0, 0.7);
+    color: #ffcc00;
+    text-shadow: 2px 2px 5px rgba(255, 204, 0, 0.5);
+    border-bottom: 2px solid #00b894;
+}
+
+/* Movie Card */
+.movie-card {
+    position: relative;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+}
+
+/* Movie Poster */
+.poster {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    transition: opacity 0.3s ease;
+}
+
+/* Overlay on Hover */
+.movie-card .overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 10px;
+    text-align: center;
+    color: #ffcc00;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.movie-card:hover .overlay {
+    opacity: 1;
+}
+
+/* No Results Message */
+.no-results {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ccc;
+    margin-top: 50px;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .movie-card {
+        margin-bottom: 15px;
+    }
+    .overlay h5 {
+        font-size: 14px;
+    }
+}
