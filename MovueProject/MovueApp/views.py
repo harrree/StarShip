@@ -102,7 +102,7 @@ def information(request, id):
 
 def userlogout(request):
     logout(request)
-    return redirect('userlogin')
+    return redirect('movie_list')
 
 #fuction created for user registeration
 
@@ -148,16 +148,12 @@ def watchlist(request):
 def search(request):
     if request.method=='POST':
         search=request.POST.get('search')
-        result=Movie.objects.filter(title__istartswith=search).values()
-        print(result)
-        if result:
-            
-            return render(request,'search_results.html',{'results':result})
-
-
+        results=Movie.objects.filter(title__istartswith=search)
+        if results:
+            return render(request,'search_results.html',{'results':results})
         else:
             return redirect('movie_list')
-    if not result:
+    if not results:
         error="please enter a valid name"
         return redirect('movie_list',error)      
 
