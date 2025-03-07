@@ -30,14 +30,11 @@
             <div class="col-md-3 col-sm-6">
                 <div class="movie-card">
                     <a href="{% url 'information' movie.movieid  %}">
-                        
+                        <img src="{{ movie.poster.url }}" alt="{{ movie.title }}" class="img-fluid poster">
                         <div class="overlay">
                             <h5>{{ movie.title }}</h5>
                         </div>
-                        </a>
-                    <img src="{{ movie.poster.url }}" alt="" class="img-fluid poster">
-                    
-                            <h5>{{ movie.title }}</h5>
+                    </a>
                 </div>
             </div>
             {% empty %}
