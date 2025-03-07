@@ -71,7 +71,8 @@ def information(request, id):
         if rating and review_text:  # Ensure both rating and review are provided
             moviereview = ReviewRating(userid=use, movieid=movies, rating=rating, review=review_text)
             moviereview.save()
-
+          
+            
     # Get user's review for the movie
     userid = ReviewRating.objects.filter(userid=use, movieid=id).values()
     #print(userid)
@@ -94,6 +95,7 @@ def information(request, id):
 
     return render(request, 'movie_list.html', context)
 
+#fuction created for user review
 
 
 #fuction created for user logout
