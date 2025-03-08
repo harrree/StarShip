@@ -34,9 +34,10 @@
                     <div class="profile-dropdown">
                         <button class="profile-btn" id="profile-btn">Profile ▼</button>
                         <div class="dropdown-content" id="dropdown-content">
-                            <a href="{% url 'profile' %}">View Profile</a>
-                            <a href="{% url 'register' %}">Edit Profile</a>
-                            <a href="{% url 'userlogout' %}">Logout</a>
+                             <a href="{% url 'userlogout' %}">Logout</a>
+                             <a href="{% url 'profile' %}">View Profile</a>
+                             
+                           
                         </div>
                     </div>
                 {% else %}
