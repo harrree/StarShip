@@ -104,7 +104,7 @@
         {% if not use %}
             <div class="mt-4">
                 <h4 class="border-bottom pb-2">Rate this Movie</h4>
-                <form action="" method="post" id="review_form">
+                <form action="{% url 'review' movies.movieid %}" method="post" id="review_form">
                     {% csrf_token %}
                     
                     <!-- Star Rating -->
