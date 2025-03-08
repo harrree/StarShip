@@ -26,8 +26,8 @@ body {
 /* Header */
 header {
     background: rgba(0, 0, 0, 0.7);
-    color: #ffcc00;
-    text-shadow: 2px 2px 5px rgba(255, 204, 0, 0.5);
+    color: #00b894;
+    text-shadow: 2px 2px 5px rgba(0, 184, 148, 0.5);
     border-bottom: 2px solid #00b894;
 }
 
@@ -38,18 +38,26 @@ header {
     overflow: hidden;
     border-radius: 10px;
     transition: transform 0.3s ease-in-out;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    border: 2px solid transparent;
 }
 
 .movie-card:hover {
     transform: scale(1.05);
+    border-color: #00b894;
 }
 
 /* Movie Poster */
 .poster {
     width: 100%;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-    transition: opacity 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 184, 148, 0.4);
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover .poster {
+    box-shadow: 0 6px 15px rgba(0, 184, 148, 0.6);
 }
 
 /* Overlay on Hover */
@@ -57,13 +65,15 @@ header {
     position: absolute;
     bottom: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 184, 148, 0.9);
     padding: 10px;
     text-align: center;
-    color: #ffcc00;
+    color: #fff;
     font-weight: bold;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
 .movie-card:hover .overlay {
@@ -75,7 +85,7 @@ header {
     text-align: center;
     font-size: 18px;
     font-weight: bold;
-    color: #ccc;
+    color: #00b894;
     margin-top: 50px;
 }
 
