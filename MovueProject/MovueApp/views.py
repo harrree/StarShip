@@ -94,6 +94,7 @@ def information(request, id):
 #fuction created for user review
 @login_required(login_url="userlogin")
 def review(request,id):
+    
     use=request.user
     movies = get_object_or_404(Movie, movieid=id)
 

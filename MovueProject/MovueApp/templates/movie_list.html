@@ -59,7 +59,7 @@
             </div>
               <!-- User Review  -->
 
-               <div id="user_review">
+              <div id="user_review">
                
                 <form action="{% url 'edit' userev.reviewid %}" method="post" id="submit_form">
                     {% csrf_token %}
@@ -104,7 +104,7 @@
         {% if not use %}
             <div class="mt-4">
                 <h4 class="border-bottom pb-2">Rate this Movie</h4>
-                <form action="{% url 'review' movies.movieid %}" method="post" id="review_form">
+                <form action="" method="post" id="review_form">
                     {% csrf_token %}
                     
                     <!-- Star Rating -->
@@ -155,9 +155,9 @@
              });
 
         })
-       
-     })
     
+     });
+
 
 </script>
 </body>
