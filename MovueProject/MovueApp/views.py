@@ -3,7 +3,7 @@ from .models import Movie,ReviewRating,Watchlist
 from django.http import JsonResponse,HttpResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,AnonymousUser
 from django.db.models import Avg
 from django.core.paginator import Paginator
 from django.contrib import messages
@@ -14,7 +14,7 @@ from django.contrib import messages
 #fuction created for user authentication
 
 def userlogin(request):
-    err=None
+   
     if request.method=='POST':
         username=request.POST['username']
         password=request.POST['password']
@@ -27,6 +27,8 @@ def userlogin(request):
             return redirect('movie_list')
         else:
            messages.error(request,"invalid credentials")
+    else:
+        user=None       
             
     return render(request,"login.html") 
 #function created for movie list
@@ -42,7 +44,7 @@ def movie_list(request):
 #function for getting information about specific movie
 
 def information(request, id):
-    use = request.user  # Get the currently logged-in user
+    use = request.user if not isinstance(request.user, AnonymousUser) else None  # Get the currently logged-in user
     #print(use)
 
     # Get the movie or return a 404 if not found
@@ -53,14 +55,19 @@ def information(request, id):
     genre = movies.genre.all()
 
     # Get all reviews for the movie
-    
+   
     review = ReviewRating.objects.exclude(userid_id=use).filter(movieid_id=id).select_related('userid')
+    print(review)
+    onereview=None
     if use:
         try:
            onereview=ReviewRating.objects.get(userid_id=use,movieid_id=id)
         except ReviewRating.DoesNotExist:
-            review=ReviewRating.objects.filter(movieid_id=id).values() 
-            onereview=None           
+             onereview=None
+             
+    else:
+        messages.info(request,"you can only write review after login.")         
+                      
 # Get user's review for the movie
     userid = ReviewRating.objects.filter(userid=use, movieid=id).values()
     #print(userid)
