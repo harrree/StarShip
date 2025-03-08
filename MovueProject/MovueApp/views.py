@@ -3,9 +3,10 @@ from .models import Movie,ReviewRating,Watchlist
 from django.http import JsonResponse,HttpResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,AnonymousUser
 from django.db.models import Avg
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 
 # Create your views here.
@@ -13,7 +14,7 @@ from django.core.paginator import Paginator
 #fuction created for user authentication
 
 def userlogin(request):
-    err=None
+   
     if request.method=='POST':
         username=request.POST['username']
         password=request.POST['password']
@@ -22,10 +23,13 @@ def userlogin(request):
         #request.session['userid']=id       
         if user:
             login(request,user)
+            
             return redirect('movie_list')
         else:
-            err="invalid credentials"
-            print(err)
+           messages.error(request,"invalid credentials")
+    else:
+        user=None       
+            
     return render(request,"login.html") 
 #function created for movie list
 
@@ -38,9 +42,9 @@ def movie_list(request):
     
  
 #function for getting information about specific movie
-@login_required(login_url="userlogin")
+
 def information(request, id):
-    use = request.user  # Get the currently logged-in user
+    use = request.user if not isinstance(request.user, AnonymousUser) else None  # Get the currently logged-in user
     #print(use)
 
     # Get the movie or return a 404 if not found
@@ -51,29 +55,20 @@ def information(request, id):
     genre = movies.genre.all()
 
     # Get all reviews for the movie
-    
-    review = ReviewRating.objects.exclude(userid_id=use).filter(movieid_id=id).select_related('userid')
-    
-    
-    
    
+    review = ReviewRating.objects.exclude(userid_id=use).filter(movieid_id=id).select_related('userid')
+    print(review)
+    onereview=None
     if use:
         try:
-            onereview=ReviewRating.objects.get(userid_id=use,movieid_id=id)
+           onereview=ReviewRating.objects.get(userid_id=use,movieid_id=id)
         except ReviewRating.DoesNotExist:
-            review=ReviewRating.objects.filter(movieid_id=id).values() 
-            onereview=None           
-
-    if request.method == 'POST':
-        rating = request.POST.get('rating')  # Use .get() to prevent KeyError
-        review_text = request.POST.get('review')
-
-        if rating and review_text:  # Ensure both rating and review are provided
-            moviereview = ReviewRating(userid=use, movieid=movies, rating=rating, review=review_text)
-            moviereview.save()
-          
-            
-    # Get user's review for the movie
+             onereview=None
+             
+    else:
+        messages.info(request,"you can only write review after login.")         
+                      
+# Get user's review for the movie
     userid = ReviewRating.objects.filter(userid=use, movieid=id).values()
     #print(userid)
 
@@ -89,13 +84,32 @@ def information(request, id):
         "reviews": review,
         "use": userid,
         "average": avgr,
-        "userev":onereview,
+        "userev":onereview
+       
        
     }
 
     return render(request, 'movie_list.html', context)
 
 #fuction created for user review
+@login_required(login_url="userlogin")
+def review(request,id):
+    use=request.user
+    movies = get_object_or_404(Movie, movieid=id)
+
+    if request.method == 'POST':
+        rating = request.POST.get('rating')  # Use .get() to prevent KeyError
+        review_text = request.POST.get('review')
+
+        if rating and review_text:  # Ensure both rating and review are provided
+            moviereview = ReviewRating(userid=use, movieid=movies, rating=rating, review=review_text)
+            moviereview.save()
+
+            #response={'review':review_text,'rating':rating}
+    return redirect('information',id)
+     
+
+
 
 
 #fuction created for user logout
@@ -146,16 +160,19 @@ def watchlist(request):
 #function for search
 
 def search(request):
+    results=None
     if request.method=='POST':
         search=request.POST.get('search')
-        results=Movie.objects.filter(title__istartswith=search)
-        if results:
-            return render(request,'search_results.html',{'results':results})
-        else:
-            return redirect('movie_list')
+        if search:
+            results=Movie.objects.filter(title__istartswith=search)
+            if results:
+                return render(request,'search_results.html',{'results':results})
+            else:
+                
+                return redirect('movie_list')
     if not results:
-        error="please enter a valid name"
-        return redirect('movie_list',error)      
+        messages.error(request,"please enter a valid name")
+        return redirect('movie_list')      
 
           
 #function for user profile

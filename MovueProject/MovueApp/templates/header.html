@@ -24,6 +24,12 @@
                     {% csrf_token %}
                     <input type="text" name="search" placeholder="Search movies...">
                     <button id="search-btn" name="searchbtn" type="submit">🔍</button>
+                    {% if messages %}
+                    {% for message in messages %}
+                    <p>{{message}}</p>
+                     {% endfor %}
+                     {% endif %}
+
                 </form>
             </div>
 
