@@ -40,7 +40,7 @@ def movie_list(request):
     
  
 #function for getting information about specific movie
-@login_required(login_url="userlogin")
+
 def information(request, id):
     use = request.user  # Get the currently logged-in user
     #print(use)
@@ -55,27 +55,13 @@ def information(request, id):
     # Get all reviews for the movie
     
     review = ReviewRating.objects.exclude(userid_id=use).filter(movieid_id=id).select_related('userid')
-    
-    
-    
-   
     if use:
         try:
-            onereview=ReviewRating.objects.get(userid_id=use,movieid_id=id)
+           onereview=ReviewRating.objects.get(userid_id=use,movieid_id=id)
         except ReviewRating.DoesNotExist:
             review=ReviewRating.objects.filter(movieid_id=id).values() 
             onereview=None           
-
-    if request.method == 'POST':
-        rating = request.POST.get('rating')  # Use .get() to prevent KeyError
-        review_text = request.POST.get('review')
-
-        if rating and review_text:  # Ensure both rating and review are provided
-            moviereview = ReviewRating(userid=use, movieid=movies, rating=rating, review=review_text)
-            moviereview.save()
-          
-            
-    # Get user's review for the movie
+# Get user's review for the movie
     userid = ReviewRating.objects.filter(userid=use, movieid=id).values()
     #print(userid)
 
@@ -91,13 +77,32 @@ def information(request, id):
         "reviews": review,
         "use": userid,
         "average": avgr,
-        "userev":onereview,
+        "userev":onereview
+       
        
     }
 
     return render(request, 'movie_list.html', context)
 
 #fuction created for user review
+@login_required(login_url="userlogin")
+def review(request,id):
+    use=request.user
+    movies = get_object_or_404(Movie, movieid=id)
+
+    if request.method == 'POST':
+        rating = request.POST.get('rating')  # Use .get() to prevent KeyError
+        review_text = request.POST.get('review')
+
+        if rating and review_text:  # Ensure both rating and review are provided
+            moviereview = ReviewRating(userid=use, movieid=movies, rating=rating, review=review_text)
+            moviereview.save()
+
+            #response={'review':review_text,'rating':rating}
+    return redirect('information',id)
+     
+
+
 
 
 #fuction created for user logout
