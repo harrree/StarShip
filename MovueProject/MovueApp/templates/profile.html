@@ -29,12 +29,14 @@
         <input type="file" id="file-input" accept="image/*" style="display: none;">
         <button id="change-profile">Edit Profile</button>
         <div class="details">
+          {{movcount}}
           {% for usrp in usrpro %}
           <div class="title">{{usrp.username}}</div>
           {% endfor %}
           <div class="subtitle">Web Developer</div>
         </div>
         <div class="">
+          {{watchlist}}
           <form action="{% url 'vwatchlist' %}" method="post">
             {% csrf_token %}
             <button name="watchlist" type="submit" class="btn btn-danger">Watchlist</button>
@@ -48,8 +50,20 @@
 
 
           {%endfor%}
+          {{count}}
 
           <!--<button name="reviewed-movies" type="submit">Reviewed Movies</button>--->
+          <form action="{% url 'reviewlist' %}" method="post">
+            {% csrf_token %}
+            <button name="watchlist" type="submit" class="btn btn-danger ms-5">Reviewlist</button>
+            
+          </form>
+          {%for revie in reviews %}
+          <li>{{revie.movieid}}-
+            {{revie.description}}
+            </li>
+            {%endfor%}
+
         </div>        
       </div>
     </div>

@@ -4,7 +4,7 @@ from django.http import JsonResponse,HttpResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,AnonymousUser
-from django.db.models import Avg
+from django.db.models import Avg,Count
 from django.core.paginator import Paginator
 from django.contrib import messages
 
@@ -195,10 +195,11 @@ def vwatchlist(request):
     watch=Watchlist.objects.filter(userid_id=uid).values()
     movie_ids = []
     for w in watch:
-        movie_ids.append(w['movieid_id']) 
+        movie_ids.append(w['movieid_id'])
+    count=Watchlist.objects.filter(userid=usr).values('movieid').distinct().count()      
     lis=Movie.objects.filter(movieid__in=movie_ids).values()
     print(lis)
-    context={'movie':lis}
+    context={'movie':lis,'watchlistcount':count}
     return render(request,'profile.html',context)
 
 #function for editing the review
@@ -227,7 +228,24 @@ def dele(request,id):
     return redirect('information',id=ids)
 
 
- 
+ #function created for listing reviews 
+
+def reviewlist(request):
+    
+    if request.method=='POST':
+        usr=request.user
+        rev=ReviewRating.objects.filter(userid=usr).values('movieid')
+        movie=[]
+        for movielist in rev:
+            movie.append(movielist['movieid'])
+        lis=Movie.objects.filter(movieid__in=movie).values() 
+        count=ReviewRating.objects.filter(userid=usr).values('movieid').distinct().count()
+        moviecount=count if count else 0
+        context={'reviews':lis,'count':moviecount}
+        return render(request,'profile.html',context)
+    return redirect('profile')
+
+
     
         
 

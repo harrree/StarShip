@@ -12,6 +12,7 @@ urlpatterns = [
     re_path(r'^mov/(?P<id>\d*)?/edit/$', views.edit, name="edit"),
     re_path(r'^mov/(?P<id>\d*)?/dele/$', views.dele, name="dele"),
     path('watchlist/', views.watchlist, name="watchlist"),
+    path('reviewlist/', views.reviewlist, name="reviewlist"),
     path('profile/', views.profile, name="profile"),
     path('vwatchlist/', views.vwatchlist, name="vwatchlist"),
     path('login/', views.userlogin, name="userlogin"),
