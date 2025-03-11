@@ -181,8 +181,12 @@ def search(request):
 def profile(request):
     usr=request.user
     prof=User.objects.filter(username=usr).values()
+    cont=Watchlist.objects.filter(userid=usr).values('movieid').distinct().count()
+    watchlistcont=cont if cont else 0
+    count=ReviewRating.objects.filter(userid=usr).values('movieid').distinct().count()
+    moviecount=count if count else 0
     
-    context={'usrpro':prof}
+    context={'usrpro':prof,'count':moviecount,'watchlistcount':watchlistcont}
     return render(request,'profile.html',context)
 
 
@@ -196,10 +200,10 @@ def vwatchlist(request):
     movie_ids = []
     for w in watch:
         movie_ids.append(w['movieid_id'])
-    count=Watchlist.objects.filter(userid=usr).values('movieid').distinct().count()      
+          
     lis=Movie.objects.filter(movieid__in=movie_ids).values()
     print(lis)
-    context={'movie':lis,'watchlistcount':count}
+    context={'movie':lis}
     return render(request,'profile.html',context)
 
 #function for editing the review
@@ -239,9 +243,8 @@ def reviewlist(request):
         for movielist in rev:
             movie.append(movielist['movieid'])
         lis=Movie.objects.filter(movieid__in=movie).values() 
-        count=ReviewRating.objects.filter(userid=usr).values('movieid').distinct().count()
-        moviecount=count if count else 0
-        context={'reviews':lis,'count':moviecount}
+        
+        context={'reviews':lis}
         return render(request,'profile.html',context)
     return redirect('profile')
 

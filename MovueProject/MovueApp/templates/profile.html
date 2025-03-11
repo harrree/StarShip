@@ -36,7 +36,8 @@
           <div class="subtitle">Web Developer</div>
         </div>
         <div class="">
-          {{watchlist}}
+          watchlist no: {{watchlistcount}}
+          
           <form action="{% url 'vwatchlist' %}" method="post">
             {% csrf_token %}
             <button name="watchlist" type="submit" class="btn btn-danger">Watchlist</button>
@@ -50,7 +51,7 @@
 
 
           {%endfor%}
-          {{count}}
+         Review no: {{count}}
 
           <!--<button name="reviewed-movies" type="submit">Reviewed Movies</button>--->
           <form action="{% url 'reviewlist' %}" method="post">
