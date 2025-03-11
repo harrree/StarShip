@@ -5,6 +5,9 @@
     padding: 20px 0;
     border-top: 2px solid #ffcc00;
     font-family: 'Poppins', sans-serif;
+    position:absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer h5 {
