@@ -57,7 +57,8 @@ def information(request, id):
     # Get all reviews for the movie
    
     review = ReviewRating.objects.exclude(userid_id=use).filter(movieid_id=id).select_related('userid')
-    print(review)
+    for reviews in review:
+        reviews.range = range(1, 6)
     onereview=None
     if use:
         try:

@@ -89,7 +89,16 @@
                     <li class="list-group-item bg-dark text-light border-secondary">
                        
                         <p>{{ review.userid.username }}</p>  
-                        <span class="text-warning">⭐ {{ review.rating }}</span>
+                        <span class="text-warning">
+                          {% for i in review.range %}
+                           {% if i <= review.rating %}
+                                 ⭐  <!-- Filled star -->
+                              {% else %}
+                              ☆  <!-- Empty star -->
+                         {% endif %}
+                            {% endfor %}   
+                        
+                        </span>
                         <p class="mt-1">{{ review.review }}</p>
                        
                     </li>
