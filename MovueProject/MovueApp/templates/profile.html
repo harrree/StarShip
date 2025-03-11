@@ -1,118 +1,100 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profile Card</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile | MOVUE</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <!--Google Fonts and Icons-->
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Round|Material+Icons+Sharp|Material+Icons+Two+Tone"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
-      rel="stylesheet"
-    />
     <script defer src="{% static 'js/profile.js' %}"></script>
-    
-  </head>
-  <body>
-    <div class="center">
-      <div class="profile-card">
-        <input type="checkbox" name="" id="expand" />
-        <label for="expand">View</label>
-        <input type="checkbox" name="" id="toggle" />
-        <label for="toggle"></label>
-        <div class="top">
-          <img src="{% static 'images/dp.png' %}" alt="Profile Picture" id="profile-image" />
-          <div class="top-back"></div>
-          <div class="top-text"><span id="username">{{ user.username }}</span></div>
-          <div class="bars">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
-          <button class="edit-profile-btn" onclick="openModal()">Edit Profile</button>
-        </div>
-        <div class="bottom">
-          <div class="details">
-            <span class="main" id="display-username">{{ user.username }}</span>
-          </div>
-          <div class="stats">
-            <div class="data">
-              <span class="main">{{watchlistcount}}</span>
-              <form action="{% url 'vwatchlist' %}" method="post">
-             <button class="sub" onclick="openWatchlist()" type="submit">Watchlist</button>
-             </form>
-           
+</head>
+<body class="dark-theme">
+
+    {% include 'header.html' %}
+
+    <div class="container mt-5">
+        <!-- Profile Section -->
+        <div class="profile-card">
+            <img src="{% static 'images/dp.png' %}" alt="Profile Picture" class="profile-pic">
+            <h2 class="username">{{ user.username }}</h2>
+            <p class="email">{{ user.email }}</p>
+
+            <div class="buttons">
+                <button class="btn edit-btn" onclick="openEditProfile()">Edit Profile</button>
+                <a href="{% url 'userlogout' %}" class="btn logout-btn">Logout</a>
             </div>
-            <div class="data">
-              <span class="main">{{count}}</span>
-              <button class="sub" onclick="openReviewed()">Reviewed Movies</button>
+        </div>
+
+        <!-- Watchlist Section -->
+        <section class="movies-section">
+            <h2>📌 Watchlist</h2>
+            <div class="carousel-container">
+                <div class="carousel">
+                    {% for movie in watchlist %}
+                        <div class="carousel-item" onclick="window.location.href='{% url 'information' movie.movieid %}'">
+                            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                            <div class="overlay">
+                                <h5 class="movie-title">{{ movie.title }}</h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-btn prev" onclick="prevSlide('watchlist')">&#10094;</button>
+                <button class="carousel-btn next" onclick="nextSlide('watchlist')">&#10095;</button>
             </div>
-          </div>
+        </section>
+
+        <!-- Reviewed Movies Section -->
+        <section class="movies-section">
+            <h2>⭐ Reviewed Movies</h2>
+            <div class="carousel-container">
+                <div class="carousel">
+                    {% for movie in reviews %}
+                        <div class="carousel-item" onclick="window.location.href='{% url 'information' movie.movieid %}'">
+                            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                            <div class="overlay">
+                                <h5 class="movie-title">{{ movie.title }}</h5>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <button class="carousel-btn prev" onclick="prevSlide('reviewed')">&#10094;</button>
+                <button class="carousel-btn next" onclick="nextSlide('reviewed')">&#10095;</button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Edit Profile Modal -->
+    <div class="modal" id="editProfileModal">
+        <div class="modal-content">
+            <h2>Edit Profile</h2>
+            <form method="post" action="{% url 'userlogin' %}">
+                {% csrf_token %}
+                <label>Username (Once in 14 days):</label>
+                <input type="text" name="username" value="{{ user.username }}" {% if user.username_changed_recently %}disabled{% endif %}>
+
+                <label>First Name:</label>
+                <input type="text" name="first_name" value="{{ user.first_name }}">
+
+                <label>Last Name:</label>
+                <input type="text" name="last_name" value="{{ user.last_name }}">
+
+                <label>Email:</label>
+                <input type="email" name="email" value="{{ user.email }}">
+
+                <label>New Password:</label>
+                <input type="password" name="password" placeholder="Leave blank to keep current">
+
+                <button type="submit" class="btn save-btn">Save Changes</button>
+                <button type="button" class="btn close-btn" onclick="closeEditProfile()">Cancel</button>
+            </form>
         </div>
-      </div>
     </div>
 
-    <!-- Watchlist Modal -->
-    <div class="modal" id="watchlistModal">
-      <div class="modal-content">
-        <h2>Watchlist</h2>
-        <div class="carousel-container">
-          <div class="carousel">
-            
-            {% for movies in movie %}
-              <div class="carousel-item">
-                <img src="{{ movies.poster.url }}" alt="{{ movies.title }}" />
-                <p>{{ movies.title }}</p>
-              </div>
-            {% endfor %}
-          </div>
-          <button class="carousel-btn prev" onclick="prevSlide()" >&#10094;</button>
-          <button class="carousel-btn next" onclick="nextSlide()">&#10095;</button>
-        </div>
-        <button onclick="closeWatchlist()">Close</button>
-       
-      </div>
-    </div>
-
-<!-- Reviewed Movies Modal -->
-    <div class="modal" id="reviewedModal">
-      <div class="modal-content">
-        {% for movie in reviews %}
-        <h2>{{ movie.title }}</h2>
-        {% endfor %}
-        <div class="carousel-container">
-          <div class="carousel">
-            {% for movie in reviews %}
-              <div class="carousel-item">
-                <img src="{{ movie.poster.url }}" alt="{{ movie.title }}" />
-                <p>{{ movie.title }}</p>
-              </div>
-            {% endfor %}
-          </div>
-          <button class="carousel-btn prev" onclick="prevSlide()">&#10094;</button>
-          <button class="carousel-btn next" onclick="nextSlide()">&#10095;</button>
-        </div>
-        <button onclick="closeReviewed()">Close</button>
-      </div>
-    </div>
-
-    <!-- Modal for Editing Profile -->
-    <div class="modal" id="editModal">
-      <div class="modal-content">
-        <h2>Edit Profile</h2>
-        <input type="text" id="new-username" placeholder="New Username" />
-        <input type="file" id="new-image" accept="image/*" />
-        <button onclick="saveChanges()">Save Changes</button>
-        <button onclick="closeModal()">Cancel</button>
-      </div>
-    </div>
-
-  </body>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
