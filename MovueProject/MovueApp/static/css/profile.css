@@ -42,19 +42,23 @@ body.dark-theme {
   margin: 40px 0;
 }
 
+
 .movies-section h2 {
   color: #00b894;
 }
 
+
 .carousel-container {
   position: relative;
   overflow: hidden;
-}
+} 
+ 
 
 .carousel {
   display: flex;
   transition: transform 0.5s ease-in-out;
 }
+
 
 .carousel-item {
   min-width: 200px;
@@ -68,9 +72,11 @@ body.dark-theme {
   transition: 0.3s;
 }
 
+
 .carousel-item:hover img {
   transform: scale(1.05);
 }
+
 
 .overlay {
   position: absolute;

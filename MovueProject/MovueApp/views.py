@@ -202,7 +202,7 @@ def vwatchlist(request):
     for w in watch:
         movie_ids.append(w['movieid_id'])
           
-    lis=Movie.objects.filter(movieid__in=movie_ids).values()
+    lis=Movie.objects.filter(movieid__in=movie_ids)
     print(lis)
     context={'movie':lis}
     return render(request,'profile.html',context)
@@ -237,17 +237,17 @@ def dele(request,id):
 
 def reviewlist(request):
     
-    if request.method=='POST':
+    
         usr=request.user
         rev=ReviewRating.objects.filter(userid=usr).values('movieid')
         movie=[]
         for movielist in rev:
             movie.append(movielist['movieid'])
-        lis=Movie.objects.filter(movieid__in=movie).values() 
+        lis=Movie.objects.filter(movieid__in=movie)
         
         context={'reviews':lis}
         return render(request,'profile.html',context)
-    return redirect('profile')
+    
 
 
     

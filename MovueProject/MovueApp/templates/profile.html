@@ -21,23 +21,24 @@
             <img src="{% static 'images/dp.png' %}" alt="Profile Picture" class="profile-pic">
             <h2 class="username">{{ user.username }}</h2>
             <p class="email">{{ user.email }}</p>
-
-            <div class="buttons">
+             
+             <div class="buttons">
                 <button class="btn edit-btn" onclick="openEditProfile()">Edit Profile</button>
                 <a href="{% url 'userlogout' %}" class="btn logout-btn">Logout</a>
             </div>
         </div>
+        
 
         <!-- Watchlist Section -->
         <section class="movies-section">
-            <h2>📌 Watchlist</h2>
+            <h2>📌 <a href="{% url 'vwatchlist' %}">Watchlist</a> </h2>
             <div class="carousel-container">
                 <div class="carousel">
-                    {% for movie in watchlist %}
-                        <div class="carousel-item" onclick="window.location.href='{% url 'information' movie.movieid %}'">
-                            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                    {% for movi in movie %}
+                        <div class="carousel-item" onclick="window.location.href='{% url 'information' movi.movieid %}'">
+                            <img src="{{ movi.poster.url }}" alt="{{ movi.title }}">
                             <div class="overlay">
-                                <h5 class="movie-title">{{ movie.title }}</h5>
+                                <h5 class="movie-title">{{ movi.title }}</h5>
                             </div>
                         </div>
                     {% endfor %}
@@ -49,14 +50,16 @@
 
         <!-- Reviewed Movies Section -->
         <section class="movies-section">
-            <h2>⭐ Reviewed Movies</h2>
+            <h2>⭐  <a href="{% url 'reviewlist' %}">Reviewlist</a></h2>
             <div class="carousel-container">
                 <div class="carousel">
+                  
                     {% for movie in reviews %}
                         <div class="carousel-item" onclick="window.location.href='{% url 'information' movie.movieid %}'">
                             <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
                             <div class="overlay">
                                 <h5 class="movie-title">{{ movie.title }}</h5>
+                                
                             </div>
                         </div>
                     {% endfor %}
