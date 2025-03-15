@@ -31,42 +31,74 @@
 
         <!-- Watchlist Section -->
         <section class="movies-section">
-            <h2>📌 <a href="{% url 'vwatchlist' %}">Watchlist</a> </h2>
-            <div class="carousel-container">
-                <div class="carousel">
-                    {% for movi in movie %}
-                        <div class="carousel-item" onclick="window.location.href='{% url 'information' movi.movieid %}'">
-                            <img src="{{ movi.poster.url }}" alt="{{ movi.title }}">
-                            <div class="overlay">
-                                <h5 class="movie-title">{{ movi.title }}</h5>
-                            </div>
+       <h2>Watchlist </h2>
+       <div class="carousel-container">
+            <div class="carousel">
+               <!--{% for movi in movie %}
+                    <div class="carousel-item" data-id="{{ movi.movieid }}" onclick="window.location.href='{% url 'information' movi.movieid %}'">
+                        <img src="{{ movi.poster.url }}" alt="{{ movi.title }} Poster">
+                        <div class="overlay">
+                            <h5 class="movie-title">{{ movi.title }}</h5>
                         </div>
-                    {% endfor %}
-                </div>
-                <button class="carousel-btn prev" onclick="prevSlide('watchlist')">&#10094;</button>
-                <button class="carousel-btn next" onclick="nextSlide('watchlist')">&#10095;</button>
+                    </div>
+                {% endfor %}
             </div>
-        </section>
-
+            <button class="carousel-btn prev">&#10094;</button>
+            <button class="carousel-btn next">&#10095;</button>
+        </div>-->
+         {% for movi in movie %}
+        <div class="card" style="width: 18rem;">
+  
+  <div class="">
+     <div class="" data-id="{{ movi.movieid }}" onclick="window.location.href='{% url 'information' movi.movieid %}'">
+        <img src="{{ movi.poster.url }}" class="card-img-top" alt="...">
+         <div class="overlay">
+            <h5 class="movie-title">{{ movi.title }}</h5>
+        </div>
+    <h5 class="">{{ movi.title }}</h5>
+    </div>
+   
+  </div>
+</div>
+{% endfor %}
+    </section>
         <!-- Reviewed Movies Section -->
         <section class="movies-section">
-            <h2>⭐  <a href="{% url 'reviewlist' %}">Reviewlist</a></h2>
+            <h2>⭐ Reviewlist</h2>
             <div class="carousel-container">
                 <div class="carousel">
                   
-                    {% for movie in reviews %}
-                        <div class="carousel-item" onclick="window.location.href='{% url 'information' movie.movieid %}'">
-                            <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                    
+                       
+                             <!-- <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
                             <div class="overlay">
                                 <h5 class="movie-title">{{ movie.title }}</h5>
                                 
                             </div>
                         </div>
-                    {% endfor %}
+               
                 </div>
                 <button class="carousel-btn prev" onclick="prevSlide('reviewed')">&#10094;</button>
                 <button class="carousel-btn next" onclick="nextSlide('reviewed')">&#10095;</button>
-            </div>
+            </div>>-->
+      {% for movie in reviews %}     
+            
+        <div class="card" style="width: 18rem;">
+  
+  <div class="">
+      <div class="" data-id="{{ movi.movieid }}" onclick="window.location.href='{% url 'information' movie.movieid %}'">
+        <img src="{{ movie.poster.url }}" class="card-img-top" alt="...">
+         <div class="overlay">
+            <h5 class="movie-title">{{ movie.title }}</h5>
+        </div>
+        <div class="card-body">
+    <h5 class="">{{ movie.title }}</h5>
+    </div>
+    </div>
+   
+  </div>
+</div>
+{% endfor %}
         </section>
     </div>
 
@@ -74,8 +106,9 @@
     <div class="modal" id="editProfileModal">
         <div class="modal-content">
             <h2>Edit Profile</h2>
-            <form method="post" action="{% url 'userlogin' %}">
+            <form method="post" action="{% url 'editprofile' %}">
                 {% csrf_token %}
+                <input type="hidden" name="userid" value="{{ user.id }}">
                 <label>Username (Once in 14 days):</label>
                 <input type="text" name="username" value="{{ user.username }}" {% if user.username_changed_recently %}disabled{% endif %}>
 
@@ -88,8 +121,7 @@
                 <label>Email:</label>
                 <input type="email" name="email" value="{{ user.email }}">
 
-                <label>New Password:</label>
-                <input type="password" name="password" placeholder="Leave blank to keep current">
+                
 
                 <button type="submit" class="btn save-btn">Save Changes</button>
                 <button type="button" class="btn close-btn" onclick="closeEditProfile()">Cancel</button>

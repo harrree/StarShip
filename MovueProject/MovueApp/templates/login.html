@@ -33,11 +33,7 @@
                 <input type="text" id="username" name="username" placeholder="Username" required>
                 <input type="password" id="password" name="password" placeholder="Enter your password" required>
                 <button type="submit">Login</button>
-                 {% if messages %}
-                  {% for message in messages %}
-                <p>{{message}}</p>
-                {% endfor %}
-                {% endif %}
+                 
 
                 <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
             </form> 

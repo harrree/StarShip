@@ -186,26 +186,36 @@ def profile(request):
     watchlistcont=cont if cont else 0
     count=ReviewRating.objects.filter(userid=usr).values('movieid').distinct().count()
     moviecount=count if count else 0
-    
-    context={'usrpro':prof,'count':moviecount,'watchlistcount':watchlistcont}
-    return render(request,'profile.html',context)
-
-
-#function for  viewing watchlist
-
-def vwatchlist(request):
-    usr=request.user
     usid=User.objects.get(username=usr)
     uid=usid.id
     watch=Watchlist.objects.filter(userid_id=uid).values()
-    movie_ids = []
-    for w in watch:
-        movie_ids.append(w['movieid_id'])
+    if watch:
+        movie_ids = []
+        for w in watch:
+          movie_ids.append(w['movieid_id'])
           
-    lis=Movie.objects.filter(movieid__in=movie_ids)
-    print(lis)
-    context={'movie':lis}
+        lis=Movie.objects.filter(movieid__in=movie_ids)
+        print(lis)
+    else:
+        lis=None    
+
+    rev=ReviewRating.objects.filter(userid=uid).values('movieid')
+    if rev:
+      movie=[]
+      for movielist in rev:
+          movie.append(movielist['movieid'])
+      list=Movie.objects.filter(movieid__in=movie)
+        
+      print("movie")
+      print(list)
+    else:
+        list=None  
+    
+    context={'usrpro':prof,'count':moviecount,'watchlistcount':watchlistcont,'movie':lis,'reviews':list}
     return render(request,'profile.html',context)
+
+
+
 
 #function for editing the review
 
@@ -233,21 +243,34 @@ def dele(request,id):
     return redirect('information',id=ids)
 
 
- #function created for listing reviews 
+ #function created for edit profile 
 
-def reviewlist(request):
-    
-    
-        usr=request.user
-        rev=ReviewRating.objects.filter(userid=usr).values('movieid')
-        movie=[]
-        for movielist in rev:
-            movie.append(movielist['movieid'])
-        lis=Movie.objects.filter(movieid__in=movie)
-        
-        context={'reviews':lis}
-        return render(request,'profile.html',context)
-    
+def editprofile(request):
+    if request.method=='POST':
+        useid=request.POST.get('userid')
+        username=request.POST.get('username')
+        firstname=request.POST.get('first_name')
+        lastname=request.POST.get('last_name')
+        email=request.POST.get('email')
+        user=User.objects.get(id=useid)
+        if user:
+            try:
+                user.username=username
+                user.first_name=firstname
+                user.last_name=lastname
+                user.email=email
+                user.save()
+                return redirect('userlogin')
+            except Exception as e:
+                 messages.error(request,"already exist")
+
+        else:
+            messages.error(request,"not updated")
+            return redirect('profile')
+
+    return redirect('profile')    
+       
+
 
 
     

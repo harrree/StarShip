@@ -38,74 +38,21 @@ body.dark-theme {
   cursor: pointer;
 }
 
-.movies-section {
-  margin: 40px 0;
-}
-
-
-.movies-section h2 {
-  color: #00b894;
-}
-
-
 .carousel-container {
   position: relative;
+  width: 90%;
+  max-width: 1000px;
+  margin: auto;
   overflow: hidden;
-} 
- 
+}
 
 .carousel {
   display: flex;
   transition: transform 0.5s ease-in-out;
+  gap: 10px;
 }
 
 
-.carousel-item {
-  min-width: 200px;
-  margin: 10px;
-  cursor: pointer;
-}
-
-.carousel-item img {
-  width: 100%;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-
-.carousel-item:hover img {
-  transform: scale(1.05);
-}
-
-
-.overlay {
-  position: absolute;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  width: 100%;
-  text-align: center;
-  padding: 5px;
-}
-
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  background: #00b894;
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  transform: translateY(-50%);
-}
-
-.carousel-btn.prev {
-  left: 10px;
-}
-
-.carousel-btn.next {
-  right: 10px;
-}
 
 /* Edit Profile Modal */
 .modal {
@@ -125,4 +72,75 @@ body.dark-theme {
   padding: 20px;
   border-radius: 8px;
   text-align: center;
+}
+
+.card {
+  width: 18rem;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.card img {
+  width: 100%;
+  height: auto;
+  border-bottom: 2px solid #ddd;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  transition: opacity 0.3s ease;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+.movie-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.card .card-body {
+  padding: 0 15px 10px;
+}
+
+.card h5 {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.card .card-body .movie-title {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+  display: none;
+}
+
+.card:hover .card-body .movie-title {
+  display: block;
 }
