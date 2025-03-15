@@ -35,8 +35,14 @@ def userlogin(request):
 
 def movie_list(request):
     move=Movie.objects.all()
+    most=ReviewRating.objects.annotate(avgrate=Avg('rating')).filter(avgrate__gt = 3.5).distinct().values('movieid')
+    popuplar=[]
+    for mov in most:
+        popuplar.append(mov['movieid'])
    
-    context={"list":move}
+    popularmovies=Movie.objects.filter(movieid__in=popuplar)
+ 
+    context={"list":move,"popularmove":popularmovies}
     return render(request,"index.html",context)
    
     
@@ -188,6 +194,8 @@ def profile(request):
     moviecount=count if count else 0
     usid=User.objects.get(username=usr)
     uid=usid.id
+#getting the user watchlist
+
     watch=Watchlist.objects.filter(userid_id=uid).values()
     if watch:
         movie_ids = []
@@ -198,6 +206,8 @@ def profile(request):
         print(lis)
     else:
         lis=None    
+
+#getting the user reviewed movie
 
     rev=ReviewRating.objects.filter(userid=uid).values('movieid')
     if rev:
