@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
     <script defer src="{% static 'js/profile.js' %}"></script>
 </head>
+
 <body class="dark-theme">
 
     {% include 'header.html' %}
@@ -22,83 +23,40 @@
             <h2 class="username">{{ user.username }}</h2>
             <p class="email">{{ user.email }}</p>
              
-             <div class="buttons">
+            <div class="buttons">
                 <button class="btn edit-btn" onclick="openEditProfile()">Edit Profile</button>
                 <a href="{% url 'userlogout' %}" class="btn logout-btn">Logout</a>
             </div>
         </div>
-        
 
         <!-- Watchlist Section -->
         <section class="movies-section">
-       <h2>Watchlist </h2>
-       <div class="carousel-container">
-            <div class="carousel">
-               <!--{% for movi in movie %}
-                    <div class="carousel-item" data-id="{{ movi.movieid }}" onclick="window.location.href='{% url 'information' movi.movieid %}'">
-                        <img src="{{ movi.poster.url }}" alt="{{ movi.title }} Poster">
-                        <div class="overlay">
-                            <h5 class="movie-title">{{ movi.title }}</h5>
-                        </div>
+            <h2>Watchlist</h2>
+            <div class="movie-grid">
+                {% for movi in movie %}
+                <div class="movie-card" data-id="{{ movi.movieid }}" onclick="window.location.href='{% url 'information' movi.movieid %}'">
+                    <img src="{{ movi.poster.url }}" alt="{{ movi.title }} Poster">
+                    <div class="overlay">
+                        <h5 class="movie-title">{{ movi.title }}</h5>
                     </div>
+                </div>
                 {% endfor %}
             </div>
-            <button class="carousel-btn prev">&#10094;</button>
-            <button class="carousel-btn next">&#10095;</button>
-        </div>-->
-         {% for movi in movie %}
-        <div class="card" style="width: 18rem;">
-  
-  <div class="">
-     <div class="" data-id="{{ movi.movieid }}" onclick="window.location.href='{% url 'information' movi.movieid %}'">
-        <img src="{{ movi.poster.url }}" class="card-img-top" alt="...">
-         <div class="overlay">
-            <h5 class="movie-title">{{ movi.title }}</h5>
-        </div>
-    <h5 class="">{{ movi.title }}</h5>
-    </div>
-   
-  </div>
-</div>
-{% endfor %}
-    </section>
+        </section>
+
         <!-- Reviewed Movies Section -->
         <section class="movies-section">
             <h2>⭐ Reviewlist</h2>
-            <div class="carousel-container">
-                <div class="carousel">
-                  
-                    
-                       
-                             <!-- <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
-                            <div class="overlay">
-                                <h5 class="movie-title">{{ movie.title }}</h5>
-                                
-                            </div>
-                        </div>
-               
+            <div class="movie-grid">
+                {% for movie in reviews %}
+                <div class="movie-card" data-id="{{ movie.movieid }}" onclick="window.location.href='{% url 'information' movie.movieid %}'">
+                    <img src="{{ movie.poster.url }}" alt="{{ movie.title }}">
+                    <div class="overlay">
+                        <h5 class="movie-title">{{ movie.title }}</h5>
+                    </div>
                 </div>
-                <button class="carousel-btn prev" onclick="prevSlide('reviewed')">&#10094;</button>
-                <button class="carousel-btn next" onclick="nextSlide('reviewed')">&#10095;</button>
-            </div>>-->
-      {% for movie in reviews %}     
-            
-        <div class="card" style="width: 18rem;">
-  
-  <div class="">
-      <div class="" data-id="{{ movi.movieid }}" onclick="window.location.href='{% url 'information' movie.movieid %}'">
-        <img src="{{ movie.poster.url }}" class="card-img-top" alt="...">
-         <div class="overlay">
-            <h5 class="movie-title">{{ movie.title }}</h5>
-        </div>
-        <div class="card-body">
-    <h5 class="">{{ movie.title }}</h5>
-    </div>
-    </div>
-   
-  </div>
-</div>
-{% endfor %}
+                {% endfor %}
+            </div>
         </section>
     </div>
 
@@ -120,8 +78,6 @@
 
                 <label>Email:</label>
                 <input type="email" name="email" value="{{ user.email }}">
-
-                
 
                 <button type="submit" class="btn save-btn">Save Changes</button>
                 <button type="button" class="btn close-btn" onclick="closeEditProfile()">Cancel</button>
