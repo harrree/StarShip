@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -128,4 +129,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 #youtube api key settings
 
-YOUTUBE_API_KEY = 'AIzaSyCtqxSuRn1nJoa_WbiZWnc7LCvMn0fgvtc'
+load_dotenv()
+
+YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
