@@ -149,7 +149,7 @@
                     headers: { 'X-CSRFToken': '{{ csrf_token }}' },
                     datatype: 'json',
                     success: function(response){
-                        $('#user_review').append('<div><input value="'+ response.review + ' '+ response.rating +'"></div>');
+                        $('#user_review').val(response.review + ' ' + response.rating);
                     }
                 });
             });

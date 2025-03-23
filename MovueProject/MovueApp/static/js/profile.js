@@ -1,4 +1,7 @@
+  
+  
   function openEditProfile() {
+    console.log("Function is running");
     document.getElementById("editProfileModal").style.display = "flex";
   }
 
