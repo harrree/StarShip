@@ -7,6 +7,7 @@ from django.contrib.auth.models import User,AnonymousUser
 from django.db.models import Avg,Count
 from django.core.paginator import Paginator
 from django.contrib import messages
+from .utils import youtubetrailer
 
 
 # Create your views here.
@@ -55,7 +56,8 @@ def information(request, id):
 
     # Get the movie or return a 404 if not found
     movies = get_object_or_404(Movie, movieid=id)
-    #print(movies)
+    #print(movies.title)
+    trailer=youtubetrailer(movies.title)
 
     # Get all genres associated with the movie
     genre = movies.genre.all()
@@ -84,6 +86,16 @@ def information(request, id):
 
     # Handle the case where no ratings exist
     avgr = round(avg, 1) if avg is not None else 0
+    try:
+        already_in_watch=Watchlist.objects.get(userid_id=use,movieid_id=id)
+        dont_add=True
+    except Exception:
+        dont_add=False
+
+    if dont_add is True:
+        cannot=dont_add 
+    else:
+        cannot=False       
 
     context = {
         "movies": movies,
@@ -91,8 +103,9 @@ def information(request, id):
         "reviews": review,
         "use": userid,
         "average": avgr,
-        "userev":onereview
-       
+        "userev":onereview,
+        "cannot_add":cannot,
+        "movie_trailer":trailer
        
     }
 

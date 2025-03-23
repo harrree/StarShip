@@ -125,3 +125,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#youtube api key settings
+
+YOUTUBE_API_KEY = 'AIzaSyCtqxSuRn1nJoa_WbiZWnc7LCvMn0fgvtc'
