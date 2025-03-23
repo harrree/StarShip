@@ -4,7 +4,7 @@
 /* General Styles */
 body {
     font-family: 'Poppins', sans-serif;
-    background-color: #121212 !important; /* Dark background */
+    background-color: #0d0d0d !important;
     color: #ddd;
     margin: 0;
     padding: 0;
@@ -15,9 +15,9 @@ body {
     max-width: 900px;
     margin: auto;
     padding: 20px;
-    background: #1e1e1e;
+    background: #1a1a1a;
     border-radius: 10px;
-    box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 0px 20px rgba(0, 184, 148, 0.1);
 }
 
 /* Movie Poster */
@@ -26,6 +26,8 @@ body {
     max-width: 300px;
     height: 450px;
     object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 184, 148, 0.2);
     transition: transform 0.3s ease-in-out;
 }
 
@@ -35,7 +37,7 @@ body {
 
 /* Movie Details */
 .details h2 {
-    color: #fff;
+    color: #00b894;
     font-weight: 600;
 }
 
@@ -44,23 +46,40 @@ body {
     color: #aaa;
 }
 
-.genres h4 {
+/* Genres */
+.genres h5 {
     margin-bottom: 5px;
+    color: #00b894;
 }
 
-.genres ul {
-    list-style: none;
-    padding: 0;
-}
-
-.genres li {
-    display: inline-block;
-    background: #444;
-    color: #ddd;
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin: 2px;
+.genres .badge {
+    background: #004d40;
     font-size: 14px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    color: #00b894;
+}
+
+/* Special Trailer Section */
+.trailer-container {
+    margin-top: 30px;
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(135deg, #0d0d0d, #222);
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px rgba(0, 184, 148, 0.2);
+}
+
+.trailer-container h2 {
+    color: #00b894;
+}
+
+.trailer-container iframe {
+    width: 100%;
+    max-width: 720px;
+    height: 405px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 184, 148, 0.2);
 }
 
 /* Reviews Section */
@@ -81,11 +100,50 @@ body {
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 10px;
-    border-left: 4px solid #555;
+    border-left: 4px solid #00b894;
 }
 
 .reviews-list li strong {
-    color: #fff;
+    color: #00b894;
+}
+
+/* Review Form */
+.rating-form {
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 184, 148, 0.2);
+}
+
+.rating-form textarea {
+    width: 100%;
+    padding: 12px;
+    background: #222;
+    border: 1px solid #00b894;
+    color: #ddd;
+    border-radius: 5px;
+    outline: none;
+    resize: none;
+    font-size: 14px;
+}
+
+.rating-form button {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    background: #00b894;
+    color: #0d0d0d;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease-in-out;
+}
+
+.rating-form button:hover {
+    background: #009f7a;
 }
 
 /* Star Rating */
@@ -107,103 +165,58 @@ body {
 }
 
 .rate input:checked ~ label {
-    color: #ffcc00;
+    color: #00b894;
 }
 
 .rate label:hover,
 .rate label:hover ~ label {
-    color: #ffcc00;
+    color: #00b894;
 }
 
-/* Review Form */
-.rating-form {
-    background: #1a1a1a;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
-}
-
-.rating-form textarea {
-    width: 100%;
-    padding: 10px;
-    background: #333;
-    border: 1px solid #555;
-    color: #ddd;
-    border-radius: 5px;
-    outline: none;
-    resize: none;
-}
-
-.rating-form button {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    background: #555;
+/* Watchlist Button */
+.watchlist-btn {
+    background: #00b894;
     color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
+    transition: background 0.3s;
+}
+
+.watchlist-btn:hover {
+    background: #009f7a;
+}
+
+/* Delete & Edit Buttons */
+.action-buttons a {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-top: 10px;
+    text-decoration: none;
+    font-weight: bold;
     border-radius: 5px;
     transition: background 0.3s;
 }
 
-.rating-form button:hover {
-    background: #777;
+.edit-btn {
+    background: #00b894;
+    color: white;
 }
 
-/* Logout Button */
-.logout-btn {
-    display: inline-block;
-    margin-top: 20px;
-    padding: 10px 20px;
+.edit-btn:hover {
+    background: #009f7a;
+}
+
+.delete-btn {
     background: #cc0000;
     color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background 0.3s;
 }
 
-.logout-btn:hover {
+.delete-btn:hover {
     background: #ff4444;
 }
-
-.rate > input{
-    display: none;
-
-}
-
-.rate{
-    display: inline-block;
-    border:0;
-
-}
-
-.rate > label{
-    float:right;
-}
-
-.rate > label:before{
-    display:inline-block;
-    font-size: 1.1rem;
-    font-family: FontAwesome;
-    content: "\f005";
-    margin: 0;
-    padding: 0.3rem .2rem;
-    cursor: pointer;
-}
-
-input:checked ~ label,label:hover ~ label{
-    color:#ffb503;
-
-}
-
-input:checked + label:hover,input:checked~label:hover,input:checked ~ label:hover ~label,label:hover ~ input:checked~label{
-    color: #cc9000;
-}
-
-
-
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
@@ -215,8 +228,11 @@ input:checked + label:hover,input:checked~label:hover,input:checked ~ label:hove
         max-width: 100%;
     }
 
+    .trailer-container iframe {
+        height: 300px;
+    }
+
     .rating-form textarea {
         font-size: 14px;
     }
 }
-
