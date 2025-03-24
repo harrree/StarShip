@@ -24,9 +24,10 @@
     </div>
 
     <!-- Container for Search Results -->
+     {% if page_obj %}
     <div class="container">
         <div class="row">
-            {% for movie in results %}
+            {% for movie in  page_obj %}
             <div class="col-md-3 col-sm-6">
                 <div class="movie-card">
                     <a href="{% url 'information' movie.movieid  %}">
@@ -37,11 +38,31 @@
                     </a>
                 </div>
             </div>
-            {% empty %}
-            <p class="no-results">No movies found.</p>
+            
             {% endfor %}
         </div>
     </div>
+     <!-- Pagination links -->
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% else %}
+    <p>No movies found.</p>
+{% endif %}
 
     <!-- Bootstrap JS (for interactive components if needed) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import Movie,ReviewRating,Watchlist
+from .models import Movie,ReviewRating,Watchlist,Genre
 from django.http import JsonResponse,HttpResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
@@ -42,8 +42,9 @@ def movie_list(request):
         popuplar.append(mov['movieid'])
    
     popularmovies=Movie.objects.filter(movieid__in=popuplar)
- 
-    context={"list":move,"popularmove":popularmovies}
+    genre=Genre.objects.all()
+
+    context={"list":move,"popularmove":popularmovies,"genres": genre}
     return render(request,"index.html",context)
    
     
@@ -184,18 +185,28 @@ def search(request):
     results=None
     if request.method=='POST':
         search=request.POST.get('search')
+        genr=request.POST.get('genre')
+        results=Movie.objects.all()
         if search:
-            results=Movie.objects.filter(title__istartswith=search)
+            results=results.filter(title__istartswith=search)
+        if genr:
+            results=results.filter(genre=genr)    
             if results:
-                return render(request,'search_results.html',{'results':results})
+                paginator=Paginator(results,2)
+                page_number=request.GET.get('page',1)
+                print(f"Page number: {page_number}")
+                page_obj=paginator.get_page(page_number)
+                
+                print(f"Page object: {page_obj}")
+                context={"page_obj":page_obj }
+                return render(request,'search_results.html',context)
             else:
                 
                 return redirect('movie_list')
     if not results:
         messages.error(request,"please enter a valid name")
         return redirect('movie_list')      
-
-          
+    
 #function for user profile
 
 def profile(request):
@@ -207,6 +218,7 @@ def profile(request):
     moviecount=count if count else 0
     usid=User.objects.get(username=usr)
     uid=usid.id
+
 #getting the user watchlist
 
     watch=Watchlist.objects.filter(userid_id=uid).values()
