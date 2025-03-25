@@ -182,31 +182,33 @@ def watchlist(request):
 #function for search
 
 def search(request):
-    results=None
+    results=Movie.objects.all()
     if request.method=='POST':
         search=request.POST.get('search')
         genr=request.POST.get('genre')
-        results=Movie.objects.all()
+        print(search)
+        
         if search:
             results=results.filter(title__istartswith=search)
         if genr:
             results=results.filter(genre=genr)    
-            if results:
-                paginator=Paginator(results,2)
-                page_number=request.GET.get('page',1)
-                print(f"Page number: {page_number}")
-                page_obj=paginator.get_page(page_number)
-                
-                print(f"Page object: {page_obj}")
-                context={"page_obj":page_obj }
-                return render(request,'search_results.html',context)
-            else:
-                
-                return redirect('movie_list')
+        if results:
+            paginator=Paginator(results,2)
+            page_number=request.GET.get('page',1)
+            print(f"Page number: {page_number}")
+            page_obj=paginator.get_page(page_number)
+            genre=Genre.objects.all()
+    
+            print(f"Page object: {page_obj}")
+            context={"page_obj":page_obj, "genres": genre }
+            return render(request,'search_results.html',context)
+        else:
+            return redirect('movie_list')
     if not results:
+        results=None
         messages.error(request,"please enter a valid name")
         return redirect('movie_list')      
-    
+    return redirect('movie_list')
 #function for user profile
 
 def profile(request):
