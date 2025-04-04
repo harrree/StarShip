@@ -8,7 +8,8 @@ from django.db.models import Avg,Count
 from django.core.paginator import Paginator
 from django.contrib import messages
 from .utils import youtubetrailer
-
+from django.core.exceptions import ValidationError
+from django.core.validators import EmailValidator
 
 # Create your views here.
 
@@ -21,7 +22,16 @@ def userlogin(request):
         password=request.POST['password']
         user=authenticate(username=username,password=password)
         #id= User.objects.filter(username=username).values_list('id')
-        #request.session['userid']=id       
+        #request.session['userid']=id 
+        has_error=False
+        if not username:
+            messages.error(request,"Please enter username")
+            has_error=True
+        if not password:
+            messages.error(request,"please enter valid password")
+            has_error=True
+        if has_error:
+            return redirect('userlogin')      
         if user:
             login(request,user)
             
@@ -150,6 +160,36 @@ def register(request):
         email=request.POST.get('email')
         password=request.POST.get('password')
         cpassword=request.POST.get('cpassword')
+        has_error=False
+        
+        if not username:
+            messages.error(request,"Enter valid username")
+            has_error=True 
+        if not firstname:
+            messages.error(request,"Enter valid firstname")
+            has_error=True   
+        if not lastname:
+            messages.error(request,"Enter valid lastname")
+            has_error=True
+        if not password:
+            messages.error(request,"Enter valid password")
+            has_error=True
+        if not cpassword:
+            messages.error(request,"please confirm password")
+            has_error=True             
+        if not email:
+            messages.error(request,"Enter valid email")
+            has_error=True  
+        else:
+            try:
+                EmailValidator()(email) 
+            except ValidationError:
+                 messages.error(request, "Invalid email format.")
+                 has_error=True                       
+        
+        if has_error:
+            return redirect('register')
+        
 
         if password==cpassword:
             if User.objects.filter(username=username).exists():
@@ -163,7 +203,7 @@ def register(request):
                 
                 
 #function created for adding movie into wishlist
-
+@login_required(login_url="userlogin")
 def watchlist(request):
     user=request.user
     useid=User.objects.get(username=user)
@@ -207,7 +247,8 @@ def search(request):
     if not results:
         results=None
         messages.error(request,"please enter a valid name")
-        return redirect('movie_list')      
+        return redirect('movie_list')
+    messages.error(request,"please enter a valid name")      
     return redirect('movie_list')
 #function for user profile
 
@@ -290,20 +331,41 @@ def editprofile(request):
         lastname=request.POST.get('last_name')
         email=request.POST.get('email')
         user=User.objects.get(id=useid)
-        if user:
+        has_error=False
+        
+        if not username:
+            messages.error(request,"Enter valid username")
+            has_error=True 
+        if not firstname:
+            messages.error(request,"Enter valid firstname")
+            has_error=True   
+        if not lastname:
+            messages.error(request,"Enter valid lastname")
+            has_error=True
+        if not email:
+            messages.error(request,"Enter valid email")
+            has_error=True  
+        else:
             try:
-                user.username=username
-                user.first_name=firstname
-                user.last_name=lastname
-                user.email=email
-                user.save()
-                return redirect('userlogin')
-            except Exception as e:
+                EmailValidator()(email) 
+            except ValidationError:
+                 messages.error(request, "Invalid email format.")
+                 has_error=True                       
+        
+        if has_error:
+            return redirect('profile')
+        
+        try:
+            user.username=username
+            user.first_name=firstname
+            user.last_name=lastname
+            user.email=email
+            user.save()
+            return redirect('userlogin')
+        except Exception as e:
                  messages.error(request,"already exist")
 
-        else:
-            messages.error(request,"not updated")
-            return redirect('profile')
+       
 
     return redirect('profile')    
        
