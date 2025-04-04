@@ -1,6 +1,14 @@
 from django.db import models 
 from django.contrib.auth.models import User 
-# Create your models here.
+
+# Extend User model to include profile picture and bio
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE) # One-to-One relationship with User model
+    profile_picture = models.ImageField(upload_to='profile_pics/', null=True, blank=True) # Profile picture
+    bio = models.TextField(max_length=500, blank=True) # Bio field
+    
+    def __str__(self):
+        return self.user.username
 
 #Model for Movie table
 # class Movie(models.Model):
@@ -19,11 +27,10 @@ class Genre(models.Model):
     genreid=models.AutoField(primary_key=True) #Auto incrementing primary key for Genre table
     name=models.CharField(max_length=200, unique=True) #Unique name of the genre
     
-
     def __str__(self):
         return self.name
 
-# #Model for Movie table
+#Model for Movie table
 class Movie(models.Model):
     movieid = models.AutoField(primary_key=True) #Auto incrementing primary key for Movie table
     title=models.CharField(max_length=200) #Title of the movie
@@ -35,12 +42,11 @@ class Movie(models.Model):
     def __str__(self):
         return self.title
 
-# # MovieGenre join table to establish Many-to-Many relationship between Genre and Movie
+# MovieGenre join table to establish Many-to-Many relationship between Genre and Movie
 # class MovieGenre(models.Model):  
 #     id=models.AutoField(primary_key=True)
 #     genreid=models.ForeignKey(Genre,on_delete=models.CASCADE) #Foreign key to Genre table
 #     movieid=models.ForeignKey(Movie,on_delete=models.CASCADE) #Foreign key to Movie table 
-
 
 #Model for ReviewRating table
 class ReviewRating(models.Model):
@@ -79,8 +85,3 @@ class Watchlist(models.Model):
 
     def __str__(self):
         return f"{self.userid.username} added {self.movieid.title} to Watchlist"
-
-
-    
-    
-
