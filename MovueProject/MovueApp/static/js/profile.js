@@ -1,5 +1,9 @@
-  function openEditProfile() {
-    document.getElementById("editProfileModal").style.display = "flex";
+  
+  
+  function EditProfile() {
+    console.log("EditProfile function is running");
+    var modal = document.getElementById("editProfileModal");
+    modal.style.display = "block";
   }
 
   function closeEditProfile() {   

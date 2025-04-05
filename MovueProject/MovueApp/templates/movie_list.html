@@ -31,7 +31,7 @@
             <!-- Movie Details -->
             <div class="col-lg-8 col-md-6 details">
                 <h2>{{ movies.title }}</h2>
-                <p class="text-muted"><strong>Release Date:</strong> {{ movies.releasedate }}</p>
+                <p class="text-muted" ><strong>Release Date:</strong> {{ movies.releasedate }}</p>
                 <p>{{ movies.description }}</p>
 
                 <!-- Genres -->
@@ -109,7 +109,7 @@
                 {% endif %}
             </form>
             {% if userev %}
-                <a href="{% url 'dele' userev.reviewid %}" class="delete-btn">Delete</a>
+                <a href="{% url 'dele' userev.reviewid %}" class="delete-btn" onclick="myconfirmation()">Delete</a>
             {% endif %}
         </div>
 
@@ -121,13 +121,23 @@
                     {% csrf_token %}
 
                     <!-- Star Rating -->
-                    <div class="rate">
-                        <input type="radio" id="rating5" value="5" name="rating"><label for="rating5"></label>
-                        <input type="radio" id="rating4" value="4" name="rating"><label for="rating4"></label>
-                        <input type="radio" id="rating3" value="3" name="rating"><label for="rating3"></label>
-                        <input type="radio" id="rating2" value="2" name="rating"><label for="rating2"></label>
-                        <input type="radio" id="rating1" value="1" name="rating"><label for="rating1"></label>
-                    </div>
+<div class="rate">
+    <input type="radio" id="rating5" value="5" name="rating">
+    <label for="rating5">&#9733;</label>
+    
+    <input type="radio" id="rating4" value="4" name="rating">
+    <label for="rating4">&#9733;</label>
+    
+    <input type="radio" id="rating3" value="3" name="rating">
+    <label for="rating3">&#9733;</label>
+    
+    <input type="radio" id="rating2" value="2" name="rating">
+    <label for="rating2">&#9733;</label>
+    
+    <input type="radio" id="rating1" value="1" name="rating">
+    <label for="rating1">&#9733;</label>
+</div>
+
 
                     <!-- Review Input -->
                     <textarea name="review" id="review-text" class="form-control mt-2" placeholder="Write your review..."></textarea>
@@ -149,11 +159,17 @@
                     headers: { 'X-CSRFToken': '{{ csrf_token }}' },
                     datatype: 'json',
                     success: function(response){
-                        $('#user_review').append('<div><input value="'+ response.review + ' '+ response.rating +'"></div>');
+                        $('#user_review').val(response.review + ' ' + response.rating);
                     }
                 });
             });
         });
+
+        function myconfirmation(){
+    
+     confirm("Are you sure ?..");
+
+    }
     </script>
 
 </body>

@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import Movie,ReviewRating,Watchlist
+from .models import Movie,ReviewRating,Watchlist,Genre
 from django.http import JsonResponse,HttpResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
@@ -8,7 +8,8 @@ from django.db.models import Avg,Count
 from django.core.paginator import Paginator
 from django.contrib import messages
 from .utils import youtubetrailer
-
+from django.core.exceptions import ValidationError
+from django.core.validators import EmailValidator
 
 # Create your views here.
 
@@ -21,7 +22,16 @@ def userlogin(request):
         password=request.POST['password']
         user=authenticate(username=username,password=password)
         #id= User.objects.filter(username=username).values_list('id')
-        #request.session['userid']=id       
+        #request.session['userid']=id 
+        has_error=False
+        if not username:
+            messages.error(request,"Please enter username")
+            has_error=True
+        if not password:
+            messages.error(request,"please enter valid password")
+            has_error=True
+        if has_error:
+            return redirect('userlogin')      
         if user:
             login(request,user)
             
@@ -42,8 +52,9 @@ def movie_list(request):
         popuplar.append(mov['movieid'])
    
     popularmovies=Movie.objects.filter(movieid__in=popuplar)
- 
-    context={"list":move,"popularmove":popularmovies}
+    genre=Genre.objects.all()
+
+    context={"list":move,"popularmove":popularmovies,"genres": genre}
     return render(request,"index.html",context)
    
     
@@ -149,6 +160,36 @@ def register(request):
         email=request.POST.get('email')
         password=request.POST.get('password')
         cpassword=request.POST.get('cpassword')
+        has_error=False
+        
+        if not username:
+            messages.error(request,"Enter valid username")
+            has_error=True 
+        if not firstname:
+            messages.error(request,"Enter valid firstname")
+            has_error=True   
+        if not lastname:
+            messages.error(request,"Enter valid lastname")
+            has_error=True
+        if not password:
+            messages.error(request,"Enter valid password")
+            has_error=True
+        if not cpassword:
+            messages.error(request,"please confirm password")
+            has_error=True             
+        if not email:
+            messages.error(request,"Enter valid email")
+            has_error=True  
+        else:
+            try:
+                EmailValidator()(email) 
+            except ValidationError:
+                 messages.error(request, "Invalid email format.")
+                 has_error=True                       
+        
+        if has_error:
+            return redirect('register')
+        
 
         if password==cpassword:
             if User.objects.filter(username=username).exists():
@@ -162,7 +203,7 @@ def register(request):
                 
                 
 #function created for adding movie into wishlist
-
+@login_required(login_url="userlogin")
 def watchlist(request):
     user=request.user
     useid=User.objects.get(username=user)
@@ -181,21 +222,34 @@ def watchlist(request):
 #function for search
 
 def search(request):
-    results=None
+    results=Movie.objects.all()
     if request.method=='POST':
         search=request.POST.get('search')
+        genr=request.POST.get('genre')
+        print(search)
+        
         if search:
-            results=Movie.objects.filter(title__istartswith=search)
-            if results:
-                return render(request,'search_results.html',{'results':results})
-            else:
-                
-                return redirect('movie_list')
+            results=results.filter(title__istartswith=search)
+        if genr:
+            results=results.filter(genre=genr)    
+        if results:
+            paginator=Paginator(results,2)
+            page_number=request.GET.get('page',1)
+            print(f"Page number: {page_number}")
+            page_obj=paginator.get_page(page_number)
+            genre=Genre.objects.all()
+    
+            print(f"Page object: {page_obj}")
+            context={"page_obj":page_obj, "genres": genre }
+            return render(request,'search_results.html',context)
+        else:
+            return redirect('movie_list')
     if not results:
+        results=None
         messages.error(request,"please enter a valid name")
-        return redirect('movie_list')      
-
-          
+        return redirect('movie_list')
+    messages.error(request,"please enter a valid name")      
+    return redirect('movie_list')
 #function for user profile
 
 def profile(request):
@@ -207,6 +261,7 @@ def profile(request):
     moviecount=count if count else 0
     usid=User.objects.get(username=usr)
     uid=usid.id
+
 #getting the user watchlist
 
     watch=Watchlist.objects.filter(userid_id=uid).values()
@@ -276,20 +331,41 @@ def editprofile(request):
         lastname=request.POST.get('last_name')
         email=request.POST.get('email')
         user=User.objects.get(id=useid)
-        if user:
+        has_error=False
+        
+        if not username:
+            messages.error(request,"Enter valid username")
+            has_error=True 
+        if not firstname:
+            messages.error(request,"Enter valid firstname")
+            has_error=True   
+        if not lastname:
+            messages.error(request,"Enter valid lastname")
+            has_error=True
+        if not email:
+            messages.error(request,"Enter valid email")
+            has_error=True  
+        else:
             try:
-                user.username=username
-                user.first_name=firstname
-                user.last_name=lastname
-                user.email=email
-                user.save()
-                return redirect('userlogin')
-            except Exception as e:
+                EmailValidator()(email) 
+            except ValidationError:
+                 messages.error(request, "Invalid email format.")
+                 has_error=True                       
+        
+        if has_error:
+            return redirect('profile')
+        
+        try:
+            user.username=username
+            user.first_name=firstname
+            user.last_name=lastname
+            user.email=email
+            user.save()
+            return redirect('userlogin')
+        except Exception as e:
                  messages.error(request,"already exist")
 
-        else:
-            messages.error(request,"not updated")
-            return redirect('profile')
+       
 
     return redirect('profile')    
        
