@@ -19,17 +19,17 @@
     <div class="container mt-5">
         <!-- Profile Section -->
         <div class="profile-card">
-            {%for pic in pict%}
-              {% if pic.profile_picture %}
-            <img src="{{ pic.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+            
+              {% if pict.profile_picture %}
+            <img src="{{ pict.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
             
           {% else %}
             <img src="{% static 'images/dp.png' %}" alt="Profile Picture" class="profile-pic"> 
                  {% endif %}
-                 {% if pic.bio %}
-                 <p>{{pic.bio}}</p>
+                 {% if pict.bio %}
+                 <p>{{pict.bio}}</p>
                  {% endif %}
-                 {% endfor %}
+                
             <h2 class="username">{{ user.username }}</h2>
             <p class="email">{{ user.email }}</p>
              
@@ -74,7 +74,7 @@
     <div class="modal" id="editProfileModal">
         <div class="modal-content">
             <h2>Edit Profile</h2>
-            <form method="post" action="{% url 'editprofile' %}">
+            <form method="post" action="{% url 'editprofile' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input type="hidden" name="userid" value="{{ user.id }}">
                 <label>Username (Once in 14 days):</label>
@@ -88,6 +88,12 @@
 
                 <label>Email:</label>
                 <input type="email" name="email" value="{{ user.email }}">
+
+                <label>Bio:</label>
+                <input type="file" name="profile_picture" accept="image/*">
+                 
+                <label>Profile Picture:</label>
+                <textarea name="bio" placeholder="Tell us about yourself...">{{pict.bio}}</textarea>
 
                 <button type="submit" class="btn save-btn">Save Changes</button>
                 <button type="button" class="btn close-btn" onclick="closeEditProfile()">Cancel</button>

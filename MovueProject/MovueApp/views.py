@@ -265,7 +265,7 @@ def profile(request):
     moviecount=count if count else 0
     usid=User.objects.get(username=usr)
     uid=usid.id
-    pic=UserProfile.objects.filter(user=usr)
+    pic=UserProfile.objects.get(user=usr)
 
 #getting the user watchlist
 
@@ -336,6 +336,8 @@ def editprofile(request):
         lastname=request.POST.get('last_name')
         email=request.POST.get('email')
         user=User.objects.get(id=useid)
+        bio = request.POST.get('bio')
+        profile_picture = request.FILES.get('profile_picture')
         has_error=False
         
         if not username:
@@ -366,6 +368,12 @@ def editprofile(request):
             user.last_name=lastname
             user.email=email
             user.save()
+
+            profile, created = UserProfile.objects.get_or_create(user=user)
+            profile.bio = bio
+            if profile_picture:
+                profile.profile_picture = profile_picture  # Only update if user selected a new image
+            profile.save()
             return redirect('userlogin')
         except Exception as e:
                  messages.error(request,"already exist")
