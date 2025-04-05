@@ -1,3 +1,4 @@
+/* profile.css*/
 /* General Styles */
 body {
   font-family: Arial, sans-serif;
@@ -13,45 +14,76 @@ body {
   padding: 20px;
 }
 
-/* Profile Card */
+/* =======================
+   Revamped Profile Card
+========================== */
 .profile-card {
+  position: relative;
+  background: rgba(30, 30, 30, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+  max-width: 600px;
+  margin: 0 auto 50px auto;
   text-align: center;
-  background-color: #1e1e1e;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-  margin-bottom: 30px;
+  transition: all 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
 }
 
 .profile-pic {
-  width: 120px;
-  height: 120px;
+  width: 130px;
+  height: 130px;
+  object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #00b894;
+  border: 4px solid #00b894;
+  margin-bottom: 15px;
+  box-shadow: 0 0 10px #00b89488;
 }
 
 .username {
-  font-size: 22px;
+  font-size: 26px;
+  font-weight: 700;
   margin-top: 10px;
+  color: #ffffff;
 }
 
 .email {
   font-size: 14px;
-  color: #bbb;
+  color: #aaaaaa;
+  margin-bottom: 10px;
+}
+
+.profile-card p {
+  font-size: 15px;
+  color: #cccccc;
+  margin: 15px auto 10px;
+  max-width: 500px;
+  line-height: 1.5;
+  font-style: italic;
 }
 
 .buttons {
-  margin-top: 15px;
+  margin-top: 25px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 
 .edit-btn, .logout-btn {
-  padding: 8px 15px;
+  padding: 10px 20px;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
-  font-size: 14px;
-  margin: 5px;
-  transition: 0.3s;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 500;
+  transition: background 0.3s ease, transform 0.2s;
+  min-width: 120px;
 }
 
 .edit-btn {
@@ -65,19 +97,24 @@ body {
 }
 
 .edit-btn:hover {
-  background-color: #00997b;
+  background-color: #00a17a;
+  transform: scale(1.05);
 }
 
 .logout-btn:hover {
-  background-color: #c91e1e;
+  background-color: #c02626;
+  transform: scale(1.05);
 }
 
-/* Movies Section */
+/* =======================
+   Movies Section
+========================== */
 .movies-section {
   margin-top: 50px;
   width: 90%;
   max-width: 1000px;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .movies-section h2 {
@@ -87,10 +124,9 @@ body {
   margin-bottom: 20px;
 }
 
-/* Movie Grid */
 .movie-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+  grid-template-columns: repeat(4, 1fr);
   gap: 15px;
   justify-content: center;
 }
@@ -142,55 +178,48 @@ body {
   font-weight: bold;
 }
 
-/* Responsive Design */
-@media (max-width: 1024px) {
-  .movie-grid {
-      grid-template-columns: repeat(3, 1fr); /* 3 items per row on tablets */
-  }
-}
-
-@media (max-width: 768px) {
-  .movie-grid {
-      grid-template-columns: repeat(2, 1fr); /* 2 items per row on smaller screens */
-  }
-}
-
-@media (max-width: 480px) {
-  .movie-grid {
-      grid-template-columns: repeat(1, 1fr); /* 1 item per row on mobile */
-  }
-}
-
-
+/* =======================
+   Edit Profile Modal
+========================== */
 /* Edit Profile Modal */
 .modal {
   display: none;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #1e1e1e;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-  width: 300px;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(18, 18, 18, 0.9);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-content {
+  background-color: #1e1e1e;
+  padding: 25px 20px;
+  border-radius: 10px;
+  width: 320px;
+  max-width: 90%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  text-align: left;
+}
+
+.modal h2 {
   text-align: center;
+  color: #00b894;
+  margin-bottom: 20px;
 }
 
 .modal label {
   display: block;
-  text-align: left;
   margin-bottom: 5px;
   font-size: 14px;
 }
 
 .modal input {
   width: 100%;
-  padding: 8px;
+  padding: 8px 10px;
   margin-bottom: 15px;
   border: 1px solid #444;
   background: #222;
@@ -198,13 +227,16 @@ body {
   border-radius: 5px;
 }
 
+/* Modal Buttons */
 .save-btn, .close-btn {
   width: 100%;
-  padding: 8px;
+  padding: 10px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .save-btn {
@@ -225,14 +257,45 @@ body {
   background-color: #c91e1e;
 }
 
-/* Responsive Adjustments */
+/* =======================
+   Responsive Design
+========================== */
+@media (max-width: 1024px) {
+  .movie-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .movie-grid {
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .profile-card {
+    padding: 30px 20px;
+  }
+
+  .username {
+    font-size: 22px;
   }
 
   .profile-pic {
-      width: 100px;
-      height: 100px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .movie-grid {
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .modal-content {
+    width: 95%;
   }
 }

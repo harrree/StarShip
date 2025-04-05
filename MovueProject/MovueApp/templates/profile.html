@@ -1,3 +1,4 @@
+<!-- profile.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -89,11 +90,13 @@
                 <label>Email:</label>
                 <input type="email" name="email" value="{{ user.email }}">
 
-                <label>Bio:</label>
-                <input type="file" name="profile_picture" accept="image/*">
-                 
                 <label>Profile Picture:</label>
-                <textarea name="bio" placeholder="Tell us about yourself...">{{pict.bio}}</textarea>
+                <input type="file" name="profile_picture" accept="image/* " onchange="previewImage(event)">
+                <!-- <img id="preview" src="{% if pict.profile_picture %}{{ pict.profile_picture.url }}{% else %}{% static 'images/dp.png' %}{% endif %}" alt="Profile Picture Preview" class="preview-img"> -->
+                
+                 
+                <label>Bio:</label>
+                <input name="bio" placeholder="Tell us about yourself..." type="text" value="{{ pict.bio }}">
 
                 <button type="submit" class="btn save-btn">Save Changes</button>
                 <button type="button" class="btn close-btn" onclick="closeEditProfile()">Cancel</button>
