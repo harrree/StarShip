@@ -19,7 +19,17 @@
     <div class="container mt-5">
         <!-- Profile Section -->
         <div class="profile-card">
-            <img src="{% static 'images/dp.png' %}" alt="Profile Picture" class="profile-pic">
+            {%for pic in pict%}
+              {% if pic.profile_picture %}
+            <img src="{{ pic.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+            
+          {% else %}
+            <img src="{% static 'images/dp.png' %}" alt="Profile Picture" class="profile-pic"> 
+                 {% endif %}
+                 {% if pic.bio %}
+                 <p>{{pic.bio}}</p>
+                 {% endif %}
+                 {% endfor %}
             <h2 class="username">{{ user.username }}</h2>
             <p class="email">{{ user.email }}</p>
              

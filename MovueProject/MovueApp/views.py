@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import Movie,ReviewRating,Watchlist,Genre
+from .models import Movie,ReviewRating,Watchlist,Genre,UserProfile
 from django.http import JsonResponse,HttpResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
@@ -160,6 +160,8 @@ def register(request):
         email=request.POST.get('email')
         password=request.POST.get('password')
         cpassword=request.POST.get('cpassword')
+        bio = request.POST.get('bio') 
+        profile_picture = request.FILES.get('profile_picture')  
         has_error=False
         
         if not username:
@@ -197,6 +199,8 @@ def register(request):
             else: 
                 user=User.objects.create_user(username=username,email=email,password=password,first_name=firstname,last_name=lastname)
                 user.save()
+
+                profile=UserProfile.objects.create(user=user,bio=bio,profile_picture=profile_picture)
                 return redirect('userlogin')
             
     return render(request,'register.html')             
@@ -261,6 +265,7 @@ def profile(request):
     moviecount=count if count else 0
     usid=User.objects.get(username=usr)
     uid=usid.id
+    pic=UserProfile.objects.filter(user=usr)
 
 #getting the user watchlist
 
@@ -289,7 +294,7 @@ def profile(request):
     else:
         list=None  
     
-    context={'usrpro':prof,'count':moviecount,'watchlistcount':watchlistcont,'movie':lis,'reviews':list}
+    context={'usrpro':prof,'count':moviecount,'watchlistcount':watchlistcont,'movie':lis,'reviews':list , "pict":pic}
     return render(request,'profile.html',context)
 
 
