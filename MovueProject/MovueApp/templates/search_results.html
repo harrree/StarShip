@@ -44,22 +44,23 @@
     </div>
      <!-- Pagination links -->
     <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?search={{ search }}&genre={{ selected_genre }}&page=1">&laquo; first</a>
+            <a href="?search={{ search }}&genre={{ selected_genre }}&page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
 
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
-    </div>
+
+        {% if page_obj.has_next %}
+            <a href="?search={{ search }}&genre={{ selected_genre }}&page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?search={{ search }}&genre={{ selected_genre }}&page={{ page_obj.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
 {% else %}
     <p>No movies found.</p>
 {% endif %}

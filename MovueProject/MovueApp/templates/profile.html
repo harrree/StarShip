@@ -42,7 +42,7 @@
 
         <!-- Watchlist Section -->
         <section class="movies-section">
-            <h2>Watchlist</h2>
+            <h2>📌Watchlist</h2>
             <div class="movie-grid">
                 {% for movi in movie %}
                 <div class="movie-card" data-id="{{ movi.movieid }}" onclick="window.location.href='{% url 'information' movi.movieid %}'">

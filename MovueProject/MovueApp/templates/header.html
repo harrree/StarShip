@@ -20,15 +20,18 @@
 
             <!-- Search Bar -->
             <div class="search-bar">
-                <form action="{% url 'search' %}" method="post">
+                <form action="{% url 'search' %}" method="get">
                     {% csrf_token %}
                     <input type="text" name="search" placeholder="Search movies...">
-                    <select name="genre">
-                    <option value="">All Genres</option>
-                       {% for gen in genres %}
-                           <option value="{{ gen.genreid }}" {% if gen.genreid == request.POST.genre %}selected{% endif %}>{{ gen.name }}</option>
-                         {% endfor %}
-                      </select>
+                    <select name="genre[]" multiple>
+            {% for gen in genres %}
+                <option value="{{ gen.genreid }}" 
+                    {% if gen.genreid|stringformat:"s" in selected_genres %}selected{% endif %}>
+                    {{ gen.name }}
+                </option>
+            {% endfor %}
+        </select>
+
                     <button id="search-btn" name="searchbtn" type="submit">🔍</button>
                     {% if messages %}
                     {% for message in messages %}

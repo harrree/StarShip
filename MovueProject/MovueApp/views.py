@@ -227,33 +227,32 @@ def watchlist(request):
 
 def search(request):
     results=Movie.objects.all()
-    if request.method=='POST':
-        search=request.POST.get('search')
-        genr=request.POST.get('genre')
-        print(search)
+    genre=Genre.objects.all()
+    if request.method=='GET':
+        search_term=request.GET.get('search')
+        selected_genres = request.GET.getlist('genre[]')
         
-        if search:
-            results=results.filter(title__istartswith=search)
-        if genr:
-            results=results.filter(genre=genr)    
-        if results:
+        
+        if search_term:
+            results=results.filter(title__icontains=search_term)
+        if selected_genres and '' not in selected_genres:
+            results = results.filter(genre__in=selected_genres)   
+        if results.exists():
             paginator=Paginator(results,2)
             page_number=request.GET.get('page',1)
-            print(f"Page number: {page_number}")
             page_obj=paginator.get_page(page_number)
-            genre=Genre.objects.all()
-    
-            print(f"Page object: {page_obj}")
-            context={"page_obj":page_obj, "genres": genre }
+            context={"page_obj":page_obj, "genres": genre, "search":search_term,
+    "selected_genre": selected_genres }
             return render(request,'search_results.html',context)
         else:
             return redirect('movie_list')
-    if not results:
+    if not results.exists():
         results=None
-        messages.error(request,"please enter a valid name")
-        return redirect('movie_list')
+        messages.error(request,"Not movies is found")
+        
     messages.error(request,"please enter a valid name")      
     return redirect('movie_list')
+
 #function for user profile
 
 def profile(request):
