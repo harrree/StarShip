@@ -67,11 +67,12 @@ class Reaction(models.Model):
     reviewid=models.ForeignKey(ReviewRating,on_delete=models.CASCADE) #Foreign key to ReviewRating table
     reactiontype=models.CharField(max_length=10, choices=[
         ('like', 'Like'),
-        ('love', 'Love'),
-        ('funny', 'Funny'),
-        ('sad', 'Sad')
+        ('dislike', 'Dislike')
+        
     ]) #Type of reaction
     timestamp=models.DateTimeField(auto_now_add=True) #Timestamp of the reaction
+    class Meta:
+        unique_together=('userid','reviewid')
 
     def __str__(self):
         return f"{self.userid.username} reacted {self.reactiontype} on {self.reviewid}"

@@ -16,7 +16,8 @@ urlpatterns = [
     path('editprofile/', views.editprofile, name="editprofile"),
     path('login/', views.userlogin, name="userlogin"),
     path('register/', views.register, name="register"),
-    path('logout/', views.userlogout, name="userlogout")
+    path('logout/', views.userlogout, name="userlogout"),
+    path('reaction/<int:rid>/', views.reaction, name='reaction')
 ]
 if settings.DEBUG:
    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

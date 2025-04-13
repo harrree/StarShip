@@ -89,6 +89,21 @@
                             {% endfor %}
                         </span>
                         <p class="mt-1">{{ review.review }}</p>
+                        <!-- Reaction -->
+                <form  action="{% url 'reaction' review.reviewid %}" method="POST">
+                    {% csrf_token %}
+                   
+                     <input type="hidden" name="movieid" value="{{movies.movieid}}">
+                    <!-- Like Button -->
+                    <button type="submit" name="reactiontype" value="like" class="btn btn-sm {% if review.user_reaction == 'like' %}btn-success{% else %}btn-outline-success{% endif %}">
+                        👍 Like
+                    </button>
+
+                    <!-- Dislike Button -->
+                    <button type="submit" name="reactiontype" value="dislike" class="btn btn-sm {% if review.user_reaction == 'dislike' %}btn-danger{% else %}btn-outline-danger{% endif %}">
+                        👎 Dislike
+                    </button>
+                </form>
                     </li>
                 {% empty %}
                     <li>No reviews yet.</li>
@@ -119,7 +134,7 @@
                 <h4 class="border-bottom pb-2">Rate this Movie</h4>
                 <form action="{% url 'review' movies.movieid %}" method="post" id="review_form">
                     {% csrf_token %}
-
+     
                     <!-- Star Rating -->
 <div class="rate">
     <input type="radio" id="rating5" value="5" name="rating">

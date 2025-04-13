@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render,redirect
-from .models import Movie,ReviewRating,Watchlist,Genre,UserProfile
+from .models import Movie,ReviewRating,Watchlist,Genre,UserProfile,Reaction
 from django.http import JsonResponse,HttpResponse
 from django.contrib.auth import authenticate, login,logout
 from django.contrib.auth.decorators import login_required
@@ -385,6 +385,50 @@ def editprofile(request):
        
 
 
+#function for reactions
+
+def reaction(request,rid):
+    reid=rid
+    if request.method=='POST':
+        mid=request.POST.get('movieid')
+        reaction_type=request.POST.get('reactiontype')
+
+        if reaction_type not in ['like','dislike']:
+            messages.error(request,"invalid reaction")
+        exisiting_reaction= Reaction.objects.filter(userid=request.user,reviewid=reid).first()     
+
+        try:
+            review=ReviewRating.objects.get(reviewid=reid) 
+        except Exception as e:
+            messages.error(request,"Review not found")
+      
+
+        if exisiting_reaction:
+            if exisiting_reaction.reactiontype==reaction_type:
+                exisiting_reaction.delete()
+                messages.info(request,"Reaction is deleted")
+
+            else:
+                exisiting_reaction.reactiontype=reaction_type
+                exisiting_reaction.save()
+                messages.info(request, "Reaction updated")
+        else:
+            Reaction.objects.create(userid=request.user,reviewid=review,reactiontype=reaction_type)
+            messages.info(request, "Reaction added")
+    user_reaction = None
+    if request.user.is_authenticated:
+        existing_reaction = Reaction.objects.filter(userid=request.user, reviewid=rid).first()
+        if existing_reaction:
+            user_reaction = existing_reaction.reactiontype
+    
+        
+    return redirect('information',mid)
+
+
+
+
+
+    
 
     
         
