@@ -236,9 +236,11 @@ def search(request):
         if search_term:
             results=results.filter(title__icontains=search_term)
         if selected_genres and '' not in selected_genres:
-            results = results.filter(genre__in=selected_genres)   
+            selected_genres=[int(g) for g in selected_genres]
+            for genid in selected_genres:
+                results = results.filter(genre=genid)   
         if results.exists():
-            paginator=Paginator(results,2)
+            paginator=Paginator(results,4)
             page_number=request.GET.get('page',1)
             page_obj=paginator.get_page(page_number)
             context={"page_obj":page_obj, "genres": genre, "search":search_term,
