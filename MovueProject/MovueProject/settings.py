@@ -132,3 +132,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 load_dotenv()
 
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
+APP_KEY=os.getenv('Gmail')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'febinsunny2004@gmail.com'
+EMAIL_HOST_PASSWORD = APP_KEY
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
