@@ -1,113 +1,190 @@
-/* Basic Styling */
-body {
-    margin: 0;
+/* Scoped Header Styling */
+header {
     font-family: Arial, sans-serif;
+    z-index: 1000;
 }
 
-/* Navbar Styling */
-.navbar {
+header .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #181818;
     padding: 15px 30px;
     color: white;
+    flex-wrap: wrap;
 }
 
-/* Logo Styling */
-.logo img {
+/* Logo */
+header .logo img {
     height: 40px;
-    vertical-align: middle;
 }
 
 /* Search Bar */
-.search-bar {
+header .search-bar {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    gap: 10px;
 }
 
-.search-bar input {
-    padding: 8px;
+header .search-form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+header .search-bar input[type="text"] {
+    padding: 8px 10px;
     border: none;
     border-radius: 5px;
     outline: none;
+    width: 180px;
 }
 
-.search-bar button {
+header .search-bar button {
     background: #00b894;
     border: none;
-    padding: 8px;
-    margin-left: 5px;
+    padding: 8px 12px;
     cursor: pointer;
     border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+}
+
+header .search-message {
+    margin: 0;
+    color: #ff7675;
+    font-size: 0.9rem;
+}
+
+/* Genre Dropdown */
+.genre-dropdown {
+    position: relative;
+}
+
+#genre-btn {
+    background: #2d2d2d;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.genre-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: #2d2d2d;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+.genre-menu label {
+    display: block;
+    color: white;
+    margin: 5px 0;
+}
+
+.genre-menu.show {
+    display: block;
 }
 
 /* Navigation Links */
-.nav-links {
+header .nav-links {
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
-.nav-links a {
+header .nav-links a {
     color: white;
     text-decoration: none;
-    margin-left: 15px;
-    padding: 10px;
+    padding: 8px 12px;
     border-radius: 5px;
-    transition: 0.3s;
+    transition: background 0.3s;
 }
 
-.nav-links a:hover {
+header .nav-links a:hover {
     background: #00b894;
 }
 
 /* Profile Dropdown */
-.profile-dropdown {
+header .profile-dropdown {
     position: relative;
-    display: inline-block;
-    margin-left: 30px;
 }
 
-.profile-btn {
+header .profile-btn {
     background: none;
     color: white;
     border: none;
     cursor: pointer;
     font-size: 1rem;
-    padding: 10px;
+    padding: 8px 12px;
     transition: background 0.3s;
 }
 
-.profile-btn:hover {
+header .profile-btn:hover {
     background: #00b894;
     border-radius: 5px;
 }
 
-/* Hide dropdown initially */
-.dropdown-content {
+header .dropdown-content {
     display: none;
     position: absolute;
     background: #2d2d2d;
-    min-width: 150px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    border-radius: 5px;
+    min-width: 160px;
     right: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    z-index: 200;
 }
 
-/* Show dropdown when 'show' class is added */
-.dropdown-content.show {
+header .dropdown-content.show {
     display: block;
 }
 
-.dropdown-content a {
-    display: block;
+header .dropdown-content a {
     color: white;
     padding: 10px;
+    display: block;
     text-decoration: none;
-    transition: 0.3s;
 }
 
-.dropdown-content a:hover {
+header .dropdown-content a:hover {
     background: #00b894;
 }
 
+/* Auth Buttons */
+.auth-btn {
+    background: #2d2d2d;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.auth-btn:hover {
+    background: #00b894;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header .search-form {
+        width: 100%;
+    }
+
+    header .search-bar input[type="text"] {
+        width: 100%;
+    }
+}

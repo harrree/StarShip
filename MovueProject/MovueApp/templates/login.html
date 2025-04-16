@@ -6,40 +6,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - MOVUE</title>
     <link rel="stylesheet" href="{% static 'css/loginregister.css' %}">
-    
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}"> <!-- Include footer CSS -->
 </head>
 <body>
-    {% include 'header.html' %}  <!-- Include Header -->
+    <!-- Page wrapper for sticky footer layout -->
+    <div class="page-wrapper">
+        {% include 'header.html' %}  <!-- Include Header -->
 
-    <div class="logo-container">
-        <img src="{% static 'images/logo1.svg' %}" alt="MOVUE Logo">
+        <div class="logo-container">
+            <img src="{% static 'images/logo1.svg' %}" alt="MOVUE Logo">
+        </div>
+    
+        <div class="container">
+            <!-- Cinema Quote -->
+            <div class="quote">
+                <p>"Cinema is the most beautiful fraud in the world." - Jean-Luc Godard</p>
+            </div>
 
-    </div>
-   
-    <div class="container">
-        <!-- Logo -->
-        <!-- <img src="{% static 'images/logo1.svg' %}" alt="MOVUE Logo" class="logo"> -->
-
-        <!-- Cinema Quote -->
-        <div class="quote">
-            <p>"Cinema is the most beautiful fraud in the world." - Jean-Luc Godard</p>
+            <!-- Login Card -->
+            <div class="card">
+                <h2>Login</h2>
+                <form action="{% url 'userlogin' %}" method="post">
+                    {% csrf_token %}
+                    <input type="text" id="username" name="username" placeholder="Username" required>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+                    <button type="submit">Login</button>
+                    <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+                </form> 
+            </div>
         </div>
 
-        <!-- Login Card -->
-        <div class="card">
-            <h2>Login</h2>
-            <form action="{% url 'userlogin' %}" method="post">
-                {% csrf_token %}
-                <input type="text" id="username" name="username" placeholder="Username" required>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
-
-                <button type="submit">Login</button>
-                 
-
-                <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
-            </form> 
-        </div>
+        {% include 'footer.html' %} <!-- Include Footer -->
     </div>
+
+    <!-- Footer Script -->
+    <script src="{% static 'js/footer.js' %}"></script>
 </body>
 </html>

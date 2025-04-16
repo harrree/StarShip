@@ -7,6 +7,9 @@
 
     <link rel="stylesheet" href="{% static 'css/index.css' %}">
     <script defer src="{% static 'js/index.js' %}"></script>
+    
+    <!-- Load the footer CSS separately -->
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
 </head>
 
 <body>
@@ -74,9 +77,7 @@
         </div>
     </section>
     
-    
+    {% include 'footer.html' %}
+
 </body>
-
-
-
 </html>

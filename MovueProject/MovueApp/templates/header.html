@@ -6,61 +6,66 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Letterboxd Style Header</title>
     <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script defer src="{% static 'js/header.js' %}"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar">
-            <!-- Logo Section -->
-            <div class="logo">
-                <a href="{% url 'movie_list' %}">
-                    <img src="{% static 'images/logo2.svg' %}" alt="MOVUE Logo">
-                </a>
-            </div>
+<header>
+    <nav class="navbar">
+        <!-- Logo -->
+        <div class="logo">
+            <a href="{% url 'movie_list' %}">
+                <img src="{% static 'images/logo2.svg' %}" alt="MOVUE Logo">
+            </a>
+        </div>
 
-            <!-- Search Bar -->
-            <div class="search-bar">
-                <form action="{% url 'search' %}" method="get">
-                    {% csrf_token %}
-                    <input type="text" name="search" placeholder="Search movies...">
-                    <select name="genre[]" multiple>
-            {% for gen in genres %}
-                <option value="{{ gen.genreid }}" 
-                    {% if gen.genreid|stringformat:"s" in selected_genres %}selected{% endif %}>
-                    {{ gen.name }}
-                </option>
-            {% endfor %}
-        </select>
+        <!-- Search Bar -->
+        <div class="search-bar">
+            <form action="{% url 'search' %}" method="get" class="search-form">
+                {% csrf_token %}
+                <input type="text" name="search" placeholder="Search movies...">
 
-                    <button id="search-btn" name="searchbtn" type="submit">🔍</button>
-                    {% if messages %}
-                    {% for message in messages %}
-                    <p>{{message}}</p>
-                     {% endfor %}
-                     {% endif %}
-
-                </form>
-            </div>
-
-            <!-- Navigation Links -->
-            <div class="nav-links">
-                {% if user.is_authenticated %}
-                    <!-- Profile Dropdown -->
-                    <div class="profile-dropdown">
-                        <button class="profile-btn" id="profile-btn">Profile ▼</button>
-                        <div class="dropdown-content" id="dropdown-content">
-                             <a href="{% url 'userlogout' %}">Logout</a>
-                             <a href="{% url 'profile' %}">View Profile</a>
-                             
-                           
-                        </div>
+                <!-- Genre Dropdown -->
+                <div class="genre-dropdown">
+                    <button type="button" id="genre-btn"><i class="fas fa-filter"></i> Genre</button>
+                    <div class="genre-menu" id="genre-menu">
+                        {% for gen in genres %}
+                            <label>
+                                <input type="checkbox" name="genre[]" value="{{ gen.genreid }}"
+                                {% if gen.genreid|stringformat:"s" in selected_genres %}checked{% endif %}>
+                                {{ gen.name }}
+                            </label>
+                        {% endfor %}
                     </div>
-                {% else %}
-                    <a href="{% url 'userlogin' %}" class="auth-btn">Login</a>
-                    <a href="{% url 'register' %}" class="auth-btn">Register</a>
-                {% endif %}
-            </div>
-        </nav>
-    </header>
+                </div>
+
+                <button id="search-btn" name="searchbtn" type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            {% if messages %}
+                {% for message in messages %}
+                    <p class="search-message">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        </div>
+
+        <!-- Navigation Links -->
+        <div class="nav-links">
+            {% if user.is_authenticated %}
+                <div class="profile-dropdown">
+                    <button class="profile-btn" id="profile-btn">
+                        <i class="fas fa-user-circle"></i> Profile ▼
+                    </button>
+                    <div class="dropdown-content" id="dropdown-content">
+                        <a href="{% url 'profile' %}"><i class="fas fa-user"></i> View Profile</a>
+                        <a href="{% url 'userlogout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{% url 'userlogin' %}" class="auth-btn"><i class="fas fa-sign-in-alt"></i> Login</a>
+                <a href="{% url 'register' %}" class="auth-btn"><i class="fas fa-user-plus"></i> Register</a>
+            {% endif %}
+        </div>
+    </nav>
+</header>
 </body>
 </html>

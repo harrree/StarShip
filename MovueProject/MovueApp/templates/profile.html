@@ -10,6 +10,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
     <script defer src="{% static 'js/profile.js' %}"></script>
 </head>
 
@@ -20,16 +21,14 @@
     <div class="container mt-5">
         <!-- Profile Section -->
         <div class="profile-card">
-            
-              {% if pict.profile_picture %}
+            {% if pict.profile_picture %}
             <img src="{{ pict.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
-            
-          {% else %}
+            {% else %}
             <img src="{% static 'images/dp.png' %}" alt="Profile Picture" class="profile-pic"> 
-                 {% endif %}
-                 {% if pict.bio %}
-                 <p>{{pict.bio}}</p>
-                 {% endif %}
+            {% endif %}
+            {% if pict.bio %}
+            <p>{{pict.bio}}</p>
+            {% endif %}
                 
             <h2 class="username">{{ user.username }}</h2>
             <p class="email">{{ user.email }}</p>
@@ -92,9 +91,7 @@
 
                 <label>Profile Picture:</label>
                 <input type="file" name="profile_picture" accept="image/* " onchange="previewImage(event)">
-                <!-- <img id="preview" src="{% if pict.profile_picture %}{{ pict.profile_picture.url }}{% else %}{% static 'images/dp.png' %}{% endif %}" alt="Profile Picture Preview" class="preview-img"> -->
                 
-                 
                 <label>Bio:</label>
                 <input name="bio" placeholder="Tell us about yourself..." type="text" value="{{ pict.bio }}">
 
@@ -103,6 +100,9 @@
             </form>
         </div>
     </div>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
