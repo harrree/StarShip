@@ -266,8 +266,10 @@ def profile(request):
     moviecount=count if count else 0
     usid=User.objects.get(username=usr)
     uid=usid.id
-    pic=UserProfile.objects.get(user=usr)
-
+    try:
+        pic=UserProfile.objects.get(user=usr)
+    except Exception as e:
+        pic =None
 #getting the user watchlist
 
     watch=Watchlist.objects.filter(userid_id=uid).values()
