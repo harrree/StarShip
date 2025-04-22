@@ -164,8 +164,7 @@ def register(request):
         email=request.POST.get('email')
         password=request.POST.get('password')
         cpassword=request.POST.get('cpassword')
-        bio = request.POST.get('bio') 
-        profile_picture = request.FILES.get('profile_picture')  
+        
         has_error=False
         
         if not username:
@@ -204,7 +203,6 @@ def register(request):
                 user=User.objects.create_user(username=username,email=email,password=password,first_name=firstname,last_name=lastname)
                 user.save()
 
-                profile=UserProfile.objects.create(user=user,bio=bio,profile_picture=profile_picture)
                 return redirect('userlogin')
             
     return render(request,'register.html')             
@@ -230,11 +228,18 @@ def watchlist(request):
 #function for search
 
 def search(request):
-    results=Movie.objects.all()
+    #results=Movie.objects.all()
     genre=Genre.objects.all()
     if request.method=='GET':
         search_term=request.GET.get('search')
         selected_genres = request.GET.getlist('genre[]')
+
+        if not search_term and not selected_genres:
+            messages.error(request, "Please enter a search term or select a genre.")
+            return redirect('movie_list')
+
+        # Start with all movies
+        results = Movie.objects.all()
         
         
         if search_term:
