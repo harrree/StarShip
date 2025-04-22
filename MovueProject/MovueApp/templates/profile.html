@@ -28,6 +28,8 @@
             {% endif %}
             {% if pict.bio %}
             <p>{{pict.bio}}</p>
+            {% else %}
+            <p>Add your bio</p>
             {% endif %}
                 
             <h2 class="username">{{ user.username }}</h2>
@@ -94,6 +96,18 @@
                 
                 <label>Bio:</label>
                 <input name="bio" placeholder="Tell us about yourself..." type="text" value="{{ pict.bio }}">
+
+                <h3>Change Password (Optional)</h3>
+                
+                <label>Old Password:</label>
+                <input type="password" name="old_password" placeholder="Enter current password">
+                
+                <label>New Password:</label>
+                <input type="password" name="new_password" placeholder="Enter new password">
+                
+                <label>Confirm New Password:</label>
+                <input type="password" name="confirm_password" placeholder="Confirm new password">
+
 
                 <button type="submit" class="btn save-btn">Save Changes</button>
                 <button type="button" class="btn close-btn" onclick="closeEditProfile()">Cancel</button>

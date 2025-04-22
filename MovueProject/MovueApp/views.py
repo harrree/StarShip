@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render,redirect
 from .models import Movie,ReviewRating,Watchlist,Genre,UserProfile,Reaction
 from django.http import JsonResponse,HttpResponse
-from django.contrib.auth import authenticate, login,logout
+from django.contrib.auth import authenticate, login,logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,AnonymousUser
 from django.db.models import Avg,Count
@@ -10,6 +10,7 @@ from django.contrib import messages
 from .utils import youtubetrailer
 from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator
+from django.contrib.auth.hashers import check_password
 
 # Create your views here.
 
@@ -82,6 +83,9 @@ def information(request, id):
     if use:
         try:
            onereview=ReviewRating.objects.get(userid_id=use,movieid_id=id)
+           if onereview:
+               onereview.range = range(1, 6)
+
         except ReviewRating.DoesNotExist:
              onereview=None
              
@@ -310,11 +314,9 @@ def edit(request,id):
     mid=newrev.movieid_id
     if request.method=='POST':
             nrev=request.POST.get('nrev')
-            nrate=request.POST.get('nrate')
-            newrev.rating=nrate
             newrev.review=nrev
             newrev.save()
-            response={'review':nrev,'rating':nrate}
+            response={'review':nrev}
     return JsonResponse(response)
     
 
@@ -341,6 +343,11 @@ def editprofile(request):
         user=User.objects.get(id=useid)
         bio = request.POST.get('bio')
         profile_picture = request.FILES.get('profile_picture')
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+        confirm_password = request.POST.get('confirm_password')
+
+        user = User.objects.get(id=useid)
         has_error=False
         
         if not username:
@@ -355,12 +362,24 @@ def editprofile(request):
         if not email:
             messages.error(request,"Enter valid email")
             has_error=True  
+
         else:
             try:
                 EmailValidator()(email) 
             except ValidationError:
                  messages.error(request, "Invalid email format.")
-                 has_error=True                       
+                 has_error=True
+        if old_password or new_password or confirm_password:
+            if not(old_password and new_password and confirm_password):
+                messages.error(request,"All password fields must be filled to change password.")
+                has_error=True 
+            elif not user.check_password(old_password):
+                messages.error(request, "Old password is incorrect.")
+                has_error = True
+            elif new_password != confirm_password:
+                messages.error(request, "New passwords do not match.")
+                has_error = True
+
         
         if has_error:
             return redirect('profile')
@@ -370,6 +389,10 @@ def editprofile(request):
             user.first_name=firstname
             user.last_name=lastname
             user.email=email
+            if old_password and new_password and confirm_password:
+                user.set_password(new_password)
+                update_session_auth_hash(request, user)
+
             user.save()
 
             profile, created = UserProfile.objects.get_or_create(user=user)
@@ -377,7 +400,7 @@ def editprofile(request):
             if profile_picture:
                 profile.profile_picture = profile_picture  # Only update if user selected a new image
             profile.save()
-            return redirect('userlogin')
+            return redirect('profile')
         except Exception as e:
                  messages.error(request,"already exist")
 

@@ -115,11 +115,23 @@
 
         <!-- User Review -->
         <div id="user_review">
+           {% if userev %}
+        
+            <span class="text-warning">
+                {% for i in userev.range %}
+                    {% if i <= userev.rating %}
+                        ⭐
+                    {% else %}
+                        ☆
+                    {% endif %}
+                {% endfor %}
+                 {% endif %}
+            </span>
             <form action="{% url 'edit' userev.reviewid %}" method="post" id="submit_form" class="rating-form">
                 {% csrf_token %}
                 {% if userev %}
                     <input type="text" value="{{userev.review}}" name="nrev" class="form-control mb-2">
-                    <input type="number" value="{{userev.rating}}" name="nrate" class="form-control mb-2">
+                    
                     <button type="submit" name="edit" class="edit-btn">Edit</button>
                 {% else %}
                     <p>No review found for this user.</p>
@@ -178,7 +190,7 @@
                     headers: { 'X-CSRFToken': '{{ csrf_token }}' },
                     datatype: 'json',
                     success: function(response){
-                        $('#user_review').val(response.review + ' ' + response.rating);
+                        $('#user_review').val(response.review );
                     }
                 });
             });

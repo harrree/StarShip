@@ -218,6 +218,27 @@ body {
     background: #ff4444;
 }
 
+.stars {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-start;
+}
+.stars input[type="radio"] {
+    display: none;
+}
+.stars label {
+    font-size: 2em;
+    color: #ccc;
+    cursor: pointer;
+}
+.stars input[type="radio"]:checked ~ label {
+    color: gold;
+}
+.stars label:hover,
+.stars label:hover ~ label {
+    color: gold;
+}
+
 /* Responsive Design */
 @media screen and (max-width: 768px) {
     .movie-container {
