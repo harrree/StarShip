@@ -30,7 +30,7 @@
                     {% csrf_token %}
                     <input type="text" id="username" name="username" placeholder="Username" required>
                     <input type="password" id="password" name="password" placeholder="Enter your password" required>
-                    <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+                    <!-- <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p> -->
                     <button type="submit">Login</button>
                     <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
                 </form> 

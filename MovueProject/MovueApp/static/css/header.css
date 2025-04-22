@@ -85,13 +85,21 @@ header .search-message {
     max-height: 200px;
     overflow-y: auto;
     box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    width: 150px; /* Set a fixed width for consistent alignment */
 }
 
 .genre-menu label {
-    display: block;
+    display: flex; /* Use flexbox to align checkbox and text */
+    align-items: center; /* Vertically align items */
     color: white;
     margin: 5px 0;
+    padding-left: 5px; /* Add some padding for spacing */
 }
+
+.genre-menu label input[type="checkbox"] {
+    margin-right: 8px; /* Add some space between checkbox and text */
+}
+
 
 .genre-menu.show {
     display: block;

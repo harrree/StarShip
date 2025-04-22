@@ -193,16 +193,21 @@ body {
   z-index: 999;
   justify-content: center;
   align-items: center;
+  padding: 20px; /* Add padding to the modal */
+  box-sizing: border-box; /* Include padding in width/height calculation */
 }
 
 .modal-content {
   background-color: #1e1e1e;
   padding: 25px 20px;
   border-radius: 10px;
-  width: 320px;
-  max-width: 90%;
+  width: 450px; /* Increased width for better layout */
+  max-width: 100%; /* Take up the full width */
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   text-align: left;
+  display: flex;  /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
+  margin: auto; /* Center horizontally */
 }
 
 .modal h2 {
@@ -211,13 +216,26 @@ body {
   margin-bottom: 20px;
 }
 
+.modal form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two columns for the form */
+    gap: 15px;
+}
+
+.modal form h3 {
+    grid-column: 1 / -1; /* Span both columns */
+    text-align: center;
+    margin-bottom: 10px;
+    color: #aaa;
+}
+
 .modal label {
   display: block;
   margin-bottom: 5px;
   font-size: 14px;
 }
 
-.modal input {
+.modal input, .modal textarea {  /* Apply styles to textarea as well */
   width: 100%;
   padding: 8px 10px;
   margin-bottom: 15px;
@@ -225,6 +243,16 @@ body {
   background: #222;
   color: white;
   border-radius: 5px;
+  font-family: Arial, sans-serif;  /* Consistent font */
+  font-size: 14px;  /* Consistent font size */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+/* Ensure bio textarea takes up full width if needed */
+.modal textarea[name="bio"] {
+    grid-column: 1 / -1; /* Span both columns */
+    height: 100px; /* Give it some height */
+    resize: vertical; /* Allow vertical resizing */
 }
 
 /* Modal Buttons */
@@ -255,6 +283,23 @@ body {
 
 .close-btn:hover {
   background-color: #c91e1e;
+}
+
+.modal .button-container { /* added */
+    grid-column: 1 / -1; /* Span both columns */
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+/* Responsive Adjustments for the modal */
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+    }
+    .modal form {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
+    }
 }
 
 /* =======================
