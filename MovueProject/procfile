@@ -1,1 +1,2 @@
-web: gunicorn MovueProject.wsgi --log-file -
+
+web: gunicorn MovueProject.wsgi --bind 0.0.0.0:$PORT

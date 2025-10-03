@@ -27,9 +27,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = 'django-insecure-73!co)m%g-g5x8@$3)0i7d!q$239857g%@$x3dy(uy9v-x@5w-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['MovueApp.onrender.com']
+ALLOWED_HOSTS = ['MovueApp.onrender.com','127.0.0.1']
 
 
 # Application definition
