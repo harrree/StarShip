@@ -1,0 +1,158 @@
+/* General Styles */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    text-align: center;
+    overflow-x: hidden;
+    background: transparent;
+}
+
+/* Background Video */
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    filter: blur(8px) brightness(30%);
+    z-index: -1;
+    background-color: black;
+}
+
+/* Welcome Section */
+.welcome-container {
+    position: relative;
+    /* margin-top: 150px; */
+    text-align: center;
+}
+
+.welcome-container h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.username {
+    font-family: 'Viaoda Libre', cursive;
+    font-style: italic;
+    color: #00b894;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.username:hover {
+    color: #55efc4;
+}
+
+.welcome-text {
+    font-size: 1.3rem;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+/* Join Us Button */
+.join-btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-size: 18px;
+    color: white;
+    background: #00b894;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.join-btn:hover {
+    background: #55efc4;
+}
+
+/* Movies Section */
+.movies-section {
+    margin-top: 50px;
+}
+
+.movies-section h2 {
+    font-size: 24px;
+    color: #00b894;
+}
+
+/* Carousel */
+.carousel-container {
+    position: relative;
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    gap: 10px;
+}
+
+.carousel-item {
+    position: relative;
+    min-width: 18%;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s;
+    border-radius: 10px;
+}
+
+.carousel-item:hover {
+    transform: scale(1.05);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Overlay */
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+    border-radius: 10px;
+}
+
+.carousel-item:hover .overlay {
+    opacity: 1;
+}
+
+/* Carousel Navigation Buttons */
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 50%;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}

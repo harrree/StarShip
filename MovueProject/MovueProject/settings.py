@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-73!co)m%g-g5x8@$3)0i7d!q$239857g%@$x3dy(uy9v-x@5w-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['MovueApp.onrender.com']
 
 
 # Application definition
@@ -44,6 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,6 +55,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'MovueProject.urls'

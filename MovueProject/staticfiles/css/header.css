@@ -1,0 +1,198 @@
+/* Scoped Header Styling */
+header {
+    font-family: Arial, sans-serif;
+    z-index: 1000;
+}
+
+header .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #181818;
+    padding: 15px 30px;
+    color: white;
+    flex-wrap: wrap;
+}
+
+/* Logo */
+header .logo img {
+    height: 40px;
+}
+
+/* Search Bar */
+header .search-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    position: relative;
+    gap: 10px;
+}
+
+header .search-form {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+header .search-bar input[type="text"] {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 5px;
+    outline: none;
+    width: 180px;
+}
+
+header .search-bar button {
+    background: #00b894;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+}
+
+header .search-message {
+    margin: 0;
+    color: #ff7675;
+    font-size: 0.9rem;
+}
+
+/* Genre Dropdown */
+.genre-dropdown {
+    position: relative;
+}
+
+#genre-btn {
+    background: #2d2d2d;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.genre-menu {
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    background: #2d2d2d;
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 100;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    width: 150px; /* Set a fixed width for consistent alignment */
+}
+
+.genre-menu label {
+    display: flex; /* Use flexbox to align checkbox and text */
+    align-items: center; /* Vertically align items */
+    color: white;
+    margin: 5px 0;
+    padding-left: 5px; /* Add some padding for spacing */
+}
+
+.genre-menu label input[type="checkbox"] {
+    margin-right: 8px; /* Add some space between checkbox and text */
+}
+
+
+.genre-menu.show {
+    display: block;
+}
+
+/* Navigation Links */
+header .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+header .nav-links a {
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+header .nav-links a:hover {
+    background: #00b894;
+}
+
+/* Profile Dropdown */
+header .profile-dropdown {
+    position: relative;
+}
+
+header .profile-btn {
+    background: none;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 8px 12px;
+    transition: background 0.3s;
+}
+
+header .profile-btn:hover {
+    background: #00b894;
+    border-radius: 5px;
+}
+
+header .dropdown-content {
+    display: none;
+    position: absolute;
+    background: #2d2d2d;
+    min-width: 160px;
+    right: 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    z-index: 200;
+}
+
+header .dropdown-content.show {
+    display: block;
+}
+
+header .dropdown-content a {
+    color: white;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+}
+
+header .dropdown-content a:hover {
+    background: #00b894;
+}
+
+/* Auth Buttons */
+.auth-btn {
+    background: #2d2d2d;
+    padding: 8px 12px;
+    border-radius: 5px;
+}
+
+.auth-btn:hover {
+    background: #00b894;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    header .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    header .search-form {
+        width: 100%;
+    }
+
+    header .search-bar input[type="text"] {
+        width: 100%;
+    }
+}

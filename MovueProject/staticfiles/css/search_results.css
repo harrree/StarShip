@@ -1,0 +1,147 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+/* Background Video */
+.video-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    filter: blur(8px) brightness(50%);
+    z-index: -1;
+    background-color: black;
+}
+
+/* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background: rgba(0, 0, 0, 0.7);
+    color: #00b894;
+    text-shadow: 2px 2px 5px rgba(0, 184, 148, 0.5);
+    border-bottom: 2px solid #00b894;
+}
+
+/* Movie Card */
+.movie-card {
+    position: relative;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 5px;
+    border: 2px solid transparent;
+    height: 400px; /* Set a fixed height for all movie cards */
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    border-color: #00b894;
+}
+
+/* Movie Poster */
+.poster {
+    width: 100%;
+    height: 100%; /* Make the poster fill the movie card */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 184, 148, 0.4);
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+}
+
+.movie-card:hover .poster {
+    box-shadow: 0 6px 15px rgba(0, 184, 148, 0.6);
+}
+
+/* Overlay on Hover */
+.movie-card .overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 184, 148, 0.9);
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.movie-card:hover .overlay {
+    opacity: 1;
+}
+
+/* No Results Message */
+.no-results {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: #00b894;
+    margin-top: 50px;
+}
+
+/* Pagination Styling */
+.pagination {
+    display: flex;              /* Enable Flexbox */
+    justify-content: center;    /* Center items horizontally */
+    align-items: center;        /* Center items vertically (if needed) */
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.pagination .step-links {
+    /* Remove inline-block, as Flexbox handles the layout */
+}
+
+.pagination a, .pagination span.current {
+    display: inline-block;
+    padding: 8px 16px;
+    text-decoration: none;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid #00b894;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: #00b894;
+    color: #121212;
+}
+
+.pagination span.current {
+    background-color: #00b894;
+    color: #121212;
+    font-weight: bold;
+}
+
+.pagination .step-links {
+    display: inline-block;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .movie-card {
+        margin-bottom: 15px;
+        height: auto; /* Adjust height for smaller screens */
+    }
+    .poster {
+        height: auto;
+    }
+    .overlay h5 {
+        font-size: 14px;
+    }
+}
