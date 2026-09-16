@@ -29,7 +29,10 @@ SECRET_KEY = 'django-insecure-73!co)m%g-g5x8@$3)0i7d!q$239857g%@$x3dy(uy9v-x@5w-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['MovueApp.onrender.com','127.0.0.1']
+ALLOWED_HOSTS = os.environ.get(
+    'DJANGO_ALLOWED_HOSTS',
+    'localhost,127.0.0.1,0.0.0.0'
+).split(',')
 
 
 # Application definition
